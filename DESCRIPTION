@@ -3,7 +3,7 @@ Title: Create Standalone R-Shiny Apps
 Version: 0.0.1
 Authors@R: c(person(given = "Olivier", family = "Celhay", 
                 email = "olivier.celhay@gmail.com", 
-                role = c("aut", "cre"), comment = c(ORCID = "https://orcid.org/0000-0002-2971-9110"))
+                role = c("aut", "cre"), comment = c(ORCID = "https://orcid.org/0000-0002-2971-9110")))
 Description: Create Standalone R-Shiny Apps
 License: GNU GPL v3
 Encoding: UTF-8

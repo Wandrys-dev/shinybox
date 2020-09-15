@@ -18,3 +18,4 @@ Imports:
     withr,
     openssl
 URL: https://github.com/ocelhay/shinybox
+RoxygenNote: 7.1.1

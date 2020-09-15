@@ -9,7 +9,7 @@
 copy_template <- function(app_root_path){
 
   dirs <- system.file("template",
-                      package = "electricShine")
+                      package = "shinybox")
   dirs <- list.dirs(dirs)
   dirs <- dirs[-1]
 

@@ -34,7 +34,7 @@ create_package_json <- function(app_name = "MyApp",
   if (is.null(deps)) {
   # get package.json dependencies
     # [-1] remove open { necessary for automated dependency checker
-  deps <- readLines(system.file("template/package.json", package = "electricShine"))[-1]
+  deps <- readLines(system.file("template/package.json", package = "shinybox"))[-1]
   deps <- paste0(deps, collapse = "\n")
   }
 
@@ -78,7 +78,7 @@ create_package_json <- function(app_name = "MyApp",
 
 ',  .open = "<<", .close = ">>")
 
-  electricShine::write_text(text = file,
+  shinybox::write_text(text = file,
                             filename = "package.json",
                             path = app_root_path)
 

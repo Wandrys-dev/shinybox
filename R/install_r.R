@@ -1,7 +1,7 @@
-#' Install R from MRAN date into electricShine folder
+#' Install R from MRAN date into shinybox folder
 #'
 #' @param cran_like_url CRAN-like url e.g. https://cran.r-project.org/bin/windows/base
-#' @param app_root_path path to current electricShine app build
+#' @param app_root_path path to current shinybox app build
 #' @param mac_url mac R installer url
 #' @param permission_to_install have permission to install R?
 #'
@@ -21,13 +21,13 @@ install_r <- function(cran_like_url = NULL,
   }
   
   if (permission_to_install == FALSE) {
-    message("R is bundled into the electricShine app. electrify() requires this to be accepted, 
+    message("R is bundled into the shinybox app. electrify() requires this to be accepted, 
             otherwise steps to build the app must be run individually.")
   } else {
     
     
     
-    os <- electricShine::get_os()
+    os <- shinybox::get_os()
     
     app_root_path <- normalizePath(app_root_path,
                                    winslash = "/",
@@ -126,7 +126,7 @@ install_r <- function(cran_like_url = NULL,
 #' Install R for Windows at given path
 #'
 #' @param win_installer_path path of Windows R installer 
-#' @param app_root_path top level of new electricShine app build
+#' @param app_root_path top level of new shinybox app build
 #'
 #' @return NA, installs R to path
 
@@ -160,13 +160,13 @@ install_r <- function(cran_like_url = NULL,
 
 #' Download and untar mac R into app folder
 #'
-#' @param app_root_path top level of new electricShine app build
+#' @param app_root_path top level of new shinybox app build
 #' @param mac_url url for mac R language download
 #'
 #' @return NA
 .install_mac_r <- function(app_root_path,
                            mac_url){
-  os <- electricShine::get_os()
+  os <- shinybox::get_os()
   
   installer_path <- .download_r(mac_url)
   # path R installer will install to
@@ -188,7 +188,7 @@ install_r <- function(cran_like_url = NULL,
     r_executable_path <- file.path(r_executable_path,
                                    "Resources/bin/R", 
                                    fsep = "/")
-    electricShine::modify_mac_r(r_executable_path)
+    shinybox::modify_mac_r(r_executable_path)
   }    
   
   return(dirname(r_executable_path))

@@ -10,7 +10,7 @@
 #' @export
 #'
 install_nodejs <- function(node_url = "https://nodejs.org/dist",
-                           nodejs_path = file.path(system.file(package = "electricShine"), "nodejs"),
+                           nodejs_path = file.path(system.file(package = "shinybox"), "nodejs"),
                            force_install = FALSE,
                            nodejs_version = "v12.16.2",
                            permission_to_install  = FALSE){
@@ -45,12 +45,12 @@ install_nodejs <- function(node_url = "https://nodejs.org/dist",
     }
     
     if (permission_to_install == FALSE) {
-      message("nodejs is required for electricShine to work. Please point nodejs_path 
+      message("nodejs is required for shinybox to work. Please point nodejs_path 
               to a valid nodejs path or select 'yes' when prompted to install")
     } else {
       
       # Get operating system:
-      os <- electricShine::get_os()
+      os <- shinybox::get_os()
       
       if (identical(os, "win")) {
         platform <- "win"

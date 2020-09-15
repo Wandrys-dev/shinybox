@@ -7,12 +7,12 @@
 #' @return nothing, used for side-effects
 #' @export
 #'
-run_build_release <- function(nodejs_path = file.path(system.file(package = "electricShine"), "nodejs"),
+run_build_release <- function(nodejs_path = file.path(system.file(package = "shinybox"), "nodejs"),
                               app_path,
                               nodejs_version){
   
   
-  os <- electricShine::get_os()
+  os <- shinybox::get_os()
   
   npm_path <- .check_npm_works(node_top_dir = nodejs_path)
   

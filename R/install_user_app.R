@@ -84,7 +84,7 @@ install_user_app <- function(library_path = NULL,
                )
   )
   
-  os <- electricShine::get_os()  
+  os <- shinybox::get_os()  
   
   if (identical(os, "win")) {
     rscript_path <- file.path(dirname(library_path),
@@ -99,12 +99,12 @@ install_user_app <- function(library_path = NULL,
   }
   
   if (identical(os, "unix")) {
-    stop("electricShine is still under development for linux systems")
+    stop("shinybox is still under development for linux systems")
     
   }
   
   if (identical(os, "unix")) {
-    stop("electricShine is still under development for linux systems")
+    stop("shinybox is still under development for linux systems")
     
   }
   
@@ -119,7 +119,7 @@ install_user_app <- function(library_path = NULL,
   
   remotes_library <- copy_remotes_package()
   
-  copy_electricshine_package()
+  copy_shinybox_package()
   
   
   old_R_LIBS <- Sys.getenv("R_LIBS")
@@ -136,7 +136,7 @@ install_user_app <- function(library_path = NULL,
   file.create(tmp_file2)
   Sys.setenv(ESHINE_package_return=tmp_file2)
   
-  message("Installing your Shiny package into electricShine framework.")
+  message("Installing your Shiny package into shinybox framework.")
   
   system_install_pkgs(rscript_path)
   
@@ -147,7 +147,7 @@ install_user_app <- function(library_path = NULL,
   Sys.setenv(ESHINE_PASSTHRUPATH="")
   Sys.setenv(ESHINE_remotes_code="")
 })
-  message("Finshed: Installing your Shiny package into electricShine framework")
+  message("Finshed: Installing your Shiny package into shinybox framework")
   
   # TODO: break into unit-testable function
   user_pkg <- readLines(tmp_file2)
@@ -166,11 +166,11 @@ copy_remotes_package <- function(){
   remotes_path <- system.file(package = "remotes")
   
   new_path <- file.path(tempdir(), 
-                        "electricShine")
+                        "shinybox")
   dir.create(new_path)
   
   new_path <- file.path(tempdir(), 
-                        "electricShine",
+                        "shinybox",
                         "templib")
   dir.create(new_path)
   
@@ -190,19 +190,19 @@ copy_remotes_package <- function(){
 
 
 
-#' Copy {electricShine} package to an isolated folder.
+#' Copy {shinybox} package to an isolated folder.
 #'    This is necessary to avoid dependency-install issues
 #'
-#' @return path of new {electricShine}-only library
-copy_electricshine_package <- function(){
-  remotes_path <- system.file(package = "electricShine")
+#' @return path of new {shinybox}-only library
+copy_shinybox_package <- function(){
+  remotes_path <- system.file(package = "shinybox")
   
   new_path <- file.path(tempdir(), 
-                        "electricShine")
+                        "shinybox")
   dir.create(new_path)
   
   new_path <- file.path(tempdir(), 
-                        "electricShine",
+                        "shinybox",
                         "templib")
   dir.create(new_path)
   
@@ -212,9 +212,9 @@ copy_electricshine_package <- function(){
             copy.mode = F)
   
   test <- file.path(new_path, 
-                    "electricShine")
+                    "shinybox")
   if (!file.exists(test)) {
-    stop("Wasn't able to copy electricShine package.")
+    stop("Wasn't able to copy shinybox package.")
   }
   invisible(normalizePath(new_path,
                           winslash = "/"))
@@ -230,12 +230,12 @@ copy_electricshine_package <- function(){
 #'
 system_install_pkgs <- function(rscript_path){
   
-  os <- electricShine::get_os()  
+  os <- shinybox::get_os()  
   
   if (identical(os, "win")) {
     system2(rscript_path,
             paste0("-e ",
-                   "electricShine::install_package()"),
+                   "shinybox::install_package()"),
             wait = TRUE,
             stdout = "")
   }
@@ -244,7 +244,7 @@ system_install_pkgs <- function(rscript_path){
     system2(rscript_path,
             paste0("-e ",
                    "'",
-                   "electricShine::install_package()",
+                   "shinybox::install_package()",
                    "'"),
             wait = TRUE,
             stdout = "")

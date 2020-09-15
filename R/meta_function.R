@@ -41,7 +41,7 @@ electrify <- function(app_name = NULL,
                       local_package_path = NULL,
                       package_install_opts = NULL,
                       run_build = TRUE,
-                      nodejs_path = file.path(system.file(package = "electricShine"), "nodejs"),
+                      nodejs_path = file.path(system.file(package = "shinybox"), "nodejs"),
                       nodejs_version = "v12.16.2",
                       permission = FALSE,
                       mac_url = "https://mac.r-project.org/el-capitan/R-3.6-branch/R-3.6-branch-el-capitan-sa-x86_64.tar.gz"){
@@ -63,24 +63,24 @@ electrify <- function(app_name = NULL,
                           local_package_path = local_package_path)
   
   if (is.null(app_name)) {
-    stop("electricShine::electrify() requires you to provide an 'app_name' argument specifying
+    stop("shinybox::electrify() requires you to provide an 'app_name' argument specifying
          the shiny app/package name.")
   }
   
   if (is.null(semantic_version)) {
-    stop("electricShine::electrify() requires you to specify a 'semantic_version' argument.
-           (e.g. electricShine::electricShine(semantic_version = '1.0.0') )")
+    stop("shinybox::electrify() requires you to specify a 'semantic_version' argument.
+           (e.g. shinybox::shinybox(semantic_version = '1.0.0') )")
   }
   
   if (is.null(function_name)) {
-    stop("electricShine::electrify() requires you to specify a 'function_name' argument.
+    stop("shinybox::electrify() requires you to specify a 'function_name' argument.
          function_name should be the name of the function that starts your package's shiny app.
          e.g. is you have the function myPackage::start_shiny(), provide 'start_shiny'")
   }
   
   
   if (is.null(nodejs_path)) {
-    file.path(system.file(package = "electricShine"), "nodejs")
+    file.path(system.file(package = "shinybox"), "nodejs")
   }
   
   if (!is.null(package_install_opts)) { 
@@ -104,7 +104,7 @@ electrify <- function(app_name = NULL,
   }
   # Determine Operating System ----------------------------------------------
   
-  os <- electricShine::get_os()  
+  os <- shinybox::get_os()  
   
   # Set cran_like_url -------------------------------------------------------
   
@@ -117,19 +117,19 @@ electrify <- function(app_name = NULL,
   # Create top-level build folder for app  ----------------------------------
   
   
-  electricShine::create_folder(app_root_path)
+  shinybox::create_folder(app_root_path)
   
   # Copy Electron template into app_root_path -------------------------------------
-  electricShine::copy_template(app_root_path)
+  shinybox::copy_template(app_root_path)
   
   # Download and Install R --------------------------------------------------
-  electricShine::install_r(cran_like_url = cran_like_url,
+  shinybox::install_r(cran_like_url = cran_like_url,
                            app_root_path = app_root_path,
                            mac_url = mac_url,
                            permission_to_install = permission_to_install_r)
   
   # Trim R's size -----------------------------------------------------------
-  electricShine::trim_r(app_root_path = app_root_path)
+  shinybox::trim_r(app_root_path = app_root_path)
   
   
   
@@ -165,7 +165,7 @@ electrify <- function(app_name = NULL,
   
   if (!base::is.null(git_host)) {
     
-    my_package_name <-  electricShine::install_user_app(library_path = library_path,
+    my_package_name <-  shinybox::install_user_app(library_path = library_path,
                                                         repo_location = git_host,
                                                         repo = git_repo,
                                                         repos = cran_like_url,
@@ -175,7 +175,7 @@ electrify <- function(app_name = NULL,
   
   if (!is.null(local_package_path)) {
     
-    my_package_name <- electricShine::install_user_app(library_path = library_path ,
+    my_package_name <- shinybox::install_user_app(library_path = library_path ,
                                                        repo_location = "local",
                                                        repo = local_package_path,
                                                        repos = cran_like_url,
@@ -204,7 +204,7 @@ electrify <- function(app_name = NULL,
   
   
   # Create package.json -----------------------------------------------------
-  electricShine::create_package_json(app_name = app_name,
+  shinybox::create_package_json(app_name = app_name,
                                      semantic_version = semantic_version,
                                      app_root_path = app_root_path,
                                      description = "description")
@@ -212,7 +212,7 @@ electrify <- function(app_name = NULL,
   
   
   # Add function that runs the shiny app to description.js ------------------
-  electricShine::modify_background_js(background_js_path = file.path(app_root_path,
+  shinybox::modify_background_js(background_js_path = file.path(app_root_path,
                                                                      "src", 
                                                                      "background.js"),
                                       my_package_name = my_package_name,
@@ -222,7 +222,7 @@ electrify <- function(app_name = NULL,
   
   # Download and unzip nodejs -----------------------------------------------
   
-  nodejs_path <- electricShine::install_nodejs(node_url = "https://nodejs.org/dist",
+  nodejs_path <- shinybox::install_nodejs(node_url = "https://nodejs.org/dist",
                                                nodejs_path = nodejs_path,
                                                force_install = FALSE,
                                                nodejs_version = nodejs_version,
@@ -232,7 +232,7 @@ electrify <- function(app_name = NULL,
   # Build the electron app --------------------------------------------------
   if (run_build == TRUE) {
     
-    electricShine::run_build_release(nodejs_path = nodejs_path,
+    shinybox::run_build_release(nodejs_path = nodejs_path,
                                      app_path = app_root_path,
                                      nodejs_version = nodejs_version)
     
@@ -240,7 +240,7 @@ electrify <- function(app_name = NULL,
     
   } else {
     
-    message("Build step was skipped. When you are ready to build the distributable run 'electricShine::runBuild(...)'")
+    message("Build step was skipped. When you are ready to build the distributable run 'shinybox::runBuild(...)'")
     
   }
   

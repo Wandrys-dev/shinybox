@@ -16,7 +16,7 @@
                                expected_version)
   }
   
-  os <- electricShine::get_os()
+  os <- shinybox::get_os()
   
   node_path <- normalizePath(node_top_dir,
                              "/",
@@ -97,7 +97,7 @@
   
   message("Checking if given nodejs path already contains nodejs.")
   
-  os <- electricShine::get_os()
+  os <- shinybox::get_os()
   
   npm_path <- normalizePath(node_top_dir,
                             "/", 

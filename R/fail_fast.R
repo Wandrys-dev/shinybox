@@ -10,13 +10,13 @@
   
   # Either 'cran_like_url' or 'local_package_path_path' must be set
   if (is.null(c(cran_like_url, mran_date))) {
-    base::stop("electricShine requires you to specify either a 'cran_like_url' or 'mran_date' argument specifying
+    base::stop("shinybox requires you to specify either a 'cran_like_url' or 'mran_date' argument specifying
          the shiny app/package to be turned into an Electron app. The url for CRAN is: 'https://cran.r-project.org'") 
   }
   
   # Ensure that 'cran_like_url' and 'mran_date' aren't set at the same time.
   if (!is.null(cran_like_url) && !is.null(mran_date)) {
-    stop("Values provided for both 'cran_like_url' and 'mran_date'; electricShine requires that only one of these is not NULL.") 
+    stop("Values provided for both 'cran_like_url' and 'mran_date'; shinybox requires that only one of these is not NULL.") 
   }
   
 }
@@ -102,18 +102,18 @@
   
   # Either 'git_repo' or 'local_package_path' must be set
   if (is.null(c(git_repo, local_package_path))) {
-    base::stop("electricShine requires you to specify either a 'git_repo' or 'local_package_path' argument specifying
+    base::stop("shinybox requires you to specify either a 'git_repo' or 'local_package_path' argument specifying
          the shiny app/package to be turned into an Electron app") 
   }
   
   # Ensure that 'git_repo' and 'local_package_path' aren't set at the same time.
   if (!is.null(git_repo) && !is.null(local_package_path)) {
-    stop("Values provided for both 'git_repo' and 'local_package_path'; electricShine requires that only one of these is not NULL.") 
+    stop("Values provided for both 'git_repo' and 'local_package_path'; shinybox requires that only one of these is not NULL.") 
   }
   
   # Ensure that 'git_host' and 'local_package_path' aren't set at the same time.
   if (!is.null(git_host) && !is.null(local_package_path)) {
-    stop("Values provided for both 'git_host' and 'local_package_path'; electricShine requires that only one of these is not NULL.") 
+    stop("Values provided for both 'git_host' and 'local_package_path'; shinybox requires that only one of these is not NULL.") 
   }
   
   if (sum(is.null(git_host), is.null(git_repo)) == 1) {

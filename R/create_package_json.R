@@ -53,10 +53,18 @@ create_package_json <- function(app_name = "MyApp",
   "main": "app/background.js",
   "build": {
   "appId": "com.<<app_name>>",
+  "mac": {
+  "icon": "./resources/icons/mac/icon.icns",
+  "category": "public.app-category.utilities"
+  },
+  "win": {
+  "icon": "./public/icons/png/256x256.png"
+  },
   "files": [
   "app/**/*",
   "node_modules/**/*",
-  "package.json"
+  "package.json",
+  "./resources/**/*"
   ],
   "directories": {
   "buildResources": "resources"

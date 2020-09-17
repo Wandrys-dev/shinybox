@@ -58,7 +58,7 @@ create_package_json <- function(app_name = "MyApp",
   "category": "public.app-category.utilities"
   },
   "win": {
-  "icon": "./public/icons/png/256x256.png"
+  "icon": "./resources/icons/png/256x256.png"
   },
   "files": [
   "app/**/*",

@@ -1,4 +1,4 @@
-#' Meta-function
+#' electrify
 #'
 #' @param build_path Path where the build files will be created, preferably points to an empty directory.
 #'     Must not contain a folder with the name as what you put for electrify(app_name).

@@ -136,7 +136,7 @@ install_user_app <- function(library_path = NULL,
   
   
   # https://stackoverflow.com/questions/47539125/how-to-add-rtools-bin-to-the-system-path-in-r
-  if (identical(os, "win") & !is.null(r_tools_path_win)) {
+  if (identical(os, "win") & !is.null(rtools_path_win)) {
     message("Add RTools to R system path.")
     Sys.setenv(PATH = paste(rtools_path_win, Sys.getenv("PATH"), sep = ";"))
   }

@@ -22,35 +22,6 @@
 }
 
 
-
-
-
-#' Check internet connection
-#'
-#' @param url url to check
-#'
-.ping_url <- function(url){
-  
-  if(capabilities("libcurl")) {
-    
-    a <- base::curlGetHeaders(url)
-    
-    if (attributes(a)$status != 200L) {
-      message(a)
-      stop("provided url was unable to resolve host ")
-      
-    }
-    message("----------")
-    message(paste0("Connection to: ", url, "\n"))
-    message(a[1:10])
-    message("----------")
-  } else {
-    warning("libcurl unavailable to check internet.")
-  }
-  
-}
-
-
 #' Check if compatible architecture
 #'
 #' @param arch only used for unit testing

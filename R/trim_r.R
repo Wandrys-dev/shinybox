@@ -8,6 +8,14 @@
 #'
 trim_r <- function(app_root_path){
   
+  # TODO: adapt to cut more to the app; use trim_r() at a different place
+  # # remove elements for a lighter app
+  # elements_to_remove <- c("help", "doc", "tests", "html", "include", "unitTests", file.path("libs", "*dSYM"))
+  # 
+  # lapply(list.dirs("/Users/olivier/Desktop/packages/", full.names = TRUE, recursive = FALSE), 
+  #        function(x) {
+  #          unlink(file.path(x, elements_to_remove), force = TRUE, recursive = TRUE)
+  #        })
   
   r_lang_path <- file.path(app_root_path,
                            "app",

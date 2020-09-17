@@ -46,7 +46,7 @@ electrify <- function(app_name = NULL,
                       nodejs_path = file.path(system.file(package = "shinybox"), "nodejs"),
                       nodejs_version = "v12.16.2",
                       permission = FALSE,
-                      mac_url = "https://mac.r-project.org/el-capitan/R-3.6-branch/R-3.6-branch-el-capitan-sa-x86_64.tar.gz"){
+                      mac_url = "https://mac.r-project.org/high-sierra/R-4.0-branch/x86_64/R-4.0-branch.tar.gz"){
   
   
   
@@ -109,7 +109,6 @@ electrify <- function(app_name = NULL,
   os <- shinybox::get_os()  
   
   # Set cran_like_url -------------------------------------------------------
-  
   # If MRAN date provided, construct MRAN url. Else, pass through cran_like_url.
   cran_like_url <- construct_mran_url(mran_date = mran_date,
                                       cran_like_url = cran_like_url)
@@ -117,8 +116,6 @@ electrify <- function(app_name = NULL,
   
   
   # Create top-level build folder for app  ----------------------------------
-  
-  
   shinybox::create_folder(app_root_path)
   
   # Copy Electron template into app_root_path -------------------------------------

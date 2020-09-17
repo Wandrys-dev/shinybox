@@ -5,6 +5,7 @@
 #' @param repo e.g. if repo_location is github: "chasemc/demoApp" ; if repo_location is local: "C:/Users/chase/demoApp"
 #' @param repos cran like repository package dependencies will be retrieved from  
 #' @param package_install_opts further arguments to remotes::install_github, install_gitlab, install_bitbucket, or install_local
+#' @param rtools_path_win path to RTools (Windows)
 #'
 #' @return App name
 
@@ -39,7 +40,8 @@ install_user_app <- function(library_path = NULL,
                              repo_location = "github",
                              repo = "chasemc/IDBacApp",
                              repos = cran_like_url,
-                             package_install_opts = NULL){
+                             package_install_opts = NULL,
+                             rtools_path_win = NULL){
   
   accepted_sites <- c("github", "gitlab", "bitbucket", "local")
   
@@ -131,6 +133,13 @@ install_user_app <- function(library_path = NULL,
   Sys.setenv(R_LIBS_SITE=remotes_library)
   Sys.setenv(ESHINE_PASSTHRUPATH=tmp_file)
   Sys.setenv(ESHINE_remotes_code=remotes_code)
+  
+  
+  # https://stackoverflow.com/questions/47539125/how-to-add-rtools-bin-to-the-system-path-in-r
+  if (identical(os, "win") & !is.null(r_tools_path_win)) {
+    message("Add RTools to R system path.")
+    Sys.setenv(PATH = paste(rtools_path_win, Sys.getenv("PATH"), sep = ";"))
+  }
 
   tmp_file2 <- tempfile()
   file.create(tmp_file2)

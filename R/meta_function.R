@@ -17,6 +17,7 @@
 #'     Can also use notation for commits/branch (i.e. "chasemc/demoapp@@d81fff0).
 #' @param local_package_path path to local shiny-app package, if 'git_package' isn't used 
 #' @param package_install_opts optional arguments passed to remotes::install_github, install_gitlab, install_bitbucket, or install_local
+#' @param rtools_path_win path to RTools (Windows)
 #' @param function_name the function name in your package that starts the shiny app
 #' @param run_build logical, whether to start the build process, helpful if you want to modify anthying before building
 #' @param short_description short app description
@@ -40,6 +41,7 @@ electrify <- function(app_name = NULL,
                       git_repo = NULL,
                       local_package_path = NULL,
                       package_install_opts = NULL,
+                      rtools_path_win = NULL,
                       run_build = TRUE,
                       nodejs_path = file.path(system.file(package = "shinybox"), "nodejs"),
                       nodejs_version = "v12.16.2",
@@ -124,9 +126,9 @@ electrify <- function(app_name = NULL,
   
   # Download and Install R --------------------------------------------------
   shinybox::install_r(cran_like_url = cran_like_url,
-                           app_root_path = app_root_path,
-                           mac_url = mac_url,
-                           permission_to_install = permission_to_install_r)
+                      app_root_path = app_root_path,
+                      mac_url = mac_url,
+                      permission_to_install = permission_to_install_r)
   
   # Trim R's size -----------------------------------------------------------
   shinybox::trim_r(app_root_path = app_root_path)
@@ -166,20 +168,23 @@ electrify <- function(app_name = NULL,
   if (!base::is.null(git_host)) {
     
     my_package_name <-  shinybox::install_user_app(library_path = library_path,
-                                                        repo_location = git_host,
-                                                        repo = git_repo,
-                                                        repos = cran_like_url,
-                                                        package_install_opts = package_install_opts)
+                                                   repo_location = git_host,
+                                                   repo = git_repo,
+                                                   repos = cran_like_url,
+                                                   package_install_opts = package_install_opts,
+                                                   rtools_path_win = rtools_path_win
+    )
   }
   
   
   if (!is.null(local_package_path)) {
     
     my_package_name <- shinybox::install_user_app(library_path = library_path ,
-                                                       repo_location = "local",
-                                                       repo = local_package_path,
-                                                       repos = cran_like_url,
-                                                       package_install_opts = package_install_opts)
+                                                  repo_location = "local",
+                                                  repo = local_package_path,
+                                                  repos = cran_like_url,
+                                                  package_install_opts = package_install_opts,
+                                                  rtools_path_win = rtools_path_win)
   }
   
   
@@ -205,36 +210,36 @@ electrify <- function(app_name = NULL,
   
   # Create package.json -----------------------------------------------------
   shinybox::create_package_json(app_name = app_name,
-                                     semantic_version = semantic_version,
-                                     app_root_path = app_root_path,
-                                     description = "description")
+                                semantic_version = semantic_version,
+                                app_root_path = app_root_path,
+                                description = "description")
   
   
   
   # Add function that runs the shiny app to description.js ------------------
   shinybox::modify_background_js(background_js_path = file.path(app_root_path,
-                                                                     "src", 
-                                                                     "background.js"),
-                                      my_package_name = my_package_name,
-                                      function_name = function_name,
-                                      r_path = base::dirname(library_path))
+                                                                "src", 
+                                                                "background.js"),
+                                 my_package_name = my_package_name,
+                                 function_name = function_name,
+                                 r_path = base::dirname(library_path))
   
   
   # Download and unzip nodejs -----------------------------------------------
   
   nodejs_path <- shinybox::install_nodejs(node_url = "https://nodejs.org/dist",
-                                               nodejs_path = nodejs_path,
-                                               force_install = FALSE,
-                                               nodejs_version = nodejs_version,
-                                               permission_to_install = permission_to_install_nodejs)
+                                          nodejs_path = nodejs_path,
+                                          force_install = FALSE,
+                                          nodejs_version = nodejs_version,
+                                          permission_to_install = permission_to_install_nodejs)
   
   
   # Build the electron app --------------------------------------------------
   if (run_build == TRUE) {
     
     shinybox::run_build_release(nodejs_path = nodejs_path,
-                                     app_path = app_root_path,
-                                     nodejs_version = nodejs_version)
+                                app_path = app_root_path,
+                                nodejs_version = nodejs_version)
     
     message("You should now have both a transferable and distributable installer Electron app.")
     

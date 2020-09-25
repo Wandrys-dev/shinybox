@@ -73,9 +73,9 @@ electrify <- function(app_name = NULL,
   
   # Check and fail early ---------------------------------------------------
   
-  .check_arch()  
-  .check_repo_set(cran_like_url = cran_like_url,
-                  mran_date = mran_date)  
+  .check_arch()
+  .check_repo_set(cran_like_url = cran_like_url, 
+                  mran_date = mran_date)
   
   .check_build_path_exists(build_path = build_path)
   
@@ -121,8 +121,8 @@ electrify <- function(app_name = NULL,
     permission_to_install_nodejs <- TRUE
     
   }
-  # Determine Operating System ----------------------------------------------
   
+  # Determine Operating System ----------------------------------------------
   os <- get_os()
   
   # Set cran_like_url -------------------------------------------------------
@@ -135,8 +135,10 @@ electrify <- function(app_name = NULL,
   # Create top-level build folder for app  ----------------------------------
   create_folder(app_root_path)
   
+  
   # Copy Electron template into app_root_path -------------------------------------
   copy_template(app_root_path)
+  
   
   # Download and Install R --------------------------------------------------
   install_r(cran_like_url = cran_like_url,
@@ -145,11 +147,7 @@ electrify <- function(app_name = NULL,
             permission_to_install = permission_to_install_r)
   
   
-  
-  
-  
   # Find Electron app's R's library folder ----------------------------------
-  
   if (identical(os, "win")) {
     
     library_path <- base::file.path(app_root_path,
@@ -178,7 +176,7 @@ electrify <- function(app_name = NULL,
   # Install shiny app/package and dependencies ------------------------------
   
   
-  if (!base::is.null(git_host)) {
+  if (!is.null(git_host)) {
     
     my_package_name <-  install_user_app(library_path = library_path,
                                          repo_location = git_host,
@@ -206,20 +204,17 @@ electrify <- function(app_name = NULL,
   
   
   # Transfer icons if present -----------------------------------------------
-  
-  
-  electron_build_resources <- system.file("extdata", 
-                                          "icon",
-                                          package = my_package_name,
+  electron_build_resources <- system.file("icons", 
+                                          package = my_package_name, 
                                           lib.loc = library_path)
   
   if (nchar(electron_build_resources) == 0) {
-    electron_build_resources <- base::list.files(electron_build_resources, 
+    electron_build_resources <- list.files(electron_build_resources, 
                                                  full.names = TRUE)
-    resources <- base::file.path(app_root_path, 
+    resources <- file.path(app_root_path, 
                                  "resources")
-    base::dir.create(resources)
-    base::file.copy(from = electron_build_resources,
+    dir.create(resources)
+    file.copy(from = electron_build_resources,
                     to = resources)
   }
   
@@ -242,7 +237,6 @@ electrify <- function(app_name = NULL,
   
   
   # Download and unzip nodejs -----------------------------------------------
-  
   nodejs_path <- install_nodejs(node_url = "https://nodejs.org/dist",
                                 nodejs_path = nodejs_path,
                                 force_install = FALSE,

@@ -105,11 +105,6 @@ install_user_app <- function(library_path = NULL,
     
   }
   
-  if (identical(os, "unix")) {
-    stop("shinybox is still under development for linux systems")
-    
-  }
-  
   
 
   tmp_file <- tempfile()

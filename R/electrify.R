@@ -84,10 +84,7 @@ electrify <- function(app_name = NULL,
                           git_repo = git_repo,
                           local_package_path = local_package_path)
   
-  if (is.null(app_name)) {
-    stop("electrify() requires you to provide an 'app_name' argument specifying
-         the shiny app/package name.")
-  }
+  if (is.null(app_name))  stop('Argument "app_name" is missing, with no default')
   
   if (is.null(semantic_version)) {
     stop("electrify() requires you to specify a 'semantic_version' argument.")
@@ -150,11 +147,10 @@ electrify <- function(app_name = NULL,
   # Find Electron app's R's library folder ----------------------------------
   if (identical(os, "win")) {
     
-    library_path <- base::file.path(app_root_path,
-                                    "app",
-                                    "r_lang",
-                                    "library",
-                                    fsep = "/")
+    library_path <- file.path(app_root_path,
+                              "app",
+                              "r_lang",
+                              "library")
   }
   
   if (identical(os, "mac")) {
@@ -169,8 +165,7 @@ electrify <- function(app_name = NULL,
                                       library_path)][[1]]
     
     library_path <- file.path(library_path,
-                              "Resources/library", 
-                              fsep = "/")
+                              "Resources/library")
   }  
   
   # Install shiny app/package and dependencies ------------------------------
@@ -203,19 +198,16 @@ electrify <- function(app_name = NULL,
   
   
   
-  # Transfer icons if present -----------------------------------------------
+  # Transfer and overwrite existing icons if present -----------------------------------------------
   electron_build_resources <- system.file("icons", 
                                           package = my_package_name, 
                                           lib.loc = library_path)
   
-  if (nchar(electron_build_resources) == 0) {
+  if (nchar(electron_build_resources) > 0) {
     electron_build_resources <- list.files(electron_build_resources, 
                                                  full.names = TRUE)
-    resources <- file.path(app_root_path, 
-                                 "resources")
-    dir.create(resources)
-    file.copy(from = electron_build_resources,
-                    to = resources)
+    resources <- file.path(app_root_path, "resources")
+    file.copy(from = electron_build_resources, to = resources, overwrite = TRUE)
   }
   
   
@@ -233,7 +225,7 @@ electrify <- function(app_name = NULL,
                                                       "background.js"),
                        my_package_name = my_package_name,
                        function_name = function_name,
-                       r_path = base::dirname(library_path))
+                       r_path = dirname(library_path))
   
   
   # Download and unzip nodejs -----------------------------------------------

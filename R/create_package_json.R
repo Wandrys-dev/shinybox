@@ -54,11 +54,11 @@ create_package_json <- function(app_name = "MyApp",
   "build": {
   "appId": "com.<<app_name>>",
   "mac": {
-  "icon": "./resources/icons/mac/icon.icns",
+  "icon": "./resources/icon_mac.icns",
   "category": "public.app-category.utilities"
   },
   "win": {
-  "icon": "./resources/icons/png/256x256.png"
+  "icon": "./resources/icon_win.png"
   },
   "files": [
   "app/**/*",

@@ -50,6 +50,21 @@ electrify <- function(app_name = NULL,
   
   
   
+  # For step by step testing ----------------------------------------
+  # TODO: remove on prod 
+  short_description = "CoMo Consortium | COVID-19 App"
+  mran_date = "2020-09-01"
+  # cran_like_url = "https://cran.r-project.org/",
+  function_name = "run_app_standalone"
+  git_host = "github"
+  git_repo = "ocelhay/como@dev"
+  local_package_path = NULL
+  package_install_opts = list(type = "binary")
+  rtools_path_win = NULL
+  run_build = FALSE
+  mac_url = "https://mac.r-project.org/high-sierra/R-4.0-branch/x86_64/R-4.0-branch.tar.gz"
+  permission = TRUE
+  
   # Check and fail early ---------------------------------------------------
   
   
@@ -122,9 +137,9 @@ electrify <- function(app_name = NULL,
   
   # Download and Install R --------------------------------------------------
   install_r(cran_like_url = cran_like_url,
-                      app_root_path = app_root_path,
-                      mac_url = mac_url,
-                      permission_to_install = permission_to_install_r)
+            app_root_path = app_root_path,
+            mac_url = mac_url,
+            permission_to_install = permission_to_install_r)
   
   # Trim R's size -----------------------------------------------------------
   trim_r(app_root_path = app_root_path)
@@ -164,11 +179,11 @@ electrify <- function(app_name = NULL,
   if (!base::is.null(git_host)) {
     
     my_package_name <-  install_user_app(library_path = library_path,
-                                                   repo_location = git_host,
-                                                   repo = git_repo,
-                                                   repos = cran_like_url,
-                                                   package_install_opts = package_install_opts,
-                                                   rtools_path_win = rtools_path_win
+                                         repo_location = git_host,
+                                         repo = git_repo,
+                                         repos = cran_like_url,
+                                         package_install_opts = package_install_opts,
+                                         rtools_path_win = rtools_path_win
     )
   }
   
@@ -176,11 +191,11 @@ electrify <- function(app_name = NULL,
   if (!is.null(local_package_path)) {
     
     my_package_name <- install_user_app(library_path = library_path ,
-                                                  repo_location = "local",
-                                                  repo = local_package_path,
-                                                  repos = cran_like_url,
-                                                  package_install_opts = package_install_opts,
-                                                  rtools_path_win = rtools_path_win)
+                                        repo_location = "local",
+                                        repo = local_package_path,
+                                        repos = cran_like_url,
+                                        package_install_opts = package_install_opts,
+                                        rtools_path_win = rtools_path_win)
   }
   
   
@@ -206,36 +221,36 @@ electrify <- function(app_name = NULL,
   
   # Create package.json -----------------------------------------------------
   create_package_json(app_name = app_name,
-                                semantic_version = semantic_version,
-                                app_root_path = app_root_path,
-                                description = "description")
+                      semantic_version = semantic_version,
+                      app_root_path = app_root_path,
+                      description = "description")
   
   
   
   # Add function that runs the shiny app to description.js ------------------
   modify_background_js(background_js_path = file.path(app_root_path,
-                                                                "src", 
-                                                                "background.js"),
-                                 my_package_name = my_package_name,
-                                 function_name = function_name,
-                                 r_path = base::dirname(library_path))
+                                                      "src", 
+                                                      "background.js"),
+                       my_package_name = my_package_name,
+                       function_name = function_name,
+                       r_path = base::dirname(library_path))
   
   
   # Download and unzip nodejs -----------------------------------------------
   
   nodejs_path <- install_nodejs(node_url = "https://nodejs.org/dist",
-                                          nodejs_path = nodejs_path,
-                                          force_install = FALSE,
-                                          nodejs_version = nodejs_version,
-                                          permission_to_install = permission_to_install_nodejs)
+                                nodejs_path = nodejs_path,
+                                force_install = FALSE,
+                                nodejs_version = nodejs_version,
+                                permission_to_install = permission_to_install_nodejs)
   
   
   # Build the electron app --------------------------------------------------
   if (run_build == TRUE) {
     
     run_build_release(nodejs_path = nodejs_path,
-                                app_path = app_root_path,
-                                nodejs_version = nodejs_version)
+                      app_path = app_root_path,
+                      nodejs_version = nodejs_version)
     
     message("You should now have both a transferable and distributable installer Electron app.")
     

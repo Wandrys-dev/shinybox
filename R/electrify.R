@@ -144,8 +144,7 @@ electrify <- function(app_name = NULL,
             mac_url = mac_url,
             permission_to_install = permission_to_install_r)
   
-  # Trim R's size -----------------------------------------------------------
-  trim_r(app_root_path = app_root_path)
+  
   
   
   
@@ -200,6 +199,9 @@ electrify <- function(app_name = NULL,
                                         package_install_opts = package_install_opts,
                                         rtools_path_win = rtools_path_win)
   }
+  
+  # Trim R's size -----------------------------------------------------------
+  trim_r(app_root_path = app_root_path)
   
   
   

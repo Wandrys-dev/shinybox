@@ -179,12 +179,12 @@ copy_remotes_package <- function(){
   
   new_path <- file.path(tempdir(), 
                         "shinybox")
-  # dir.create(new_path)
+  dir.create(new_path)
   
   new_path <- file.path(tempdir(), 
                         "shinybox",
                         "templib")
-  # dir.create(new_path)
+  dir.create(new_path)
   
   file.copy(remotes_path,
             new_path, 
@@ -209,14 +209,14 @@ copy_remotes_package <- function(){
 copy_shinybox_package <- function(){
   remotes_path <- system.file(package = "shinybox")
   
-  # new_path <- file.path(tempdir(), 
-  #                       "shinybox")
-  # dir.create(new_path)
+  new_path <- file.path(tempdir(), 
+                        "shinybox")
+  dir.create(new_path)
   
   new_path <- file.path(tempdir(), 
                         "shinybox",
                         "templib")
-  # dir.create(new_path)
+  dir.create(new_path)
   
   file.copy(remotes_path,
             new_path, 

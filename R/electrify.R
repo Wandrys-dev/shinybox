@@ -18,6 +18,7 @@
 #' @param local_package_path path to local shiny-app package, if 'git_package' isn't used 
 #' @param package_install_opts optional arguments passed to remotes::install_github, install_gitlab, install_bitbucket, or install_local
 #' @param rtools_path_win path to RTools (Windows)
+#' @param pandoc_path_mac pandoc path (macOS)
 #' @param function_name the function name in your package that starts the shiny app
 #' @param run_build logical, whether to start the build process, helpful if you want to modify anthying before building
 #' @param short_description short app description
@@ -42,6 +43,7 @@ electrify <- function(app_name = NULL,
                       local_package_path = NULL,
                       package_install_opts = NULL,
                       rtools_path_win = NULL,
+                      pandoc_path_mac = NULL,
                       run_build = TRUE,
                       nodejs_path = file.path(system.file(package = "shinybox"), "nodejs"),
                       nodejs_version = "v12.16.2",
@@ -62,6 +64,7 @@ electrify <- function(app_name = NULL,
     local_package_path = NULL
     package_install_opts = list(type = "binary")
     rtools_path_win = NULL
+    pandoc_path_mac = NULL
     run_build = FALSE
     nodejs_path = file.path(system.file(package = "shinybox"), "nodejs")
     mac_url = "https://mac.r-project.org/high-sierra/R-4.0-branch/x86_64/R-4.0-branch.tar.gz"
@@ -178,7 +181,8 @@ electrify <- function(app_name = NULL,
                                          repo = git_repo,
                                          repos = cran_like_url,
                                          package_install_opts = package_install_opts,
-                                         rtools_path_win = rtools_path_win
+                                         rtools_path_win = rtools_path_win,
+                                         pandoc_path_mac = pandoc_path_mac
     )
   }
   
@@ -190,7 +194,8 @@ electrify <- function(app_name = NULL,
                                         repo = local_package_path,
                                         repos = cran_like_url,
                                         package_install_opts = package_install_opts,
-                                        rtools_path_win = rtools_path_win)
+                                        rtools_path_win = rtools_path_win,
+                                        pandoc_path_mac = pandoc_path_mac)
   }
   
   # Trim R's size -----------------------------------------------------------

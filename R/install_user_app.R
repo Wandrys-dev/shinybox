@@ -6,42 +6,20 @@
 #' @param repos cran like repository package dependencies will be retrieved from  
 #' @param package_install_opts further arguments to remotes::install_github, install_gitlab, install_bitbucket, or install_local
 #' @param rtools_path_win path to RTools (Windows)
+#' @param pandoc_path_mac pandoc path (macOS)
 #'
 #' @return App name
 
 #' @export
 #'
-#' @examples
-#' 
-#'\dontrun{
-#'
-#' install_user_app(repo_location = "github", 
-#'                  repo = "chasemc/demoApp@@d81fff0")
-#'                  
-#' install_user_app(repo_location = "github", 
-#'                  repo = "chasemc/demoApp@@d81fff0",
-#'                  auth_token = "my_secret_token")                  
-#'                  
-#' install_user_app(repo_location = "bitbucket", 
-#'                  repo = "chasemc/demoApp",
-#'                  auth_user = bitbucket_user(), 
-#'                  password = bitbucket_password())        
-#'                  
-#' install_user_app(repo_location = "gitlab", 
-#'                  repo = "chasemc/demoApp",
-#'                  auth_token = "my_secret_token")   
 
-#' install_user_app(repo_location = "local", 
-#'                  repo = "C:/Users/chase/demoApp",
-#'                  build_vignettes = TRUE)                                      
-#' }
-#' 
 install_user_app <- function(library_path = NULL,
                              repo_location = "github",
                              repo = "chasemc/IDBacApp",
                              repos = cran_like_url,
                              package_install_opts = NULL,
-                             rtools_path_win = NULL){
+                             rtools_path_win = NULL,
+                             pandoc_path_mac = NULL){
   
   accepted_sites <- c("github", "gitlab", "bitbucket", "local")
   

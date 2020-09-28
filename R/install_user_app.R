@@ -138,7 +138,7 @@ install_user_app <- function(library_path = NULL,
     Sys.setenv(PATH = paste(rtools_path_win, Sys.getenv("PATH"), sep = ";"))
   }
 
-  # try to fix issue with pandoc macOS
+  # Add pandoc to R System Path on macOS.
   if (identical(os, "mac") & !is.null(pandoc_path_mac)) {
     message("Add pandoc to R system path.")
     Sys.setenv(PATH = paste(pandoc_path_mac, Sys.getenv("PATH"), sep = ";"))

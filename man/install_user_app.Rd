@@ -9,7 +9,9 @@ install_user_app(
   repo_location = "github",
   repo = "chasemc/IDBacApp",
   repos = cran_like_url,
-  package_install_opts = NULL
+  package_install_opts = NULL,
+  rtools_path_win = NULL,
+  pandoc_path_mac = NULL
 )
 }
 \arguments{
@@ -22,35 +24,14 @@ install_user_app(
 \item{repos}{cran like repository package dependencies will be retrieved from}
 
 \item{package_install_opts}{further arguments to remotes::install_github, install_gitlab, install_bitbucket, or install_local}
+
+\item{rtools_path_win}{path to RTools (Windows)}
+
+\item{pandoc_path_mac}{pandoc path (macOS)}
 }
 \value{
 App name
 }
 \description{
 Install shiny app package and dependencies
-}
-\examples{
-
-\dontrun{
-
-install_user_app(repo_location = "github", 
-                 repo = "chasemc/demoApp@d81fff0")
-                 
-install_user_app(repo_location = "github", 
-                 repo = "chasemc/demoApp@d81fff0",
-                 auth_token = "my_secret_token")                  
-                 
-install_user_app(repo_location = "bitbucket", 
-                 repo = "chasemc/demoApp",
-                 auth_user = bitbucket_user(), 
-                 password = bitbucket_password())        
-                 
-install_user_app(repo_location = "gitlab", 
-                 repo = "chasemc/demoApp",
-                 auth_token = "my_secret_token")   
-install_user_app(repo_location = "local", 
-                 repo = "C:/Users/chase/demoApp",
-                 build_vignettes = TRUE)                                      
-}
-
 }

@@ -6,7 +6,6 @@
 #' @param repos cran like repository package dependencies will be retrieved from  
 #' @param package_install_opts further arguments to remotes::install_github, install_gitlab, install_bitbucket, or install_local
 #' @param rtools_path_win path to RTools (Windows)
-#' @param pandoc_path_mac path to pandoc (macOS)
 #'
 #' @return App name
 
@@ -42,8 +41,7 @@ install_user_app <- function(library_path = NULL,
                              repo = "chasemc/IDBacApp",
                              repos = cran_like_url,
                              package_install_opts = NULL,
-                             rtools_path_win = NULL
-                             pandoc_path_mac = NULL){
+                             rtools_path_win = NULL){
   
   accepted_sites <- c("github", "gitlab", "bitbucket", "local")
   
@@ -136,12 +134,6 @@ install_user_app <- function(library_path = NULL,
   if (identical(os, "win") & !is.null(rtools_path_win)) {
     message("Add RTools to R system path.")
     Sys.setenv(PATH = paste(rtools_path_win, Sys.getenv("PATH"), sep = ";"))
-  }
-
-  # try to fix issue with pandoc macOS
-  if (identical(os, "mac") & !is.null(pandoc_path_mac)) {
-    message("Add pandoc to R system path.")
-    Sys.setenv(PATH = paste(pandoc_path_mac, Sys.getenv("PATH"), sep = ";"))
   }
 
   tmp_file2 <- tempfile()

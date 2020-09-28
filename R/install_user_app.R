@@ -42,7 +42,7 @@ install_user_app <- function(library_path = NULL,
                              repo = "chasemc/IDBacApp",
                              repos = cran_like_url,
                              package_install_opts = NULL,
-                             rtools_path_win = NULL
+                             rtools_path_win = NULL,
                              pandoc_path_mac = NULL){
   
   accepted_sites <- c("github", "gitlab", "bitbucket", "local")

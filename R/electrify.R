@@ -18,7 +18,6 @@
 #' @param local_package_path path to local shiny-app package, if 'git_package' isn't used 
 #' @param package_install_opts optional arguments passed to remotes::install_github, install_gitlab, install_bitbucket, or install_local
 #' @param rtools_path_win path to RTools (Windows)
-#' @param pandoc_path_mac path to pandoc (macOS)
 #' @param function_name the function name in your package that starts the shiny app
 #' @param run_build logical, whether to start the build process, helpful if you want to modify anthying before building
 #' @param short_description short app description
@@ -43,7 +42,6 @@ electrify <- function(app_name = NULL,
                       local_package_path = NULL,
                       package_install_opts = NULL,
                       rtools_path_win = NULL,
-                      pandoc_path_mac = NULL,
                       run_build = TRUE,
                       nodejs_path = file.path(system.file(package = "shinybox"), "nodejs"),
                       nodejs_version = "v12.16.2",
@@ -64,7 +62,6 @@ electrify <- function(app_name = NULL,
     local_package_path = NULL
     package_install_opts = list(type = "binary")
     rtools_path_win = NULL
-    pandoc_path_mac = "/usr/local/bin"
     run_build = FALSE
     nodejs_path = file.path(system.file(package = "shinybox"), "nodejs")
     mac_url = "https://mac.r-project.org/high-sierra/R-4.0-branch/x86_64/R-4.0-branch.tar.gz"
@@ -88,9 +85,20 @@ electrify <- function(app_name = NULL,
                           local_package_path = local_package_path)
   
   if (is.null(app_name))  stop('Argument "app_name" is missing, with no default')
-  if (is.null(semantic_version))   stop('Argument "semantic_version" is missing, with no default')
-  if (is.null(function_name)) stop('Argument "function_name" is missing, with no default')
-  if (is.null(nodejs_path))  stop('Argument "nodejs_path" is missing, with no default')
+  
+  if (is.null(semantic_version)) {
+    stop("electrify() requires you to specify a 'semantic_version' argument.")
+  }
+  
+  if (is.null(function_name)) {
+    stop("electrify() requires you to specify a 'function_name' argument.
+         function_name should be the name of the function that starts your package's shiny app.
+         e.g. is you have the function myPackage::start_shiny(), provide 'start_shiny'")
+  }
+  
+  if (is.null(nodejs_path)) {
+    stop("Require nodejs_path not NULL")
+  }
   
   if (!is.null(package_install_opts)) { 
     if (!is.list(package_install_opts)) {
@@ -124,12 +132,12 @@ electrify <- function(app_name = NULL,
   # Create top-level build folder for app  ----------------------------------
   create_folder(app_root_path)
   
+  
   # Copy Electron template into app_root_path -------------------------------------
   copy_template(app_root_path)
   
   
   # Download and Install R --------------------------------------------------
-  message("Download and install R.")
   install_r(cran_like_url = cran_like_url,
             app_root_path = app_root_path,
             mac_url = mac_url,
@@ -170,8 +178,7 @@ electrify <- function(app_name = NULL,
                                          repo = git_repo,
                                          repos = cran_like_url,
                                          package_install_opts = package_install_opts,
-                                         rtools_path_win = rtools_path_win,
-                                         pandoc_path_mac = pandoc_path_mac
+                                         rtools_path_win = rtools_path_win
     )
   }
   
@@ -183,8 +190,7 @@ electrify <- function(app_name = NULL,
                                         repo = local_package_path,
                                         repos = cran_like_url,
                                         package_install_opts = package_install_opts,
-                                        rtools_path_win = rtools_path_win,
-                                        pandoc_path_mac = pandoc_path_mac)
+                                        rtools_path_win = rtools_path_win)
   }
   
   # Trim R's size -----------------------------------------------------------

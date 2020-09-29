@@ -89,19 +89,11 @@ electrify <- function(app_name = NULL,
   
   if (is.null(app_name))  stop('Argument "app_name" is missing, with no default')
   
-  if (is.null(semantic_version)) {
-    stop("electrify() requires you to specify a 'semantic_version' argument.")
-  }
+  if (is.null(semantic_version))  stop('Argument "semantic_version" is missing, with no default')
   
-  if (is.null(function_name)) {
-    stop("electrify() requires you to specify a 'function_name' argument.
-         function_name should be the name of the function that starts your package's shiny app.
-         e.g. is you have the function myPackage::start_shiny(), provide 'start_shiny'")
-  }
+  if (is.null(function_name))  stop('Argument "function_name" is missing, with no default')
   
-  if (is.null(nodejs_path)) {
-    stop("Require nodejs_path not NULL")
-  }
+  if (is.null(nodejs_path))  stop('Argument "nodejs_path" is missing, with no default')
   
   if (!is.null(package_install_opts)) { 
     if (!is.list(package_install_opts)) {
@@ -220,7 +212,7 @@ electrify <- function(app_name = NULL,
   create_package_json(app_name = app_name,
                       semantic_version = semantic_version,
                       app_root_path = app_root_path,
-                      description = "description")
+                      description = "")
   
   
   

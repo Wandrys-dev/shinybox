@@ -23,10 +23,7 @@ install_user_app <- function(library_path = NULL,
   
   accepted_sites <- c("github", "gitlab", "bitbucket", "local")
   
-  
-  if (is.null(library_path)) {
-    stop("install_user_app() requires library_path to be set.")
-  }
+  if (is.null(library_path))  stop('Argument "library_path" is missing, with no default')
   
   if (!dir.exists(library_path)) {
     stop("install_user_app() library_path wasn't found.")
@@ -77,13 +74,6 @@ install_user_app <- function(library_path = NULL,
                               "bin",
                               "R")
   }
-  
-  if (identical(os, "unix")) {
-    stop("shinybox is still under development for linux systems")
-    
-  }
-  
-  
 
   tmp_file <- tempfile()
   save(list = c("remotes_code",
@@ -101,11 +91,11 @@ install_user_app <- function(library_path = NULL,
   old_R_LIBS_USER <- Sys.getenv("R_LIBS_USER")
   old_R_LIBS_SITE <- Sys.getenv("R_LIBS_SITE")
   
-  Sys.setenv(R_LIBS=library_path)
-  Sys.setenv(R_LIBS_USER=remotes_library)
-  Sys.setenv(R_LIBS_SITE=remotes_library)
-  Sys.setenv(ESHINE_PASSTHRUPATH=tmp_file)
-  Sys.setenv(ESHINE_remotes_code=remotes_code)
+  Sys.setenv(R_LIBS = library_path)
+  Sys.setenv(R_LIBS_USER = remotes_library)
+  Sys.setenv(R_LIBS_SITE = remotes_library)
+  Sys.setenv(ESHINE_PASSTHRUPATH = tmp_file)
+  Sys.setenv(ESHINE_remotes_code = remotes_code)
   
   
   # https://stackoverflow.com/questions/47539125/how-to-add-rtools-bin-to-the-system-path-in-r
@@ -131,11 +121,11 @@ install_user_app <- function(library_path = NULL,
   system_install_pkgs(rscript_path)
   
   on.exit({
-  Sys.setenv(R_LIBS=old_R_LIBS)
-  Sys.setenv(R_LIBS_USER=old_R_LIBS_USER)
-  Sys.setenv(R_LIBS_SITE=old_R_LIBS_SITE)
-  Sys.setenv(ESHINE_PASSTHRUPATH="")
-  Sys.setenv(ESHINE_remotes_code="")
+  Sys.setenv(R_LIBS = old_R_LIBS)
+  Sys.setenv(R_LIBS_USER = old_R_LIBS_USER)
+  Sys.setenv(R_LIBS_SITE = old_R_LIBS_SITE)
+  Sys.setenv(ESHINE_PASSTHRUPATH = "")
+  Sys.setenv(ESHINE_remotes_code = "")
 })
   message("Finshed: Installing your Shiny package into shinybox framework")
   

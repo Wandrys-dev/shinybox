@@ -21,6 +21,15 @@ install_user_app <- function(library_path = NULL,
                              rtools_path_win = NULL,
                              pandoc_path_mac = NULL){
   
+  if(FALSE){
+    repo_location = "github"
+    repo = "chasemc/IDBacApp"
+    repos = cran_like_url
+    package_install_opts = NULL
+    rtools_path_win = NULL
+    pandoc_path_mac = NULL
+  }
+  
   accepted_sites <- c("github", "gitlab", "bitbucket", "local")
   
   if (is.null(library_path))  stop('Argument "library_path" is missing, with no default')
@@ -147,12 +156,12 @@ copy_remotes_package <- function(){
   
   new_path <- file.path(tempdir(), 
                         "shinybox")
-  dir.create(new_path)
+  # dir.create(new_path)
   
   new_path <- file.path(tempdir(), 
                         "shinybox",
                         "templib")
-  dir.create(new_path)
+  # dir.create(new_path)
   
   file.copy(remotes_path,
             new_path, 
@@ -179,12 +188,12 @@ copy_shinybox_package <- function(){
   
   new_path <- file.path(tempdir(), 
                         "shinybox")
-  dir.create(new_path)
+  # dir.create(new_path)
   
   new_path <- file.path(tempdir(), 
                         "shinybox",
                         "templib")
-  dir.create(new_path)
+  # dir.create(new_path)
   
   file.copy(remotes_path,
             new_path, 
@@ -210,7 +219,7 @@ copy_shinybox_package <- function(){
 #'
 system_install_pkgs <- function(rscript_path){
   
-  os <- shinybox::get_os()  
+  os <- shinybox::get_os()
   
   if (identical(os, "win")) {
     system2(rscript_path,

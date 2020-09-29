@@ -117,7 +117,7 @@ install_user_app <- function(library_path = NULL,
   # Add pandoc to R System Path on macOS.
   if (identical(os, "mac") & !is.null(pandoc_path_mac)) {
     message("Add pandoc to R system path.")
-    Sys.setenv(PATH = paste(pandoc_path_mac, Sys.getenv("PATH"), sep = ";"))
+    Sys.setenv(PATH = paste(pandoc_path_mac, Sys.getenv("PATH"), sep = ":"))
   }
 
 

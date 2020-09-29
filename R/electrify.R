@@ -133,6 +133,7 @@ electrify <- function(app_name = NULL,
   
   
   # Download and Install R --------------------------------------------------
+  message("Download and Install R")
   install_r(cran_like_url = cran_like_url,
             app_root_path = app_root_path,
             mac_url = mac_url,
@@ -164,10 +165,8 @@ electrify <- function(app_name = NULL,
   }  
   
   # Install shiny app/package and dependencies ------------------------------
-  
-  
+  message("Install shiny app/package and dependencies")
   if (!is.null(git_host)) {
-    
     my_package_name <-  install_user_app(library_path = library_path,
                                          repo_location = git_host,
                                          repo = git_repo,
@@ -191,20 +190,23 @@ electrify <- function(app_name = NULL,
   }
   
   # Trim R's size -----------------------------------------------------------
+  message("Trim R's size")
   trim_r(app_root_path = app_root_path)
   
   
   
   # Transfer and overwrite existing icons if present -----------------------------------------------
+  message("Transfer and overwrite existing icons if present")
   electron_build_resources <- system.file("icons", 
                                           package = my_package_name, 
                                           lib.loc = library_path)
   
   if (nchar(electron_build_resources) > 0) {
-    electron_build_resources <- list.files(electron_build_resources, 
-                                                 full.names = TRUE)
+    electron_build_resources <- list.files(electron_build_resources, full.names = TRUE)
     resources <- file.path(app_root_path, "resources")
     file.copy(from = electron_build_resources, to = resources, overwrite = TRUE)
+    
+    message("Icons copied.")
   }
   
   

@@ -73,13 +73,13 @@ install_user_app <- function(library_path = NULL,
   os <- shinybox::get_os()  
   
   if (identical(os, "win")) {
-    rscript_path <- file.path(dirname(library_path),
+    rscript_path <- file.path(base::dirname(library_path),  # important to have base:: !
                               "bin",
                               "Rscript.exe")
   }
   
   if (identical(os, "mac")) {
-    rscript_path <- file.path(dirname(library_path),
+    rscript_path <- file.path(base::dirname(library_path),
                               "bin",
                               "R")
   }

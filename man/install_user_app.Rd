@@ -10,8 +10,7 @@ install_user_app(
   repo = "chasemc/IDBacApp",
   repos = cran_like_url,
   package_install_opts = NULL,
-  rtools_path_win = NULL,
-  pandoc_path_mac = NULL
+  rtools_path_win = NULL
 )
 }
 \arguments{
@@ -26,8 +25,6 @@ install_user_app(
 \item{package_install_opts}{further arguments to remotes::install_github, install_gitlab, install_bitbucket, or install_local}
 
 \item{rtools_path_win}{path to RTools (Windows)}
-
-\item{pandoc_path_mac}{pandoc path (macOS)}
 }
 \value{
 App name

@@ -18,7 +18,6 @@ electrify(
   local_package_path = NULL,
   package_install_opts = NULL,
   rtools_path_win = NULL,
-  pandoc_path_mac = NULL,
   run_build = TRUE,
   nodejs_path = file.path(system.file(package = "shinybox"), "nodejs"),
   nodejs_version = "v12.16.2",
@@ -61,8 +60,6 @@ Can also use notation for commits/branch (i.e. "chasemc/demoapp@d81fff0).}
 \item{package_install_opts}{optional arguments passed to remotes::install_github, install_gitlab, install_bitbucket, or install_local}
 
 \item{rtools_path_win}{path to RTools (Windows)}
-
-\item{pandoc_path_mac}{pandoc path (macOS)}
 
 \item{run_build}{logical, whether to start the build process, helpful if you want to modify anthying before building}
 

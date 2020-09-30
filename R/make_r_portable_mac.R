@@ -1,6 +1,6 @@
 
 
-#' Change fixed paths to make R portable on Mac
+#' Change fixed paths to make R portable on macOS
 #'
 #' @param r_executable_path path to ~bin/R
 #'
@@ -23,7 +23,7 @@ modifications <-
 #!/bin/sh
 # Shell wrapper for R executable.
 
-
+echo "*** Change fixed paths to make R portable on macOS ***"
 export R_HOME_DIR="$(dirname $(dirname $0))"
 export R_HOME="${R_HOME_DIR}"
 

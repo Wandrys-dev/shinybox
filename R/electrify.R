@@ -46,7 +46,7 @@ electrify <- function(app_name = NULL,
                       nodejs_path = file.path(system.file(package = "shinybox"), "nodejs"),
                       nodejs_version = "v12.16.2",
                       permission = FALSE,
-                      mac_url = "https://mac.r-project.org/high-sierra/R-4.0-branch/x86_64/R-4.0-branch.tar.gz"){
+                      mac_url = NULL){
   
   
   # Testing ---

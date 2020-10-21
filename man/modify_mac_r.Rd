@@ -2,7 +2,7 @@
 % Please edit documentation in R/make_r_portable_mac.R
 \name{modify_mac_r}
 \alias{modify_mac_r}
-\title{Change fixed paths to make R portable on Mac}
+\title{Change fixed paths to make R portable on macOS}
 \usage{
 modify_mac_r(r_executable_path)
 }
@@ -13,5 +13,5 @@ modify_mac_r(r_executable_path)
 NA, modifies file
 }
 \description{
-Change fixed paths to make R portable on Mac
+Change fixed paths to make R portable on macOS
 }

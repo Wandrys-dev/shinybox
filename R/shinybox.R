@@ -1,7 +1,7 @@
-#' electrify
+#' shinybox
 #'
 #' @param build_path Path where the build files will be created, preferably points to an empty directory.
-#'     Must not contain a folder with the name as what you put for electrify(app_name).
+#'     Must not contain a folder with the name as what you put for shinybox(app_name).
 #' @param app_name This will be the name of the executable. It's a uniform type identifier (UTI)
 #'    that contains only alphanumeric (A-Z,a-z,0-9), hyphen (-), and period (.) characters.
 #'    see https://www.electron.build/configuration/configuration 
@@ -29,7 +29,7 @@
 #'
 #' @export
 #'
-electrify <- function(app_name = NULL,
+shinybox <- function(app_name = NULL,
                       product_name = "product_name",
                       short_description = NULL,
                       semantic_version = NULL,
@@ -50,9 +50,7 @@ electrify <- function(app_name = NULL,
   
   
   # Testing ---
-  # TODO: remove in production
-  testing <- FALSE
-  if(testing) {
+  if(FALSE) {
     short_description = "CoMo Consortium | COVID-19 App"
     mran_date = "2020-09-01"
     cran_like_url = NULL
@@ -72,17 +70,13 @@ electrify <- function(app_name = NULL,
   
   
   # Check and fail early ---------------------------------------------------
+  check_first(build_path = build_path,
+              cran_like_url = NULL, 
+              mran_date = NULL,
+              git_host,
+              git_repo,
+              local_package_path)
   
-  .check_arch()
-  .check_repo_set(cran_like_url = cran_like_url, 
-                  mran_date = mran_date)
-  
-  .check_build_path_exists(build_path = build_path)
-  
-  
-  .check_package_provided(git_host = git_host,
-                          git_repo = git_repo,
-                          local_package_path = local_package_path)
   
   if (is.null(app_name))  stop('Argument "app_name" is missing, with no default')
   
@@ -94,7 +88,7 @@ electrify <- function(app_name = NULL,
   
   if (!is.null(package_install_opts)) { 
     if (!is.list(package_install_opts)) {
-      stop("package_install_opts in electrify() must be a list of arguments.")
+      stop("package_install_opts in shinybox() must be a list of arguments.")
     }
   }
   
@@ -209,6 +203,16 @@ electrify <- function(app_name = NULL,
                       semantic_version = semantic_version,
                       app_root_path = app_root_path,
                       description = "")
+  
+  # Edit package.json file ----
+  # package_json <-  rjson::fromJSON(file = glue("{dir_build_time}/{app_name}/package.json"))
+  # 
+  # package_json$description <- "Hey Jude!"
+  # package_json$author$email <- "olivier@celhay.net"
+  # 
+  # package_json <- rjson::toJSON(package_json, indent = 2)
+  # write(package_json, glue("{dir_build_time}/{app_name}/package.json"))
+  
   
   
   

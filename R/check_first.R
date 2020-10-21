@@ -18,6 +18,7 @@ check_first <- function(
   local_package_path) {
   
   message("Check architecture")
+  arch <- version$arch[[1]]
   if (arch != "x86_64") {
     stop("Unfortunately 32 bit operating system builds are unsupported, if you would like to contribute to support this, that would be cool")
   }

@@ -70,9 +70,9 @@ shinybox <- function(app_name = NULL,
   
   
   # Check and fail early ---------------------------------------------------
-  check_first(build_path = build_path,
-              cran_like_url = NULL, 
-              mran_date = NULL,
+  check_first(build_path,
+              cran_like_url, 
+              mran_date,
               git_host,
               git_repo,
               local_package_path)

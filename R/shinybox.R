@@ -110,17 +110,10 @@ shinybox <- function(app_name = NULL,
   
   # Set cran_like_url -------------------------------------------------------
   # If MRAN date provided, construct MRAN url. Else, pass through cran_like_url.
-  if (!is.null(mran_date)) {
-    cran_like_url <- glue("https://cran.microsoft.com/snapshot/{mran_date}")
-  }
+  if (!is.null(mran_date)) cran_like_url <- glue("https://cran.microsoft.com/snapshot/{mran_date}")
   
   # Create top-level build folder for app  ----------------------------------
   create_folder(app_root_path)
-  
-  
-  # Copy Electron template into app_root_path -------------------------------------
-  copy_template(app_root_path)
-  
   
   # Download and Install R --------------------------------------------------
   message("Download and Install R")
@@ -177,7 +170,7 @@ shinybox <- function(app_name = NULL,
   }
   
   # Trim R's size -----------------------------------------------------------
-  message("Trim R's size")
+  message("Trim R's size by removing docs.")
   trim_r(app_root_path = app_root_path)
   
   
@@ -192,8 +185,6 @@ shinybox <- function(app_name = NULL,
     electron_build_resources <- list.files(electron_build_resources, full.names = TRUE)
     resources <- file.path(app_root_path, "resources")
     file.copy(from = electron_build_resources, to = resources, overwrite = TRUE)
-    
-    message("Icons copied.")
   }
   
   

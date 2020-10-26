@@ -17,11 +17,8 @@ check_first <- function(
   git_repo,
   local_package_path) {
   
-  message("Check architecture")
-  arch <- version$arch[[1]]
-  if (arch != "x86_64") {
-    stop("Unfortunately 32 bit operating system builds are unsupported, if you would like to contribute to support this, that would be cool")
-  }
+  message("Check architecture.")
+  if (version$arch[[1]] != "x86_64")stop("32-bit operating systems builds are not supported.")
   
   # Check that a repo for packages/R was set
   # Either 'cran_like_url' or 'local_package_path_path' must be set

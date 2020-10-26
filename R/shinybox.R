@@ -30,23 +30,23 @@
 #' @export
 #'
 shinybox <- function(app_name = NULL,
-                      product_name = "product_name",
-                      short_description = NULL,
-                      semantic_version = NULL,
-                      build_path = NULL,
-                      mran_date = NULL,
-                      cran_like_url = NULL,
-                      function_name = NULL,
-                      git_host = NULL,
-                      git_repo = NULL,
-                      local_package_path = NULL,
-                      package_install_opts = NULL,
-                      rtools_path_win = NULL,
-                      run_build = TRUE,
-                      nodejs_path = file.path(system.file(package = "shinybox"), "nodejs"),
-                      nodejs_version = "v12.16.2",
-                      permission = FALSE,
-                      mac_url = NULL){
+                     product_name = "product_name",
+                     short_description = NULL,
+                     semantic_version = NULL,
+                     build_path = NULL,
+                     mran_date = NULL,
+                     cran_like_url = NULL,
+                     function_name = NULL,
+                     git_host = NULL,
+                     git_repo = NULL,
+                     local_package_path = NULL,
+                     package_install_opts = NULL,
+                     rtools_path_win = NULL,
+                     run_build = TRUE,
+                     nodejs_path = file.path(system.file(package = "shinybox"), "nodejs"),
+                     nodejs_version = "v12.16.2",
+                     permission = FALSE,
+                     mac_url = NULL){
   
   
   # Testing ---
@@ -115,6 +115,15 @@ shinybox <- function(app_name = NULL,
   # Create top-level build folder for app  ----------------------------------
   create_folder(app_root_path)
   
+  
+  # Copy Electron biolerplate into app_root_path -------------------------------------
+  dirs <- system.file("template",
+                      package = "shinybox")
+  dirs <- list.dirs(dirs)
+  dirs <- dirs[-1]
+  
+  file.copy(dirs, app_root_path, recursive = T)
+  
   # Download and Install R --------------------------------------------------
   message("Download and Install R")
   install_r(cran_like_url = cran_like_url,
@@ -176,7 +185,7 @@ shinybox <- function(app_name = NULL,
   
   
   # Transfer and overwrite existing icons if present -----------------------------------------------
-  message("Transfer and overwrite existing icons if present")
+  message("Transfer and overwrite existing icons if present (icons folder at the root of inst)")
   electron_build_resources <- system.file("icons", 
                                           package = my_package_name, 
                                           lib.loc = library_path)

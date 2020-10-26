@@ -6,9 +6,7 @@
 #'    that contains only alphanumeric (A-Z,a-z,0-9), hyphen (-), and period (.) characters.
 #'    see https://www.electron.build/configuration/configuration 
 #'    and https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-102070
-#' @param product_name String - allows you to specify a product name for your executable which
-#'    contains spaces and other special characters not allowed in the name property.
-#'    https://www.electron.build/configuration/configuration
+#' @param author Author of the shiny app
 #' @param semantic_version semantic version of your app, as character (not numeric!);
 #'     See https://semver.org/ for more info on semantic versioning.
 #' @param mran_date MRAN snapshot date, formatted as 'YYYY-MM-DD'
@@ -20,7 +18,7 @@
 #' @param rtools_path_win path to RTools (Windows)
 #' @param function_name the function name in your package that starts the shiny app
 #' @param run_build logical, whether to start the build process, helpful if you want to modify anthying before building
-#' @param short_description short app description
+#' @param description short app description
 #' @param cran_like_url url to cran-like repository 
 #' @param nodejs_path path to nodejs
 #' @param nodejs_version nodejs version to install
@@ -29,10 +27,10 @@
 #'
 #' @export
 #'
-shinybox <- function(app_name = NULL,
-                     product_name = "product_name",
-                     short_description = NULL,
-                     semantic_version = NULL,
+shinybox <- function(app_name = "HAL9000",
+                     author = "Stanley",
+                     description = "Heuristically Programmed ALgorithmic Computer",
+                     semantic_version = "v9000.0.0",
                      build_path = NULL,
                      mran_date = NULL,
                      cran_like_url = NULL,
@@ -47,27 +45,6 @@ shinybox <- function(app_name = NULL,
                      nodejs_version = "v12.16.2",
                      permission = FALSE,
                      mac_url = NULL){
-  
-  
-  # Testing ---
-  if(FALSE) {
-    short_description = "CoMo Consortium | COVID-19 App"
-    mran_date = "2020-09-01"
-    cran_like_url = NULL
-    function_name = "run_app_standalone"
-    git_host = "github"
-    git_repo = "ocelhay/como@dev"
-    local_package_path = NULL
-    package_install_opts = list(type = "binary")
-    rtools_path_win = NULL
-    run_build = FALSE
-    nodejs_path = file.path(system.file(package = "shinybox"), "nodejs")
-    mac_url = "https://mac.r-project.org/high-sierra/R-4.0-branch/x86_64/R-4.0-branch.tar.gz"
-    permission = TRUE
-    
-    source("/Users/olivier/Documents/Ressources Pro/shinybox/R/fail_fast.R")
-  }
-  
   
   # Check and fail early ---------------------------------------------------
   check_first(build_path,
@@ -198,10 +175,56 @@ shinybox <- function(app_name = NULL,
   
   
   # Create package.json -----------------------------------------------------
-  create_package_json(app_name = app_name,
-                      semantic_version = semantic_version,
-                      app_root_path = app_root_path,
-                      description = "")
+  deps <- readLines(system.file("template/package.json", package = "shinybox"))[-1]
+  deps <- paste0(deps, collapse = "\n")
+  
+  file <- glue::glue(
+    '
+{
+  "name": "<<app_name>>",
+  "description": "<<description>>",
+  "version": "<<semantic_version>>",
+  "private": true,
+  "author": "<<author>>",
+  "main": "app/background.js",
+  "build": {
+  "appId": "com.<<app_name>>",
+  "mac": {
+  "icon": "./resources/icon_mac.icns",
+  "category": "public.app-category.utilities"
+  },
+  "win": {
+  "icon": "./resources/icon_win.png"
+  },
+  "files": [
+  "app/**/*",
+  "node_modules/**/*",
+  "package.json",
+  "./resources/**/*"
+  ],
+  "directories": {
+  "buildResources": "resources"
+  },
+  "publish": null,
+  "asar": false
+  },
+  "scripts": {
+  "postinstall": "electron-builder install-app-deps",
+  "preunit": "webpack --config=build/webpack.unit.config.js --env=test --display=none",
+  "unit": "electron-mocha temp/specs.js --renderer --require source-map-support/register",
+  "pree2e": "webpack --config=build/webpack.app.config.js --env=test --display=none && webpack --config=build/webpack.e2e.config.js --env=test --display=none",
+  "e2e": "mocha temp/e2e.js --require source-map-support/register",
+  "test": "npm run unit && npm run e2e",
+  "start": "node build/start.js",
+  "release": "npm test && webpack --config=build/webpack.app.config.js --env=production && electron-builder"
+  },
+ <<deps>>
+
+',  .open = "<<", .close = ">>")
+  
+  write_text(text = file,
+             filename = "package.json",
+             path = app_root_path)
   
   # Edit package.json file ----
   # package_json <-  rjson::fromJSON(file = glue("{dir_build_time}/{app_name}/package.json"))

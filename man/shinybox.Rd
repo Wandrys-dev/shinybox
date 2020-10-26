@@ -5,10 +5,10 @@
 \title{shinybox}
 \usage{
 shinybox(
-  app_name = NULL,
-  product_name = "product_name",
-  short_description = NULL,
-  semantic_version = NULL,
+  app_name = "HAL9000",
+  author = "Stanley",
+  description = "Heuristically Programmed ALgorithmic Computer",
+  semantic_version = "v9000.0.0",
   build_path = NULL,
   mran_date = NULL,
   cran_like_url = NULL,
@@ -31,11 +31,9 @@ that contains only alphanumeric (A-Z,a-z,0-9), hyphen (-), and period (.) charac
 see https://www.electron.build/configuration/configuration 
 and https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-102070}
 
-\item{product_name}{String - allows you to specify a product name for your executable which
-contains spaces and other special characters not allowed in the name property.
-https://www.electron.build/configuration/configuration}
+\item{author}{Author of the shiny app}
 
-\item{short_description}{short app description}
+\item{description}{short app description}
 
 \item{semantic_version}{semantic version of your app, as character (not numeric!);
 See https://semver.org/ for more info on semantic versioning.}

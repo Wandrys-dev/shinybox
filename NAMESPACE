@@ -2,7 +2,6 @@
 
 export(create_build_directory)
 export(create_folder)
-export(create_package_json)
 export(get_os)
 export(install_nodejs)
 export(install_package)

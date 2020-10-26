@@ -18,7 +18,7 @@ install_package <- function(){
   
   load(passthr)
   
-  remotes_code <- getFromNamespace(remotes_code,
+  remotes_code <- utils::getFromNamespace(remotes_code,
                                    ns = "remotes")
 
   

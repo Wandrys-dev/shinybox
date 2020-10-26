@@ -110,7 +110,7 @@ shinybox <- function(app_name = NULL,
   
   # Set cran_like_url -------------------------------------------------------
   # If MRAN date provided, construct MRAN url. Else, pass through cran_like_url.
-  if (!is.null(mran_date)) cran_like_url <- glue("https://cran.microsoft.com/snapshot/{mran_date}")
+  if (!is.null(mran_date)) cran_like_url <- glue::glue("https://cran.microsoft.com/snapshot/{mran_date}")
   
   # Create top-level build folder for app  ----------------------------------
   create_folder(app_root_path)

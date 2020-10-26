@@ -34,21 +34,21 @@ check_first <- function(
   
   # Check whether build path exists
   if (is.null(build_path)) {
-    base::stop("'build_path' not provided")
+    stop("'build_path' not provided")
   }
   
   if (!is.character(build_path)) {
-    base::stop("'build_path' should be character type.")
+    stop("'build_path' should be character type.")
   }
   
   if (!dir.exists(build_path)) {
-    base::stop("'build_path' provided, but path wasn't found.")
+    stop("'build_path' provided, but path wasn't found.")
   }
   
   # Check package paths
   # Either 'git_repo' or 'local_package_path' must be set
   if (is.null(c(git_repo, local_package_path))) {
-    base::stop("shinybox requires you to specify either a 'git_repo' or 'local_package_path' argument specifying
+    stop("shinybox requires you to specify either a 'git_repo' or 'local_package_path' argument specifying
          the shiny app/package to be turned into an Electron app") 
   }
   

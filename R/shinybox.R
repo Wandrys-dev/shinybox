@@ -1,29 +1,29 @@
 #' shinybox
 #'
-#' @param build_path Path where the build files will be created, preferably points to an empty directory.
-#'     Must not contain a folder with the name as what you put for shinybox(app_name).
 #' @param app_name This will be the name of the executable. It's a uniform type identifier (UTI)
 #'    that contains only alphanumeric (A-Z,a-z,0-9), hyphen (-), and period (.) characters.
 #'    see https://www.electron.build/configuration/configuration 
 #'    and https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-102070
 #' @param author Author of the shiny app
+#' @param description short app description
 #' @param semantic_version semantic version of your app, as character (not numeric!);
 #'     See https://semver.org/ for more info on semantic versioning.
 #' @param mran_date MRAN snapshot date, formatted as 'YYYY-MM-DD'
+#' @param cran_like_url url to cran-like repository
+#' @param mac_url url to mac OS tar.gz 
 #' @param git_host one of c("github", "gitlab", "bitbucket")
 #' @param git_repo GitHub/Bitbucket/GitLab username/repo of your the shiny-app package (e.g. 'chasemc/demoAPP'). 
 #'     Can also use notation for commits/branch (i.e. "chasemc/demoapp@@d81fff0).
+#' @param function_name the function name in your package that starts the shiny app
 #' @param local_package_path path to local shiny-app package, if 'git_package' isn't used 
 #' @param package_install_opts optional arguments passed to remotes::install_github, install_gitlab, install_bitbucket, or install_local
+#' @param build_path Path where the build files will be created, preferably points to an empty directory.
+#'     Must not contain a folder with the name as what you put for shinybox(app_name).
 #' @param rtools_path_win path to RTools (Windows)
-#' @param function_name the function name in your package that starts the shiny app
-#' @param run_build logical, whether to start the build process, helpful if you want to modify anthying before building
-#' @param description short app description
-#' @param cran_like_url url to cran-like repository 
 #' @param nodejs_path path to nodejs
 #' @param nodejs_version nodejs version to install
 #' @param permission automatically grant permission to install nodejs and R 
-#' @param mac_url url to mac OS tar.gz 
+#' @param run_build logical, whether to start the build process, helpful if you want to modify anthying before building
 #'
 #' @export
 #'
@@ -31,20 +31,20 @@ shinybox <- function(app_name = "HAL9000",
                      author = "Stanley",
                      description = "Heuristically Programmed ALgorithmic Computer",
                      semantic_version = "v9000.0.0",
-                     build_path = NULL,
                      mran_date = NULL,
                      cran_like_url = NULL,
-                     function_name = NULL,
+                     mac_url = NULL,
                      git_host = NULL,
                      git_repo = NULL,
+                     function_name = NULL,
                      local_package_path = NULL,
                      package_install_opts = NULL,
+                     build_path = NULL,
                      rtools_path_win = NULL,
-                     run_build = TRUE,
                      nodejs_path = file.path(system.file(package = "shinybox"), "nodejs"),
                      nodejs_version = "v12.16.2",
                      permission = FALSE,
-                     mac_url = NULL){
+                     run_build = TRUE){
   
   # Check and fail early ---------------------------------------------------
   check_first(build_path,

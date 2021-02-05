@@ -46,6 +46,8 @@ shinybox <- function(app_name = "HAL9000",
                      permission = FALSE,
                      run_build = TRUE){
   
+  # TODO: check that function_name exist.
+  
   # Check and fail early ---------------------------------------------------
   check_first(build_path,
               cran_like_url, 
@@ -93,12 +95,9 @@ shinybox <- function(app_name = "HAL9000",
   create_folder(app_root_path)
   
   
-  # Copy Electron biolerplate into app_root_path -------------------------------------
-  dirs <- system.file("template",
-                      package = "shinybox")
-  dirs <- list.dirs(dirs)
-  dirs <- dirs[-1]
-  
+  # Copy Electron boilerplate into app_root_path -----
+  dirs <- system.file("template", package = "shinybox")
+  dirs <- list.dirs(dirs)[-1]
   file.copy(dirs, app_root_path, recursive = T)
   
   # Download and Install R --------------------------------------------------
@@ -155,13 +154,9 @@ shinybox <- function(app_name = "HAL9000",
                                         rtools_path_win = rtools_path_win)
   }
   
-  # Trim R's size -----------------------------------------------------------
   message("Trim R's size by removing docs.")
   trim_r(app_root_path = app_root_path)
   
-  
-  
-  # Transfer and overwrite existing icons if present -----------------------------------------------
   message("Transfer and overwrite existing icons if present (icons folder at the root of inst)")
   electron_build_resources <- system.file("icons", 
                                           package = my_package_name, 
@@ -178,6 +173,7 @@ shinybox <- function(app_name = "HAL9000",
   deps <- readLines(system.file("template/package.json", package = "shinybox"))[-1]
   deps <- paste0(deps, collapse = "\n")
   
+  # deps is appended to file
   file <- glue::glue(
     '
 {

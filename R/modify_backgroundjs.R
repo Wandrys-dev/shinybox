@@ -1,4 +1,3 @@
-
 #' Modify background.js to include the call to the shiny app
 #'
 #' @param background_js_path path to the final background.js, not the one in inst/...

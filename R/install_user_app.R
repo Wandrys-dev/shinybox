@@ -112,7 +112,7 @@ install_user_app <- function(library_path = NULL,
 
   tmp_file2 <- tempfile()
   file.create(tmp_file2)
-  Sys.setenv(ESHINE_package_return=tmp_file2)
+  Sys.setenv(ESHINE_package_return = tmp_file2)
   
   message("Installing your Shiny package into shinybox framework.")
   

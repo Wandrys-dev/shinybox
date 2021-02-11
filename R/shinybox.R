@@ -10,6 +10,7 @@
 #'     See https://semver.org/ for more info on semantic versioning.
 #' @param mran_date MRAN snapshot date, formatted as 'YYYY-MM-DD'
 #' @param cran_like_url url to cran-like repository
+#' @param mac_file file path to mac OS tar.gz. Might need to use option 1 of https://www.technipages.com/macos-disable-appname-cant-be-opened-because-it-is-from-an-unidentified-developer
 #' @param mac_url url to mac OS tar.gz 
 #' @param git_host one of c("github", "gitlab", "bitbucket")
 #' @param git_repo GitHub/Bitbucket/GitLab username/repo of your the shiny-app package (e.g. 'chasemc/demoAPP'). 
@@ -33,7 +34,8 @@ shinybox <- function(app_name = "HAL9000",
                      semantic_version = "v9000.0.0",
                      mran_date = NULL,
                      cran_like_url = NULL,
-                     mac_url = NULL,
+                     mac_file = NULL,
+                     mac_url = "https://mac.r-project.org/high-sierra/R-4.0-branch/x86_64/R-4.0-branch.tar.gz",
                      git_host = NULL,
                      git_repo = NULL,
                      function_name = NULL,
@@ -47,6 +49,9 @@ shinybox <- function(app_name = "HAL9000",
                      run_build = TRUE){
   
   # TODO: check that function_name exist.
+  
+  
+  
   
   # Check and fail early ---------------------------------------------------
   check_first(build_path,
@@ -104,6 +109,7 @@ shinybox <- function(app_name = "HAL9000",
   message("Download and Install R")
   install_r(cran_like_url = cran_like_url,
             app_root_path = app_root_path,
+            mac_file = mac_file,
             mac_url = mac_url,
             permission_to_install = permission_to_install_r)
   
@@ -257,8 +263,6 @@ shinybox <- function(app_name = "HAL9000",
     run_build_release(nodejs_path = nodejs_path,
                       app_path = app_root_path,
                       nodejs_version = nodejs_version)
-    
-    message("You should now have both a transferable and distributable installer Electron app.")
     
   } else {
     

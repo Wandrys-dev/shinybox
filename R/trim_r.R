@@ -19,8 +19,6 @@ trim_r <- function(app_root_path){
                            "Resources",
                            "library")
   
-  # list.dirs(r_lib_path, full.names = TRUE, recursive = TRUE)
-  
   lapply(list.dirs(r_lib_path, full.names = TRUE, recursive = TRUE),
          function(x) {
            unlink(file.path(x, elements_to_remove), force = TRUE, recursive = TRUE)

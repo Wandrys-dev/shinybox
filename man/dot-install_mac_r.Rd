@@ -4,7 +4,7 @@
 \alias{.install_mac_r}
 \title{Download and untar mac R into app folder}
 \usage{
-.install_mac_r(app_root_path, mac_url)
+.install_mac_r(app_root_path, mac_file, mac_url)
 }
 \arguments{
 \item{app_root_path}{top level of new shinybox app build}

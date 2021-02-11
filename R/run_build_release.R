@@ -64,5 +64,7 @@ run_build_release <- function(nodejs_path = file.path(system.file(package = "shi
                    ignore.stdout = F,
                    ignore.stderr = F))
   }
+  
+  message("You should now have both a transferable and distributable installer Electron app.")
 }
 

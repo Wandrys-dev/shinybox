@@ -6,8 +6,8 @@
 \usage{
 install_user_app(
   library_path = NULL,
-  repo_location = "github",
-  repo = "chasemc/IDBacApp",
+  repo_location = NULL,
+  repo = NULL,
   repos = cran_like_url,
   package_install_opts = NULL,
   rtools_path_win = NULL
@@ -18,7 +18,7 @@ install_user_app(
 
 \item{repo_location}{{remotes} package function, one of c("github", "gitlab", "bitbucket", "local")}
 
-\item{repo}{e.g. if repo_location is github: "chasemc/demoApp" ; if repo_location is local: "C:/Users/chase/demoApp"}
+\item{repo}{e.g. if repo_location is github: "ocelhay/shinyboxtestapp" ; if repo_location is local: "C:/Users/olivier/shinyboxtestapp"}
 
 \item{repos}{cran like repository package dependencies will be retrieved from}
 

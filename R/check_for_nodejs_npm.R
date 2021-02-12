@@ -124,7 +124,7 @@
                       " -v")
     
     result <- tryCatch(system(command,
-                              intern = T),
+                              intern = TRUE),
                        error = function(e) FALSE, 
                        warning = function(e) FALSE)
     

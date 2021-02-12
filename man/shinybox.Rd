@@ -14,9 +14,9 @@ shinybox(
   mac_file = NULL,
  
     mac_url = "https://mac.r-project.org/high-sierra/R-4.0-branch/x86_64/R-4.0-branch.tar.gz",
-  git_host = NULL,
-  git_repo = NULL,
-  function_name = NULL,
+  git_host = "github",
+  git_repo = "ocelhay/shinyboxtestapp",
+  function_name = "run_app",
   local_package_path = NULL,
   package_install_opts = NULL,
   build_path = NULL,
@@ -44,14 +44,13 @@ See https://semver.org/ for more info on semantic versioning.}
 
 \item{cran_like_url}{url to cran-like repository}
 
-\item{mac_file}{file path to mac OS tar.gz}
+\item{mac_file}{file path to mac OS tar.gz. Might need to use option 1 of https://www.technipages.com/macos-disable-appname-cant-be-opened-because-it-is-from-an-unidentified-developer}
 
 \item{mac_url}{url to mac OS tar.gz}
 
 \item{git_host}{one of c("github", "gitlab", "bitbucket")}
 
-\item{git_repo}{GitHub/Bitbucket/GitLab username/repo of your the shiny-app package (e.g. 'chasemc/demoAPP'). 
-Can also use notation for commits/branch (i.e. "chasemc/demoapp@d81fff0).}
+\item{git_repo}{GitHub/Bitbucket/GitLab username/repo of the shiny-app package (e.g. 'ocelhay/shinyboxtestapp').}
 
 \item{function_name}{the function name in your package that starts the shiny app}
 

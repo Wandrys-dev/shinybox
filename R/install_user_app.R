@@ -2,7 +2,7 @@
 #'
 #' @param library_path path to the new Electron app's R's library folder
 #' @param repo_location {remotes} package function, one of c("github", "gitlab", "bitbucket", "local")
-#' @param repo e.g. if repo_location is github: "chasemc/demoApp" ; if repo_location is local: "C:/Users/chase/demoApp"
+#' @param repo e.g. if repo_location is github: "ocelhay/shinyboxtestapp" ; if repo_location is local: "C:/Users/olivier/shinyboxtestapp"
 #' @param repos cran like repository package dependencies will be retrieved from  
 #' @param package_install_opts further arguments to remotes::install_github, install_gitlab, install_bitbucket, or install_local
 #' @param rtools_path_win path to RTools (Windows)
@@ -13,19 +13,11 @@
 #'
 
 install_user_app <- function(library_path = NULL,
-                             repo_location = "github",
-                             repo = "chasemc/IDBacApp",
+                             repo_location = NULL,
+                             repo = NULL,
                              repos = cran_like_url,
                              package_install_opts = NULL,
-                             rtools_path_win = NULL){
-  
-  if(FALSE){
-    repo_location = "github"
-    repo = "chasemc/IDBacApp"
-    repos = cran_like_url
-    package_install_opts = NULL
-    rtools_path_win = NULL
-  }
+                             rtools_path_win = NULL) {
   
   accepted_sites <- c("github", "gitlab", "bitbucket", "local")
   
@@ -155,7 +147,7 @@ copy_remotes_package <- function(){
   file.copy(remotes_path,
             new_path, 
             recursive = TRUE,
-            copy.mode = F)
+            copy.mode = FALSE)
   
   test <- file.path(new_path, 
                     "remotes")

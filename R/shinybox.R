@@ -13,8 +13,7 @@
 #' @param mac_file file path to mac OS tar.gz. Might need to use option 1 of https://www.technipages.com/macos-disable-appname-cant-be-opened-because-it-is-from-an-unidentified-developer
 #' @param mac_url url to mac OS tar.gz 
 #' @param git_host one of c("github", "gitlab", "bitbucket")
-#' @param git_repo GitHub/Bitbucket/GitLab username/repo of your the shiny-app package (e.g. 'chasemc/demoAPP'). 
-#'     Can also use notation for commits/branch (i.e. "chasemc/demoapp@@d81fff0).
+#' @param git_repo GitHub/Bitbucket/GitLab username/repo of the shiny-app package (e.g. 'ocelhay/shinyboxtestapp'). 
 #' @param function_name the function name in your package that starts the shiny app
 #' @param local_package_path path to local shiny-app package, if 'git_package' isn't used 
 #' @param package_install_opts optional arguments passed to remotes::install_github, install_gitlab, install_bitbucket, or install_local
@@ -23,7 +22,6 @@
 #' @param rtools_path_win path to RTools (Windows)
 #' @param nodejs_path path to nodejs
 #' @param nodejs_version nodejs version to install
-#' @param permission automatically grant permission to install nodejs and R 
 #' @param run_build logical, whether to start the build process, helpful if you want to modify anthying before building
 #'
 #' @export
@@ -36,25 +34,56 @@ shinybox <- function(app_name = "HAL9000",
                      cran_like_url = NULL,
                      mac_file = NULL,
                      mac_url = "https://mac.r-project.org/high-sierra/R-4.0-branch/x86_64/R-4.0-branch.tar.gz",
-                     git_host = NULL,
-                     git_repo = NULL,
-                     function_name = NULL,
+                     git_host = "github",
+                     git_repo = "ocelhay/shinyboxtestapp",
+                     function_name = "run_app",
                      local_package_path = NULL,
                      package_install_opts = NULL,
                      build_path = NULL,
                      rtools_path_win = NULL,
                      nodejs_path = file.path(system.file(package = "shinybox"), "nodejs"),
                      nodejs_version = "v12.16.2",
-                     permission = FALSE,
-                     run_build = TRUE){
-  
-  # TODO: check that function_name exist.
+                     run_build = TRUE) {
   
   
-  
+  # Test:
+  if(FALSE) {
+    time <- format(Sys.time(), "%Y-%m-%d_%H%M")
+    build_path <- paste0("/Users/olivier/Desktop/shinybox_", time)
+    dir.create(build_path)
+    
+    nodejs_path <- "/usr/local/bin/"
+    nodejs_version <- system("node -v", intern = TRUE)
+    
+    library(shinybox)
+    shinybox(
+      app_name = "ACORN",
+      author = "Olivier Celhay, Paul Turner",
+      description = "A Dashboard for ACORN AMR Data",
+      semantic_version = "v0.0.1", # format vx.y.z
+      mran_date = "2021-01-10",
+      cran_like_url = NULL,
+      mac_file = "/Users/olivier/Documents/Projets/Standalone R Shiny/R/macOS/2021-02-11/R-4.0-branch.tar.gz",
+      mac_url = "https://mac.r-project.org/high-sierra/R-4.0-branch/x86_64/R-4.0-branch.tar.gz", # only used if mac_file is NULL
+      git_host = "github",
+      git_repo = "ocelhay/shinyboxtestapp",
+      function_name = "run_app", 
+      local_package_path = NULL,
+      package_install_opts = list(type = "binary"),
+      build_path = build_path,
+      rtools_path_win = NULL,
+      nodejs_path = nodejs_path,
+      nodejs_version = nodejs_version,
+      run_build = TRUE)
+  }
   
   # Check and fail early ---------------------------------------------------
-  check_first(build_path,
+  check_first(app_name,
+              semantic_version,
+              function_name,
+              nodejs_path,
+              package_install_opts,
+              build_path,
               cran_like_url, 
               mran_date,
               git_host,
@@ -62,32 +91,8 @@ shinybox <- function(app_name = "HAL9000",
               local_package_path)
   
   
-  if (is.null(app_name))  stop('Argument "app_name" is missing, with no default')
-  
-  if (is.null(semantic_version))  stop('Argument "semantic_version" is missing, with no default')
-  
-  if (is.null(function_name))  stop('Argument "function_name" is missing, with no default')
-  
-  if (is.null(nodejs_path))  stop('Argument "nodejs_path" is missing, with no default')
-  
-  if (!is.null(package_install_opts)) { 
-    if (!is.list(package_install_opts)) {
-      stop("package_install_opts in shinybox() must be a list of arguments.")
-    }
-  }
-  
   app_root_path <- file.path(build_path, app_name)
   
-  if (!isTRUE(permission)) {
-    
-    permission_to_install_r <- .prompt_install_r(app_root_path)
-    permission_to_install_nodejs <- .prompt_install_nodejs(nodejs_path)
-    
-  } else {
-    permission_to_install_r <- TRUE
-    permission_to_install_nodejs <- TRUE
-    
-  }
   
   # Determine Operating System ----------------------------------------------
   os <- get_os()
@@ -105,22 +110,18 @@ shinybox <- function(app_name = "HAL9000",
   dirs <- list.dirs(dirs)[-1]
   file.copy(dirs, app_root_path, recursive = T)
   
-  # Download and Install R --------------------------------------------------
-  message("Download and Install R")
+  # Install R --------------------------------------------------
+  message("Install R")
   install_r(cran_like_url = cran_like_url,
             app_root_path = app_root_path,
             mac_file = mac_file,
             mac_url = mac_url,
-            permission_to_install = permission_to_install_r)
+            permission_to_install = TRUE)
   
   
   # Find Electron app's R's library folder ----------------------------------
   if (identical(os, "win")) {
-    
-    library_path <- file.path(app_root_path,
-                              "app",
-                              "r_lang",
-                              "library")
+    library_path <- file.path(app_root_path, "app", "r_lang", "library")
   }
   
   if (identical(os, "mac")) {
@@ -241,9 +242,7 @@ shinybox <- function(app_name = "HAL9000",
   
   
   # Add function that runs the shiny app to description.js ------------------
-  modify_background_js(background_js_path = file.path(app_root_path,
-                                                      "src", 
-                                                      "background.js"),
+  modify_background_js(background_js_path = file.path(app_root_path, "src", "background.js"),
                        my_package_name = my_package_name,
                        function_name = function_name,
                        r_path = dirname(library_path))
@@ -254,20 +253,13 @@ shinybox <- function(app_name = "HAL9000",
                                 nodejs_path = nodejs_path,
                                 force_install = FALSE,
                                 nodejs_version = nodejs_version,
-                                permission_to_install = permission_to_install_nodejs)
-  
+                                permission_to_install = TRUE)
   
   # Build the electron app --------------------------------------------------
-  if (run_build == TRUE) {
-    
-    run_build_release(nodejs_path = nodejs_path,
-                      app_path = app_root_path,
-                      nodejs_version = nodejs_version)
-    
-  } else {
-    
-    message("Build step was skipped. When you are ready to build the distributable run 'runBuild(...)'")
-    
-  }
-  
+  ifelse(run_build, 
+         run_build_release(nodejs_path = nodejs_path,
+                           app_path = app_root_path,
+                           nodejs_version = nodejs_version),
+         message("Build step was skipped. When you are ready to build the distributable run 'runBuild(...)'")
+  )
 }

@@ -4,14 +4,14 @@
 #'    that contains only alphanumeric (A-Z,a-z,0-9), hyphen (-), and period (.) characters.
 #'    see https://www.electron.build/configuration/configuration 
 #'    and https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-102070
-#' @param author Author of the shiny app
-#' @param description short app description
-#' @param semantic_version semantic version of your app, as character (not numeric!);
+#' @param author Author of the app.
+#' @param description Short app description.
+#' @param semantic_version Character string semantic version of the app, such as "v1.1.0".
 #'     See https://semver.org/ for more info on semantic versioning.
-#' @param mran_date MRAN snapshot date, formatted as 'YYYY-MM-DD'
-#' @param cran_like_url url to cran-like repository
+#' @param cran_like_url url to cran-like repository. Default value is https://cran.r-project.org. 
+#'     To use MRAN, set to "https://cran.microsoft.com/snapshot/2021-01-10" with desired date. (TODO: what about RStudio package repository?)
 #' @param mac_file file path to mac OS tar.gz. Might need to use option 1 of https://www.technipages.com/macos-disable-appname-cant-be-opened-because-it-is-from-an-unidentified-developer
-#' @param mac_url url to mac OS tar.gz 
+#' @param mac_r_url url to mac OS tar.gz 
 #' @param git_host one of c("github", "gitlab", "bitbucket")
 #' @param git_repo GitHub/Bitbucket/GitLab username/repo of the shiny-app package (e.g. 'ocelhay/shinyboxtestapp'). 
 #' @param function_name the function name in your package that starts the shiny app
@@ -30,14 +30,13 @@ shinybox <- function(app_name = "HAL9000",
                      author = "Stanley",
                      description = "Heuristically Programmed ALgorithmic Computer",
                      semantic_version = "v9000.0.0",
-                     mran_date = NULL,
-                     cran_like_url = NULL,
+                     cran_like_url = "https://cran.r-project.org",
                      mac_file = NULL,
-                     mac_url = "https://mac.r-project.org/high-sierra/R-4.0-branch/x86_64/R-4.0-branch.tar.gz",
+                     mac_r_url = "https://mac.r-project.org/high-sierra/R-4.0-branch/x86_64/R-4.0-branch.tar.gz",
                      git_host = "github",
                      git_repo = "ocelhay/shinyboxtestapp",
-                     function_name = "run_app",
                      local_package_path = NULL,
+                     function_name = "run_app",
                      package_install_opts = NULL,
                      build_path = NULL,
                      rtools_path_win = NULL,
@@ -48,6 +47,7 @@ shinybox <- function(app_name = "HAL9000",
   
   # Test:
   if(FALSE) {
+    
     time <- format(Sys.time(), "%Y-%m-%d_%H%M")
     build_path <- paste0("/Users/olivier/Desktop/shinybox_", time)
     dir.create(build_path)
@@ -61,10 +61,9 @@ shinybox <- function(app_name = "HAL9000",
       author = "Olivier Celhay, Paul Turner",
       description = "A Dashboard for ACORN AMR Data",
       semantic_version = "v0.0.1", # format vx.y.z
-      mran_date = "2021-01-10",
-      cran_like_url = NULL,
+      cran_like_url = "https://cran.microsoft.com/snapshot/2021-01-10",
       mac_file = "/Users/olivier/Documents/Projets/Standalone R Shiny/R/macOS/2021-02-11/R-4.0-branch.tar.gz",
-      mac_url = "https://mac.r-project.org/high-sierra/R-4.0-branch/x86_64/R-4.0-branch.tar.gz", # only used if mac_file is NULL
+      mac_r_url = "https://mac.r-project.org/high-sierra/R-4.0-branch/x86_64/R-4.0-branch.tar.gz", # only used if mac_file is NULL
       git_host = "github",
       git_repo = "ocelhay/shinyboxtestapp",
       function_name = "run_app", 
@@ -85,7 +84,6 @@ shinybox <- function(app_name = "HAL9000",
               package_install_opts,
               build_path,
               cran_like_url, 
-              mran_date,
               git_host,
               git_repo,
               local_package_path)
@@ -96,10 +94,6 @@ shinybox <- function(app_name = "HAL9000",
   
   # Determine Operating System ----------------------------------------------
   os <- get_os()
-  
-  # Set cran_like_url -------------------------------------------------------
-  # If MRAN date provided, construct MRAN url. Else, pass through cran_like_url.
-  if (!is.null(mran_date)) cran_like_url <- glue::glue("https://cran.microsoft.com/snapshot/{mran_date}")
   
   # Create top-level build folder for app  ----------------------------------
   create_folder(app_root_path)
@@ -115,7 +109,7 @@ shinybox <- function(app_name = "HAL9000",
   install_r(cran_like_url = cran_like_url,
             app_root_path = app_root_path,
             mac_file = mac_file,
-            mac_url = mac_url,
+            mac_r_url = mac_r_url,
             permission_to_install = TRUE)
   
   
@@ -152,7 +146,6 @@ shinybox <- function(app_name = "HAL9000",
   
   
   if (!is.null(local_package_path)) {
-    
     my_package_name <- install_user_app(library_path = library_path ,
                                         repo_location = "local",
                                         repo = local_package_path,

@@ -13,7 +13,7 @@ shinybox(
   cran_like_url = NULL,
   mac_file = NULL,
  
-    mac_url = "https://mac.r-project.org/high-sierra/R-4.0-branch/x86_64/R-4.0-branch.tar.gz",
+    mac_r_url = "https://mac.r-project.org/high-sierra/R-4.0-branch/x86_64/R-4.0-branch.tar.gz",
   git_host = "github",
   git_repo = "ocelhay/shinyboxtestapp",
   function_name = "run_app",
@@ -46,7 +46,7 @@ See https://semver.org/ for more info on semantic versioning.}
 
 \item{mac_file}{file path to mac OS tar.gz. Might need to use option 1 of https://www.technipages.com/macos-disable-appname-cant-be-opened-because-it-is-from-an-unidentified-developer}
 
-\item{mac_url}{url to mac OS tar.gz}
+\item{mac_r_url}{url to mac OS tar.gz}
 
 \item{git_host}{one of c("github", "gitlab", "bitbucket")}
 

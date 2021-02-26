@@ -3,7 +3,7 @@
 #' @param cran_like_url CRAN-like url e.g. https://cran.r-project.org/bin/windows/base
 #' @param app_root_path path to current shinybox app build
 #' @param mac_file file path to mac OS tar.gz
-#' @param mac_url mac R installer url
+#' @param mac_r_url mac R installer url
 #' @param permission_to_install have permission to install R?
 #'
 #' @export
@@ -11,7 +11,7 @@
 install_r <- function(cran_like_url = NULL,
                       app_root_path,
                       mac_file = NULL,
-                      mac_url = NULL,
+                      mac_r_url = NULL,
                       permission_to_install  = FALSE) {
   
   
@@ -40,7 +40,7 @@ install_r <- function(cran_like_url = NULL,
     if (identical(os, "mac")) {
       rlang_path <- .install_mac_r(app_root_path = app_root_path,
                                    mac_file = mac_file,
-                                   mac_url = mac_url)
+                                   mac_r_url = mac_r_url)
     }
     
     if (identical(os, "win")) {
@@ -164,19 +164,19 @@ install_r <- function(cran_like_url = NULL,
 #' Download and untar mac R into app folder
 #'
 #' @param app_root_path top level of new shinybox app build
-#' @param mac_url url for mac R language download
+#' @param mac_r_url url for mac R language download
 #'
 #' @return NA
 .install_mac_r <- function(app_root_path,
                            mac_file,
-                           mac_url){
+                           mac_r_url){
   
   if(!is.null(mac_file)) {
     installer_path <- mac_file
   }
   
   if(is.null(mac_file)) {
-    installer_path <- .download_r(mac_url)
+    installer_path <- .download_r(mac_r_url)
   }
   # path R installer will install to
   install_r_to_path <- file.path(app_root_path, "app", "r_lang", fsep = "/")

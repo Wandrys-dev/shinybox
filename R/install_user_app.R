@@ -108,7 +108,25 @@ install_user_app <- function(library_path = NULL,
   
   message("Installing your Shiny package into shinybox framework.")
   
-  system_install_pkgs(rscript_path)
+  # System Install Packages
+  if (identical(os, "win")) {
+    system2(rscript_path,
+            paste0("-e ",
+                   "shinybox::install_package()"),
+            wait = TRUE,
+            stdout = "")
+  }
+  
+  if (identical(os, "mac")) {
+    system2(rscript_path,
+            paste0("-e ",
+                   "'",
+                   "shinybox::install_package()",
+                   "'"),
+            wait = TRUE,
+            stdout = "")
+  }
+
   
   on.exit({
   Sys.setenv(R_LIBS = old_R_LIBS)
@@ -188,36 +206,4 @@ copy_shinybox_package <- function(){
   }
   invisible(normalizePath(new_path,
                           winslash = "/"))
-}
-
-
-
-#' Run package installation using the newly-installed R
-#'
-#' @param rscript_path path to newly-installed R's executable
-#'
-#' @return nothing
-#'
-system_install_pkgs <- function(rscript_path){
-  
-  os <- shinybox::get_os()
-  
-  if (identical(os, "win")) {
-    system2(rscript_path,
-            paste0("-e ",
-                   "shinybox::install_package()"),
-            wait = TRUE,
-            stdout = "")
-  }
-  
-  if (identical(os, "mac")) {
-    system2(rscript_path,
-            paste0("-e ",
-                   "'",
-                   "shinybox::install_package()",
-                   "'"),
-            wait = TRUE,
-            stdout = "")
-  }
-  
 }

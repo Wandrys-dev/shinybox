@@ -4,12 +4,12 @@
 \alias{.install_mac_r}
 \title{Download and untar mac R into app folder}
 \usage{
-.install_mac_r(app_root_path, mac_file, mac_url)
+.install_mac_r(app_root_path, mac_file, mac_r_url)
 }
 \arguments{
 \item{app_root_path}{top level of new shinybox app build}
 
-\item{mac_url}{url for mac R language download}
+\item{mac_r_url}{url for mac R language download}
 }
 \value{
 NA

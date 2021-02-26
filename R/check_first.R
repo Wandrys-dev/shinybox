@@ -7,7 +7,6 @@
 #' @param package_install_opts package_install_opts
 #' @param build_path build_path
 #' @param cran_like_url cran_like_url
-#' @param mran_date mran_date
 #' @param git_host git_host 
 #' @param git_repo git_repo 
 #' @param local_package_path local_package_path 
@@ -22,7 +21,6 @@ check_first <- function(
   package_install_opts,
   build_path,
   cran_like_url, 
-  mran_date,
   git_host,
   git_repo,
   local_package_path) {
@@ -47,15 +45,10 @@ check_first <- function(
   
   # Check that a repo for packages/R was set
   # Either 'cran_like_url' or 'local_package_path_path' must be set
-  if (is.null(c(cran_like_url, mran_date))) {
-    stop("shinybox requires you to specify either a 'cran_like_url' or 'mran_date' argument specifying
-         the shiny app/package to be turned into an Electron app. The url for CRAN is: 'https://cran.r-project.org'") 
+  if (is.null(cran_like_url)) {
+    stop("cran_like_url is missing with  'https://cran.r-project.org'") 
   }
   
-  # Ensure that 'cran_like_url' and 'mran_date' aren't set at the same time.
-  if (!is.null(cran_like_url) && !is.null(mran_date)) {
-    stop("Values provided for both 'cran_like_url' and 'mran_date'; shinybox requires that only one of these is not NULL.") 
-  }
   
   # Check whether build path exists
   if (is.null(build_path)) {

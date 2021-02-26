@@ -8,7 +8,7 @@ install_r(
   cran_like_url = NULL,
   app_root_path,
   mac_file = NULL,
-  mac_url = NULL,
+  mac_r_url = NULL,
   permission_to_install = FALSE
 )
 }
@@ -19,7 +19,7 @@ install_r(
 
 \item{mac_file}{file path to mac OS tar.gz}
 
-\item{mac_url}{mac R installer url}
+\item{mac_r_url}{mac R installer url}
 
 \item{permission_to_install}{have permission to install R?}
 }

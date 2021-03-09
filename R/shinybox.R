@@ -243,7 +243,6 @@ shinybox <- function(app_name = "HAL9000",
   # Download and unzip nodejs -----------------------------------------------
   nodejs_path <- install_nodejs(node_url = "https://nodejs.org/dist",
                                 nodejs_path = nodejs_path,
-                                force_install = FALSE,
                                 nodejs_version = nodejs_version,
                                 permission_to_install = TRUE)
   

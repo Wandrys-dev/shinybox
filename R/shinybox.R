@@ -207,7 +207,7 @@ shinybox <- function(app_name = "HAL9000",
   "postinstall": "electron-builder install-app-deps",
   "preunit": "webpack --config=build/webpack.unit.config.js --env=test --display=none",
   "unit": "electron-mocha temp/specs.js --renderer --require source-map-support/register",
-  "pree2e": "webpack --config=build/webpack.app.config.js --env=test --display=none && webpack --config=build/webpack.e2e.config.js --env=test --display=none",
+  "pree2e": "webpack --config=build/webpack.app.config.js --env=test && webpack --config=build/webpack.e2e.config.js --env=test",
   "e2e": "mocha temp/e2e.js --require source-map-support/register",
   "test": "npm run unit && npm run e2e",
   "start": "node build/start.js",
@@ -225,7 +225,7 @@ shinybox <- function(app_name = "HAL9000",
   # package_json <-  rjson::fromJSON(file = glue("{dir_build_time}/{app_name}/package.json"))
   # 
   # package_json$description <- "Hey Jude!"
-  # package_json$author$email <- "olivier@celhay.net"
+  # package_json$author$email <- "mail@gmail.com"
   # 
   # package_json <- rjson::toJSON(package_json, indent = 2)
   # write(package_json, glue("{dir_build_time}/{app_name}/package.json"))

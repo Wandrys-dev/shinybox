@@ -9,21 +9,19 @@ shinybox(
   author = "Stanley",
   description = "Heuristically Programmed ALgorithmic Computer",
   semantic_version = "v9000.0.0",
-  mran_date = NULL,
-  cran_like_url = NULL,
+  cran_like_url = "https://cran.r-project.org",
   mac_file = NULL,
  
     mac_r_url = "https://mac.r-project.org/high-sierra/R-4.0-branch/x86_64/R-4.0-branch.tar.gz",
   git_host = "github",
   git_repo = "ocelhay/shinyboxtestapp",
-  function_name = "run_app",
   local_package_path = NULL,
+  function_name = "run_app",
   package_install_opts = NULL,
   build_path = NULL,
   rtools_path_win = NULL,
   nodejs_path = file.path(system.file(package = "shinybox"), "nodejs"),
   nodejs_version = "v12.16.2",
-  permission = FALSE,
   run_build = TRUE
 )
 }
@@ -33,16 +31,15 @@ that contains only alphanumeric (A-Z,a-z,0-9), hyphen (-), and period (.) charac
 see https://www.electron.build/configuration/configuration 
 and https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-102070}
 
-\item{author}{Author of the shiny app}
+\item{author}{Author of the app.}
 
-\item{description}{short app description}
+\item{description}{Short app description.}
 
-\item{semantic_version}{semantic version of your app, as character (not numeric!);
+\item{semantic_version}{Character string semantic version of the app, such as "v1.1.0".
 See https://semver.org/ for more info on semantic versioning.}
 
-\item{mran_date}{MRAN snapshot date, formatted as 'YYYY-MM-DD'}
-
-\item{cran_like_url}{url to cran-like repository}
+\item{cran_like_url}{url to cran-like repository. Default value is https://cran.r-project.org. 
+To use MRAN, set to "https://cran.microsoft.com/snapshot/2021-01-10" with desired date. (TODO: what about RStudio package repository?)}
 
 \item{mac_file}{file path to mac OS tar.gz. Might need to use option 1 of https://www.technipages.com/macos-disable-appname-cant-be-opened-because-it-is-from-an-unidentified-developer}
 
@@ -52,9 +49,9 @@ See https://semver.org/ for more info on semantic versioning.}
 
 \item{git_repo}{GitHub/Bitbucket/GitLab username/repo of the shiny-app package (e.g. 'ocelhay/shinyboxtestapp').}
 
-\item{function_name}{the function name in your package that starts the shiny app}
-
 \item{local_package_path}{path to local shiny-app package, if 'git_package' isn't used}
+
+\item{function_name}{the function name in your package that starts the shiny app}
 
 \item{package_install_opts}{optional arguments passed to remotes::install_github, install_gitlab, install_bitbucket, or install_local}
 
@@ -66,8 +63,6 @@ Must not contain a folder with the name as what you put for shinybox(app_name).}
 \item{nodejs_path}{path to nodejs}
 
 \item{nodejs_version}{nodejs version to install}
-
-\item{permission}{automatically grant permission to install nodejs and R}
 
 \item{run_build}{logical, whether to start the build process, helpful if you want to modify anthying before building}
 }

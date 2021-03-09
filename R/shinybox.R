@@ -98,7 +98,6 @@ shinybox <- function(app_name = "HAL9000",
   # Create top-level build folder for app  ----------------------------------
   create_folder(app_root_path)
   
-  
   # Copy Electron boilerplate into app_root_path -----
   dirs <- system.file("template", package = "shinybox")
   dirs <- list.dirs(dirs)[-1]

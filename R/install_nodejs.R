@@ -3,7 +3,6 @@
 #' @param node_url path to node.js.org
 #' @param nodejs_path parent folder of node.exe (~nodejs_path/node.exe)
 #' @param nodejs_version version of node.js (eg "v10.16.0")
-#' @param force_install try and install even if nodejs exists  (TRUE/FALSE)
 #' @param permission_to_install whether to skip .prompt_install_nodejs()
 #'
 #' @return installed or checked nodejs_path
@@ -11,21 +10,14 @@
 #'
 install_nodejs <- function(node_url = "https://nodejs.org/dist",
                            nodejs_path = file.path(system.file(package = "shinybox"), "nodejs"),
-                           force_install = FALSE,
                            nodejs_version = "v12.16.2",
                            permission_to_install  = FALSE){
   
   
-  if (!grepl("v", nodejs_version)) {
-    # Node version format is "v10.16.0", not "10.16.0"
-    # add "v" if needed
-    nodejs_version <- paste0("v",
-                             nodejs_version)
-  }
+  # nodejs_version format should be "v10.16.0"
+  if (!grepl("v", nodejs_version))  nodejs_version <- glue("v{nodejs_version}")
   
   # Check if node and npm are already installed
-  
-  
   node_exists <- .check_node_works(node_top_dir = nodejs_path,
                                    expected_version = nodejs_version)
   

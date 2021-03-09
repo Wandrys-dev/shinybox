@@ -5,20 +5,32 @@
 \title{Perform several checks and fail early}
 \usage{
 check_first(
+  app_name,
+  semantic_version,
+  function_name,
+  nodejs_path,
+  package_install_opts,
   build_path,
   cran_like_url,
-  mran_date,
   git_host,
   git_repo,
   local_package_path
 )
 }
 \arguments{
+\item{app_name}{app_name}
+
+\item{semantic_version}{semantic_version}
+
+\item{function_name}{function_name}
+
+\item{nodejs_path}{nodejs_path}
+
+\item{package_install_opts}{package_install_opts}
+
 \item{build_path}{build_path}
 
 \item{cran_like_url}{cran_like_url}
-
-\item{mran_date}{mran_date}
 
 \item{git_host}{git_host}
 

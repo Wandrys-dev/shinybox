@@ -205,7 +205,7 @@ shinybox <- function(app_name = "HAL9000",
   },
   "scripts": {
   "postinstall": "electron-builder install-app-deps",
-  "preunit": "webpack --config=build/webpack.unit.config.js --env=test --display=none",
+  "preunit": "webpack --config=build/webpack.unit.config.js --env=test",
   "unit": "electron-mocha temp/specs.js --renderer --require source-map-support/register",
   "pree2e": "webpack --config=build/webpack.app.config.js --env=test && webpack --config=build/webpack.e2e.config.js --env=test",
   "e2e": "mocha temp/e2e.js --require source-map-support/register",

@@ -44,38 +44,6 @@ shinybox <- function(app_name = "HAL9000",
                      nodejs_version = "v12.16.2",
                      run_build = TRUE) {
   
-  
-  # Test:
-  if(FALSE) {
-    
-    time <- format(Sys.time(), "%Y-%m-%d_%H%M")
-    build_path <- paste0("/Users/olivier/Desktop/shinybox_", time)
-    dir.create(build_path)
-    
-    nodejs_path <- "/usr/local/bin/"
-    nodejs_version <- system("node -v", intern = TRUE)
-    
-    library(shinybox)
-    shinybox(
-      app_name = "ACORN",
-      author = "Olivier Celhay, Paul Turner",
-      description = "A Dashboard for ACORN AMR Data",
-      semantic_version = "v0.0.1", # format vx.y.z
-      cran_like_url = "https://cran.microsoft.com/snapshot/2021-01-10",
-      mac_file = "/Users/olivier/Documents/Projets/Standalone R Shiny/R/macOS/2021-02-11/R-4.0-branch.tar.gz",
-      mac_r_url = "https://mac.r-project.org/high-sierra/R-4.0-branch/x86_64/R-4.0-branch.tar.gz", # only used if mac_file is NULL
-      git_host = "github",
-      git_repo = "ocelhay/shinyboxtestapp",
-      function_name = "run_app", 
-      local_package_path = NULL,
-      package_install_opts = list(type = "binary"),
-      build_path = build_path,
-      rtools_path_win = NULL,
-      nodejs_path = nodejs_path,
-      nodejs_version = nodejs_version,
-      run_build = TRUE)
-  }
-  
   # Check and fail early ---------------------------------------------------
   check_first(app_name,
               semantic_version,
@@ -101,7 +69,7 @@ shinybox <- function(app_name = "HAL9000",
   # Copy Electron boilerplate into app_root_path -----
   dirs <- system.file("template", package = "shinybox")
   dirs <- list.dirs(dirs)[-1]
-  file.copy(dirs, app_root_path, recursive = T)
+  file.copy(dirs, app_root_path, recursive = TRUE)
   
   # Install R --------------------------------------------------
   message("Install R")

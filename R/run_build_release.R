@@ -50,6 +50,9 @@ run_build_release <- function(nodejs_path = file.path(system.file(package = "shi
   }
   
   if (identical(os, "mac")) {
+    # Place to investigare
+    print(glue('cd {quoted_app_path} && {quoted_npm_path} install --scripts-prepend-node-path'))
+    
     message(system(glue::glue('cd {quoted_app_path} && {quoted_npm_path} install --scripts-prepend-node-path'),
                    wait = T,
                    intern = F,

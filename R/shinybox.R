@@ -114,7 +114,7 @@ shinybox <- function(app_name = "HAL9000",
                                         rtools_path_win = rtools_path_win)
   }
   
-  message("Trim R's size by removing docs.")
+  message("Trim R's size.")
   trim_r(build_path = build_path)
   
   message("Transfer and overwrite existing icons if present (icons folder at the root of inst)")
@@ -129,67 +129,18 @@ shinybox <- function(app_name = "HAL9000",
   }
   
   
-  # Create package.json -----------------------------------------------------
-  deps <- readLines(system.file("template/package.json", package = "shinybox"))[-1]
-  deps <- paste0(deps, collapse = "\n")
+  # Edit package.json -----------------------------------------------------
+  message("Edit package.json")
+  package_json <-  rjson::fromJSON(file = glue("{build_path}/package.json"))
   
-  # deps is appended to file
-  file <- glue::glue(
-    '
-{
-  "name": "<<app_name>>",
-  "description": "<<description>>",
-  "version": "<<semantic_version>>",
-  "private": true,
-  "author": "<<author>>",
-  "main": "app/background.js",
-  "build": {
-  "appId": "com.<<app_name>>",
-  "mac": {
-  "icon": "./resources/icon_mac.icns",
-  "category": "public.app-category.utilities"
-  },
-  "win": {
-  "icon": "./resources/icon_win.png"
-  },
-  "files": [
-  "app/**/*",
-  "node_modules/**/*",
-  "package.json",
-  "./resources/**/*"
-  ],
-  "directories": {
-  "buildResources": "resources"
-  },
-  "publish": null,
-  "asar": false
-  },
-  "scripts": {
-  "postinstall": "electron-builder install-app-deps",
-  "preunit": "webpack --config=build/webpack.unit.config.js --env=test",
-  "unit": "electron-mocha temp/specs.js --renderer --require source-map-support/register",
-  "pree2e": "webpack --config=build/webpack.app.config.js --env=test && webpack --config=build/webpack.e2e.config.js --env=test",
-  "e2e": "mocha temp/e2e.js --require source-map-support/register",
-  "test": "npm run unit && npm run e2e",
-  "start": "node build/start.js",
-  "release": "npm test && webpack --config=build/webpack.app.config.js --env=production && electron-builder"
-  },
- <<deps>>
+  package_json$name <- app_name
+  package_json$description <- description
+  package_json$version <- semantic_version
+  package_json$author <- author
+  package_json$appId <- glue::glue("com.{app_name}")
 
-',  .open = "<<", .close = ">>")
-  
-  write_text(text = file,
-             filename = "package.json",
-             path = build_path)
-  
-  # Edit package.json file ----
-  # package_json <-  rjson::fromJSON(file = glue("{dir_build_time}/{app_name}/package.json"))
-  # 
-  # package_json$description <- "Hey Jude!"
-  # package_json$author$email <- "mail@gmail.com"
-  # 
-  # package_json <- rjson::toJSON(package_json, indent = 2)
-  # write(package_json, glue("{dir_build_time}/{app_name}/package.json"))
+  package_json <- rjson::toJSON(package_json, indent = 2)
+  write(package_json, glue::glue("{build_path}/package.json"))
   
   
   

@@ -14,6 +14,7 @@ Depends:
 Imports: 
     glue,
     remotes,
+    rjson,
     stringr,
     withr,
     openssl

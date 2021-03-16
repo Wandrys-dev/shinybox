@@ -131,7 +131,7 @@ shinybox <- function(app_name = "HAL9000",
   
   # Edit package.json -----------------------------------------------------
   message("Edit package.json")
-  package_json <-  rjson::fromJSON(file = glue("{build_path}/package.json"))
+  package_json <-  rjson::fromJSON(file = glue::glue("{build_path}/package.json"))
   
   package_json$name <- app_name
   package_json$description <- description

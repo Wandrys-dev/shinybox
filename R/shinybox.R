@@ -18,7 +18,6 @@
 #' @param local_package_path path to local shiny-app package, if 'git_package' isn't used 
 #' @param package_install_opts optional arguments passed to remotes::install_github, install_gitlab, install_bitbucket, or install_local
 #' @param build_path Path where the build files will be created, preferably points to an empty directory.
-#'     Must not contain a folder with the name as what you put for shinybox(app_name).
 #' @param rtools_path_win path to RTools (Windows only)
 #' @param nodejs_path path to nodejs
 #' @param nodejs_version nodejs version to install
@@ -57,24 +56,18 @@ shinybox <- function(app_name = "HAL9000",
               local_package_path)
   
   
-  app_root_path <- file.path(build_path, app_name)
-  
-  
   # Determine Operating System ----------------------------------------------
   os <- get_os()
   
-  # Create top-level build folder for app  ----------------------------------
-  create_folder(app_root_path)
-  
-  # Copy Electron boilerplate into app_root_path -----
+  # Copy Electron boilerplate into build_path -----
   dirs <- system.file("template", package = "shinybox")
   dirs <- list.dirs(dirs)[-1]
-  file.copy(dirs, app_root_path, recursive = TRUE)
+  file.copy(dirs, build_path, recursive = TRUE)
   
   # Install R --------------------------------------------------
   message("Install R")
   install_r(cran_like_url = cran_like_url,
-            app_root_path = app_root_path,
+            build_path = build_path,
             mac_file = mac_file,
             mac_r_url = mac_r_url,
             permission_to_install = TRUE)
@@ -82,12 +75,12 @@ shinybox <- function(app_name = "HAL9000",
   
   # Find Electron app's R's library folder ----------------------------------
   if (identical(os, "win")) {
-    library_path <- file.path(app_root_path, "app", "r_lang", "library")
+    library_path <- file.path(build_path, "app", "r_lang", "library")
   }
   
   if (identical(os, "mac")) {
     
-    library_path <- file.path(app_root_path, 
+    library_path <- file.path(build_path, 
                               "app/r_lang/Library/Frameworks/R.framework/Versions")
     
     library_path <-  list.dirs(library_path, 
@@ -122,7 +115,7 @@ shinybox <- function(app_name = "HAL9000",
   }
   
   message("Trim R's size by removing docs.")
-  trim_r(app_root_path = app_root_path)
+  trim_r(build_path = build_path)
   
   message("Transfer and overwrite existing icons if present (icons folder at the root of inst)")
   electron_build_resources <- system.file("icons", 
@@ -131,7 +124,7 @@ shinybox <- function(app_name = "HAL9000",
   
   if (nchar(electron_build_resources) > 0) {
     electron_build_resources <- list.files(electron_build_resources, full.names = TRUE)
-    resources <- file.path(app_root_path, "resources")
+    resources <- file.path(build_path, "resources")
     file.copy(from = electron_build_resources, to = resources, overwrite = TRUE)
   }
   
@@ -187,7 +180,7 @@ shinybox <- function(app_name = "HAL9000",
   
   write_text(text = file,
              filename = "package.json",
-             path = app_root_path)
+             path = build_path)
   
   # Edit package.json file ----
   # package_json <-  rjson::fromJSON(file = glue("{dir_build_time}/{app_name}/package.json"))
@@ -202,7 +195,7 @@ shinybox <- function(app_name = "HAL9000",
   
   
   # Add function that runs the shiny app to description.js ------------------
-  modify_background_js(background_js_path = file.path(app_root_path, "src", "background.js"),
+  modify_background_js(background_js_path = file.path(build_path, "src", "background.js"),
                        my_package_name = my_package_name,
                        function_name = function_name,
                        r_path = dirname(library_path))
@@ -217,7 +210,7 @@ shinybox <- function(app_name = "HAL9000",
   # Build the electron app --------------------------------------------------
   ifelse(run_build, 
          run_build_release(nodejs_path = nodejs_path,
-                           app_path = app_root_path,
+                           build_path = build_path,
                            nodejs_version = nodejs_version),
          message("Build step was skipped. When you are ready to build the distributable run 'runBuild(...)'")
   )

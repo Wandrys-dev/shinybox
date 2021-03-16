@@ -1,7 +1,7 @@
 #' Install R from MRAN date into shinybox folder
 #'
 #' @param cran_like_url CRAN-like url e.g. https://cran.r-project.org/bin/windows/base
-#' @param app_root_path path to current shinybox app build
+#' @param build_path path to current shinybox app build
 #' @param mac_file file path to mac OS tar.gz
 #' @param mac_r_url mac R installer url
 #' @param permission_to_install have permission to install R?
@@ -9,7 +9,7 @@
 #' @export
 #'
 install_r <- function(cran_like_url = NULL,
-                      app_root_path,
+                      build_path,
                       mac_file = NULL,
                       mac_r_url = NULL,
                       permission_to_install  = FALSE) {
@@ -18,7 +18,7 @@ install_r <- function(cran_like_url = NULL,
   
   if (permission_to_install == FALSE) {
     
-    permission_to_install <- .prompt_install_r(app_root_path)
+    permission_to_install <- .prompt_install_r(build_path)
     
   }
   
@@ -31,14 +31,14 @@ install_r <- function(cran_like_url = NULL,
     
     os <- shinybox::get_os()
     
-    app_root_path <- normalizePath(app_root_path,
+    build_path <- normalizePath(build_path,
                                    winslash = "/",
                                    mustWork = FALSE)
     # Make NULL here so can check if not null later
     rlang_path <- NULL
     
     if (identical(os, "mac")) {
-      rlang_path <- .install_mac_r(app_root_path = app_root_path,
+      rlang_path <- .install_mac_r(build_path = build_path,
                                    mac_file = mac_file,
                                    mac_r_url = mac_r_url)
     }
@@ -50,7 +50,7 @@ install_r <- function(cran_like_url = NULL,
       win_installer_path <- .download_r(d_url = win_url)
       
       rlang_path <- .install_win_r(win_installer_path,
-                                   app_root_path)
+                                   build_path)
       
       rlang_path <- base::file.path(rlang_path,
                                     "bin",
@@ -129,20 +129,20 @@ install_r <- function(cran_like_url = NULL,
 #' Install R for Windows at given path
 #'
 #' @param win_installer_path path of Windows R installer 
-#' @param app_root_path top level of new shinybox app build
+#' @param build_path top level of new shinybox app build
 #'
 #' @return NA, installs R to path
 
 .install_win_r <- function(win_installer_path,
-                           app_root_path){
+                           build_path){
   
   # create the path R installer will install to
-  install_r_to_path <- base::file.path(app_root_path, 
+  install_r_to_path <- base::file.path(build_path, 
                                        "app",
                                        fsep = "/")
   base::dir.create(install_r_to_path)
   
-  install_r_to_path <- base::file.path(app_root_path, 
+  install_r_to_path <- base::file.path(build_path, 
                                        "app",
                                        "r_lang",
                                        fsep = "/")
@@ -163,11 +163,11 @@ install_r <- function(cran_like_url = NULL,
 
 #' Download and untar mac R into app folder
 #'
-#' @param app_root_path top level of new shinybox app build
+#' @param build_path top level of new shinybox app build
 #' @param mac_r_url url for mac R language download
 #'
 #' @return NA
-.install_mac_r <- function(app_root_path,
+.install_mac_r <- function(build_path,
                            mac_file,
                            mac_r_url){
   
@@ -179,14 +179,14 @@ install_r <- function(cran_like_url = NULL,
     installer_path <- .download_r(mac_r_url)
   }
   # path R installer will install to
-  install_r_to_path <- file.path(app_root_path, "app", "r_lang", fsep = "/")
+  install_r_to_path <- file.path(build_path, "app", "r_lang", fsep = "/")
   
   # untar files to the app folder
   utils::untar(tarfile = installer_path, 
                exdir = install_r_to_path)
   
   
-  r_executable_path <- file.path(app_root_path, 
+  r_executable_path <- file.path(build_path, 
                                  "app/r_lang/Library/Frameworks/R.framework/Versions")
   r_executable_path <- list.dirs(r_executable_path, 
                                  recursive = FALSE)[[1]]

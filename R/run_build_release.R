@@ -1,14 +1,14 @@
 #' Create an electron-builder release
 #'
 #' @param nodejs_path parent folder of node.exe (~nodejs_path/node.exe)
-#' @param app_path path to new electron app top directory
+#' @param build_path path to new electron app top directory
 #' @param nodejs_version for checking if nodejs is functional 
 #'
 #' @return nothing, used for side-effects
 #' @export
 #'
 run_build_release <- function(nodejs_path = file.path(system.file(package = "shinybox"), "nodejs"),
-                              app_path,
+                              build_path,
                               nodejs_version){
   
   
@@ -18,7 +18,7 @@ run_build_release <- function(nodejs_path = file.path(system.file(package = "shi
   
   if (isFALSE(npm_path))  stop("First run install_nodejs() or point nodejs_path to a functional version of nodejs.")
   
-  quoted_app_path <- base::shQuote(app_path)
+  quoted_build_path <- base::shQuote(build_path)
   quoted_npm_path <- base::shQuote(npm_path)
   
   
@@ -28,7 +28,7 @@ run_build_release <- function(nodejs_path = file.path(system.file(package = "shi
   
   if (identical(os, "win")) {
     message(system("cmd.exe",
-                   glue::glue('cd {quoted_app_path} && {quoted_npm_path} install --scripts-prepend-node-path'),
+                   glue::glue('cd {quoted_build_path} && {quoted_npm_path} install --scripts-prepend-node-path'),
                    invisible = FALSE,
                    minimized = F,
                    wait = T,
@@ -39,7 +39,7 @@ run_build_release <- function(nodejs_path = file.path(system.file(package = "shi
     message("Building your Electron app.")
     
     message(system("cmd.exe",
-                   glue::glue('cd {quoted_app_path} && {quoted_npm_path} run release --scripts-prepend-node-path'),
+                   glue::glue('cd {quoted_build_path} && {quoted_npm_path} run release --scripts-prepend-node-path'),
                    invisible = FALSE,
                    minimized = F,
                    wait = T,
@@ -51,9 +51,9 @@ run_build_release <- function(nodejs_path = file.path(system.file(package = "shi
   
   if (identical(os, "mac")) {
     # Place to investigare
-    print(glue::glue('cd {quoted_app_path} && {quoted_npm_path} install --scripts-prepend-node-path'))
+    print(glue::glue('cd {quoted_build_path} && {quoted_npm_path} install --scripts-prepend-node-path'))
     
-    message(system(glue::glue('cd {quoted_app_path} && {quoted_npm_path} install --scripts-prepend-node-path'),
+    message(system(glue::glue('cd {quoted_build_path} && {quoted_npm_path} install --scripts-prepend-node-path'),
                    wait = T,
                    intern = F,
                    ignore.stdout = F,
@@ -61,7 +61,7 @@ run_build_release <- function(nodejs_path = file.path(system.file(package = "shi
     
     message("Building your Electron app.")
     
-    message(system(glue::glue('cd {quoted_app_path} && {quoted_npm_path} run release --scripts-prepend-node-path'),
+    message(system(glue::glue('cd {quoted_build_path} && {quoted_npm_path} run release --scripts-prepend-node-path'),
                    wait = T,
                    intern = F,
                    ignore.stdout = F,

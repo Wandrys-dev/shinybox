@@ -8,8 +8,7 @@
 #' @export
 modify_mac_r <- function(r_executable_path){
 
-con <- file(r_executable_path,
-            "rt")
+con <- file(r_executable_path, "rt")
 executable_contents <- readLines(con, 
                                  n=-1, 
                                  warn = F)

@@ -182,9 +182,7 @@ install_r <- function(cran_like_url = NULL,
   install_r_to_path <- file.path(build_path, "app", "r_lang", fsep = "/")
   
   # untar files to the app folder
-  utils::untar(tarfile = installer_path, 
-               exdir = install_r_to_path)
-  
+  utils::untar(tarfile = installer_path, exdir = install_r_to_path)
   
   r_executable_path <- file.path(build_path, 
                                  "app/r_lang/Library/Frameworks/R.framework/Versions")

@@ -12,9 +12,8 @@ modify_background_js <- function(background_js_path,
                                  my_package_name,
                                  function_name,
                                  r_path){
-  if (!file.exists(background_js_path)) {
-    stop("addFunctionToBackgroundJs() failed because background_js_path didn't point to an existing file.")
-  }
+  
+  if (!file.exists(background_js_path)) stop("modify_background_js() failed because background_js_path didn't point to an existing file.")
   
   background_js_contents <- readLines(background_js_path)
   
@@ -29,7 +28,5 @@ modify_background_js <- function(background_js_path,
                                                 .close = ">?>")
                                    })
   
-  writeLines(background_js_contents,
-             background_js_path)
-  
+  writeLines(background_js_contents, background_js_path)
 }

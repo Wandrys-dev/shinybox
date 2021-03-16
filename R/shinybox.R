@@ -143,8 +143,6 @@ shinybox <- function(app_name = "HAL9000",
   write(package_json, glue::glue("{build_path}/package.json"))
   
   
-  
-  
   # Add function that runs the shiny app to description.js ------------------
   modify_background_js(background_js_path = file.path(build_path, "src", "background.js"),
                        my_package_name = my_package_name,

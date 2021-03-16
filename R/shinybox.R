@@ -1,13 +1,9 @@
 #' shinybox
 #'
-#' @param app_name This will be the name of the executable. It's a uniform type identifier (UTI)
-#'    that contains only alphanumeric (A-Z,a-z,0-9), hyphen (-), and period (.) characters.
-#'    see https://www.electron.build/configuration/configuration 
-#'    and https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-102070
+#' @param app_name Must be lowercase and one word, and may contain hyphens and underscores.
 #' @param author Author of the app.
 #' @param description Short app description.
-#' @param semantic_version Character string semantic version of the app, such as "v1.1.0".
-#'     See https://semver.org/ for more info on semantic versioning.
+#' @param semantic_version Must be in the form x.x.x and follow the semantic versioning guidelines - https://docs.npmjs.com/about-semantic-versioning.
 #' @param cran_like_url url to cran-like repository. Default value is https://cran.r-project.org. 
 #'     To use MRAN, set to "https://cran.microsoft.com/snapshot/2021-01-10" with desired date. (TODO: what about RStudio package repository?)
 #' @param mac_file file path to mac OS tar.gz. Might need to use option 1 of https://www.technipages.com/macos-disable-appname-cant-be-opened-because-it-is-from-an-unidentified-developer
@@ -25,8 +21,8 @@
 #'
 #' @export
 #'
-shinybox <- function(app_name = "HAL9000",
-                     author = "Stanley",
+shinybox <- function(app_name = "hal-9000",
+                     author = "Stanley K.",
                      description = "Heuristically Programmed ALgorithmic Computer",
                      semantic_version = "v9000.0.0",
                      cran_like_url = "https://cran.r-project.org",
@@ -137,7 +133,7 @@ shinybox <- function(app_name = "HAL9000",
   package_json$description <- description
   package_json$version <- semantic_version
   package_json$author <- author
-  package_json$appId <- glue::glue("com.{app_name}")
+  package_json$build$appId <- glue::glue("com.{app_name}")
 
   package_json <- rjson::toJSON(package_json, indent = 2)
   write(package_json, glue::glue("{build_path}/package.json"))

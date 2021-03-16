@@ -19,7 +19,7 @@
 #' @param package_install_opts optional arguments passed to remotes::install_github, install_gitlab, install_bitbucket, or install_local
 #' @param build_path Path where the build files will be created, preferably points to an empty directory.
 #'     Must not contain a folder with the name as what you put for shinybox(app_name).
-#' @param rtools_path_win path to RTools (Windows)
+#' @param rtools_path_win path to RTools (Windows only)
 #' @param nodejs_path path to nodejs
 #' @param nodejs_version nodejs version to install
 #' @param run_build logical, whether to start the build process, helpful if you want to modify anthying before building

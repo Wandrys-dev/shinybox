@@ -16,7 +16,6 @@
 #' @param build_path Path where the build files will be created, preferably points to an empty directory.
 #' @param rtools_path_win path to RTools (Windows only)
 #' @param nodejs_path path to nodejs
-#' @param nodejs_version nodejs version to install
 #' @param run_build logical, whether to start the build process, helpful if you want to modify anthying before building
 #'
 #' @export
@@ -36,7 +35,6 @@ shinybox <- function(app_name = "hal",
                      build_path = NULL,
                      rtools_path_win = NULL,
                      nodejs_path = file.path(system.file(package = "shinybox"), "nodejs"),
-                     nodejs_version = "v12.16.2",
                      run_build = TRUE) {
   
   # Check and fail early ---------------------------------------------------
@@ -50,6 +48,9 @@ shinybox <- function(app_name = "hal",
               git_host,
               git_repo,
               local_package_path)
+  
+  node_exists <- .check_node_works(node_top_dir = nodejs_path)
+  npm_exists <- .check_npm_works(node_top_dir = nodejs_path)
   
   
   # Determine Operating System ----------------------------------------------
@@ -146,17 +147,10 @@ shinybox <- function(app_name = "hal",
                        r_path = dirname(library_path))
   
   
-  # Download and unzip nodejs -----------------------------------------------
-  nodejs_path <- install_nodejs(node_url = "https://nodejs.org/dist",
-                                nodejs_path = nodejs_path,
-                                nodejs_version = nodejs_version,
-                                permission_to_install = TRUE)
-  
   # Build the electron app --------------------------------------------------
   ifelse(run_build, 
          run_build_release(nodejs_path = nodejs_path,
-                           build_path = build_path,
-                           nodejs_version = nodejs_version),
+                           build_path = build_path),
          message("Build step was skipped. When you are ready to build the distributable run 'runBuild(...)'")
   )
 }

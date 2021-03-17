@@ -5,8 +5,8 @@
 \title{shinybox}
 \usage{
 shinybox(
-  app_name = "HAL9000",
-  author = "Stanley",
+  app_name = "hal",
+  author = "Stanley K.",
   description = "Heuristically Programmed ALgorithmic Computer",
   semantic_version = "v9000.0.0",
   cran_like_url = "https://cran.r-project.org",
@@ -21,22 +21,17 @@ shinybox(
   build_path = NULL,
   rtools_path_win = NULL,
   nodejs_path = file.path(system.file(package = "shinybox"), "nodejs"),
-  nodejs_version = "v12.16.2",
   run_build = TRUE
 )
 }
 \arguments{
-\item{app_name}{This will be the name of the executable. It's a uniform type identifier (UTI)
-that contains only alphanumeric (A-Z,a-z,0-9), hyphen (-), and period (.) characters.
-see https://www.electron.build/configuration/configuration 
-and https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-102070}
+\item{app_name}{Must be lowercase and one word, and may contain hyphens and underscores.}
 
 \item{author}{Author of the app.}
 
 \item{description}{Short app description.}
 
-\item{semantic_version}{Character string semantic version of the app, such as "v1.1.0".
-See https://semver.org/ for more info on semantic versioning.}
+\item{semantic_version}{Must be in the form x.x.x and follow the semantic versioning guidelines - https://docs.npmjs.com/about-semantic-versioning.}
 
 \item{cran_like_url}{url to cran-like repository. Default value is https://cran.r-project.org. 
 To use MRAN, set to "https://cran.microsoft.com/snapshot/2021-01-10" with desired date. (TODO: what about RStudio package repository?)}
@@ -55,14 +50,11 @@ To use MRAN, set to "https://cran.microsoft.com/snapshot/2021-01-10" with desire
 
 \item{package_install_opts}{optional arguments passed to remotes::install_github, install_gitlab, install_bitbucket, or install_local}
 
-\item{build_path}{Path where the build files will be created, preferably points to an empty directory.
-Must not contain a folder with the name as what you put for shinybox(app_name).}
+\item{build_path}{Path where the build files will be created, preferably points to an empty directory.}
 
-\item{rtools_path_win}{path to RTools (Windows)}
+\item{rtools_path_win}{path to RTools (Windows only)}
 
 \item{nodejs_path}{path to nodejs}
-
-\item{nodejs_version}{nodejs version to install}
 
 \item{run_build}{logical, whether to start the build process, helpful if you want to modify anthying before building}
 }

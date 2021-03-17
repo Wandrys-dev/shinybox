@@ -6,7 +6,7 @@
 \usage{
 install_r(
   cran_like_url = NULL,
-  app_root_path,
+  build_path,
   mac_file = NULL,
   mac_r_url = NULL,
   permission_to_install = FALSE
@@ -15,7 +15,7 @@ install_r(
 \arguments{
 \item{cran_like_url}{CRAN-like url e.g. https://cran.r-project.org/bin/windows/base}
 
-\item{app_root_path}{path to current shinybox app build}
+\item{build_path}{path to current shinybox app build}
 
 \item{mac_file}{file path to mac OS tar.gz}
 

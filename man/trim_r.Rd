@@ -4,10 +4,10 @@
 \alias{trim_r}
 \title{Remove html and pdf files from R installation}
 \usage{
-trim_r(app_root_path)
+trim_r(build_path)
 }
 \arguments{
-\item{app_root_path}{path to the copied R installation}
+\item{build_path}{path to the copied R installation}
 }
 \value{
 nothing

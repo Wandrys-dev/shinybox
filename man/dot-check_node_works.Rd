@@ -4,12 +4,10 @@
 \alias{.check_node_works}
 \title{Check if Node works}
 \usage{
-.check_node_works(node_top_dir, expected_version)
+.check_node_works(node_top_dir)
 }
 \arguments{
 \item{node_top_dir}{directory containing nodejs app/exe}
-
-\item{expected_version}{expected version of node}
 }
 \value{
 path of nodejs executable if found and functional, otherwise: FALSE

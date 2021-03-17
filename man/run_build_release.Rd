@@ -6,16 +6,13 @@
 \usage{
 run_build_release(
   nodejs_path = file.path(system.file(package = "shinybox"), "nodejs"),
-  app_path,
-  nodejs_version
+  build_path
 )
 }
 \arguments{
 \item{nodejs_path}{parent folder of node.exe (~nodejs_path/node.exe)}
 
-\item{app_path}{path to new electron app top directory}
-
-\item{nodejs_version}{for checking if nodejs is functional}
+\item{build_path}{path to new electron app top directory}
 }
 \value{
 nothing, used for side-effects

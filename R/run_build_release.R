@@ -2,14 +2,12 @@
 #'
 #' @param nodejs_path parent folder of node.exe (~nodejs_path/node.exe)
 #' @param build_path path to new electron app top directory
-#' @param nodejs_version for checking if nodejs is functional 
 #'
 #' @return nothing, used for side-effects
 #' @export
 #'
 run_build_release <- function(nodejs_path = file.path(system.file(package = "shinybox"), "nodejs"),
-                              build_path,
-                              nodejs_version){
+                              build_path){
   
   
   os <- shinybox::get_os()

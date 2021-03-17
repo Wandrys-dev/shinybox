@@ -20,7 +20,7 @@
 #'
 #' @export
 #'
-shinybox <- function(app_name = "hal",
+shinybox <- function(app_name = "HAL",
                      author = "Stanley K.",
                      description = "Heuristically Programmed ALgorithmic Computer",
                      semantic_version = "v9000.0.0",

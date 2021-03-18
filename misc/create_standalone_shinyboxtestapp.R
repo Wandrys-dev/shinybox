@@ -45,3 +45,25 @@ shinybox(
   rtools_path_win = NULL,
   nodejs_path = "/usr/local/bin/",
   run_build = TRUE)
+
+
+# shinyboxtestapp, Windows
+time <- format(Sys.time(), "%Y-%m-%d_T%H%M%S")
+build_path <- paste0("C:/Users/olivi/Desktop/", time)
+dir.create(build_path)
+
+shinybox(
+  app_name = "HAL",
+  author = "Stanley K.",
+  description = "Heuristically Programmed ALgorithmic Computer",
+  semantic_version = "v9000.0.0",
+  cran_like_url = "https://cran.microsoft.com/snapshot/2021-01-10",
+  git_host = "github",
+  git_repo = "ocelhay/shinyboxtestapp",
+  function_name = "run_app", 
+  local_package_path = NULL,
+  package_install_opts = list(type = "binary"),
+  build_path = build_path,
+  rtools_path_win = "C:\\rtools40\\usr\\bin",
+  nodejs_path = "C:/Program Files/nodejs/",
+  run_build = TRUE)

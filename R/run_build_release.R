@@ -16,8 +16,8 @@ run_build_release <- function(nodejs_path = file.path(system.file(package = "shi
   
   if (isFALSE(npm_path))  stop("First run install_nodejs() or point nodejs_path to a functional version of nodejs.")
   
-  quoted_build_path <- base::shQuote(build_path)
-  quoted_npm_path <- base::shQuote(npm_path)
+  quoted_build_path <- shQuote(build_path)
+  quoted_npm_path <- shQuote(npm_path)
   
   
   # electron-packager <sourcedir> <appname> --platform=<platform> --arch=<arch> [optional flags...]

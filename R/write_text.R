@@ -12,20 +12,20 @@ write_text <- function(text,
                        filename,
                        path){
   
-  path <- base::file.path(path,
+  path <- file.path(path,
                           filename)
   
   path <- normalizePath(path, 
                         winslash = "/", 
                         mustWork = FALSE)
   
-  base::writeLines(text,
+  writeLines(text,
                    path)
   
   if (file.exists(path)) {
-    base::message(glue::glue("Successfully created {path}"))
+    message(glue::glue("Successfully created {path}"))
   } else {
-    base::warning(glue::glue("Did not create {path}"))
+    warning(glue::glue("Did not create {path}"))
   }
   
 }

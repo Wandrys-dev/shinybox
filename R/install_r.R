@@ -52,7 +52,7 @@ install_r <- function(cran_like_url = NULL,
       rlang_path <- .install_win_r(win_installer_path,
                                    build_path)
       
-      rlang_path <- base::file.path(rlang_path,
+      rlang_path <- file.path(rlang_path,
                                     "bin",
                                     fsep = "/")
     }
@@ -85,19 +85,19 @@ install_r <- function(cran_like_url = NULL,
                         "base")
   
   # Read snapshot html
-  readCran <- base::readLines(baseUrl,
+  readCran <- readLines(baseUrl,
                               warn = FALSE)
   
   # Find the name of the windows exe
-  filename <- base::regexpr("R-[0-9.]+.+-win\\.exe", readCran)
-  filename <- base::regmatches(readCran, filename)
+  filename <- regexpr("R-[0-9.]+.+-win\\.exe", readCran)
+  filename <- regmatches(readCran, filename)
   
-  if (base::regexpr("R-[0-9.]+.+-win\\.exe", filename)[[1]] != 1L) {
+  if (regexpr("R-[0-9.]+.+-win\\.exe", filename)[[1]] != 1L) {
     stop("Was unable to resolve url of R.exe installer for Windows.") 
   }
   
   # Construct the url of the download
-  win_exe_url <- base::file.path(baseUrl, 
+  win_exe_url <- file.path(baseUrl, 
                                  filename,
                                  fsep = "/")
   
@@ -114,7 +114,7 @@ install_r <- function(cran_like_url = NULL,
 .download_r <- function(d_url) {
   
   installer_filename <- basename(d_url)
-  download_path <- base::file.path(tempdir(), 
+  download_path <- file.path(tempdir(), 
                                    installer_filename,
                                    fsep = "/")
   utils::download.file(url = d_url, 
@@ -137,24 +137,24 @@ install_r <- function(cran_like_url = NULL,
                            build_path){
   
   # create the path R installer will install to
-  install_r_to_path <- base::file.path(build_path, 
+  install_r_to_path <- file.path(build_path, 
                                        "app",
                                        fsep = "/")
-  base::dir.create(install_r_to_path)
+  dir.create(install_r_to_path)
   
-  install_r_to_path <- base::file.path(build_path, 
+  install_r_to_path <- file.path(build_path, 
                                        "app",
                                        "r_lang",
                                        fsep = "/")
   
-  base::dir.create(install_r_to_path)
+  dir.create(install_r_to_path)
   
   # Quote path in case user's path has spaces, etc
-  quoted_install_r_to_path <- base::shQuote(install_r_to_path)
-  quoted_win_installer_path <- base::shQuote(win_installer_path)
+  quoted_install_r_to_path <- shQuote(install_r_to_path)
+  quoted_win_installer_path <- shQuote(win_installer_path)
   
   # install R
-  base::system(glue::glue("{quoted_win_installer_path} /SILENT /DIR={quoted_install_r_to_path}"))
+  system(glue::glue("{quoted_win_installer_path} /SILENT /DIR={quoted_install_r_to_path}"))
   
   return(install_r_to_path)
 }

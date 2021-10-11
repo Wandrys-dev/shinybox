@@ -7,7 +7,7 @@
 #' @param cran_like_url url to cran-like repository. Default value is https://cran.r-project.org. 
 #'     To use MRAN, set to "https://cran.microsoft.com/snapshot/2021-01-10" with desired date. (TODO: what about RStudio package repository?)
 #' @param mac_file file path to mac OS tar.gz. Might need to use option 1 of https://www.technipages.com/macos-disable-appname-cant-be-opened-because-it-is-from-an-unidentified-developer
-#' @param mac_r_url url to mac OS tar.gz 
+#' @param mac_r_url url to mac OS tar.gz  (https://mac.r-project.org/)
 #' @param git_host one of c("github", "gitlab", "bitbucket")
 #' @param git_repo GitHub/Bitbucket/GitLab username/repo of the shiny-app package (e.g. 'ocelhay/shinyboxtestapp'). 
 #' @param function_name the function name in your package that starts the shiny app
@@ -26,7 +26,7 @@ shinybox <- function(app_name = "HAL",
                      semantic_version = "v9000.0.0",
                      cran_like_url = "https://cran.r-project.org",
                      mac_file = NULL,
-                     mac_r_url = "https://mac.r-project.org/high-sierra/R-4.0-branch/x86_64/R-4.0-branch.tar.gz",
+                     mac_r_url = NULL
                      git_host = "github",
                      git_repo = "ocelhay/shinyboxtestapp",
                      local_package_path = NULL,

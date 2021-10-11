@@ -1,4 +1,4 @@
-#' Perform several checks and fail early
+#' Perform several checks and fail early.
 #' 
 #' @param app_name app_name
 #' @param semantic_version semantic_version
@@ -25,14 +25,17 @@ check_first <- function(
   git_repo,
   local_package_path) {
   
-  message("Check architecture.")
-  if (version$arch[[1]] != "x86_64")stop("32-bit operating systems builds are not supported.")
+  message("Perform several checks and fail early.")
   
-  if (is.null(app_name))  stop('Argument "app_name" is missing, with no default')
+  if (version$arch[[1]] != "x86_64")  stop("32-bit operating systems builds are not supported.")
   
-  if (is.null(semantic_version))  stop('Argument "semantic_version" is missing, with no default')
+  if (is.null(app_name))  stop("Argument 'app_name' is missing, with no default")
   
-  if (is.null(function_name))  stop('Argument "function_name" is missing, with no default')
+  if (is.null(semantic_version))  stop("Argument 'semantic_version' is missing, with no default.")
+  if (!is.character(semantic_version)) stop("'semantic_version' should be character type.")
+  if (! grepl("^v[0-9]+\\.[0-9]+\\.[0-9]+$", semantic_version))  stop("Argument semantic_version should be of the form 'vx.y.z' with x, y, z integers.")
+  
+  if (is.null(function_name))  stop("Argument 'function_name' is missing, with no default")
   
   if (is.null(nodejs_path))  stop('Argument "nodejs_path" is missing, with no default')
   

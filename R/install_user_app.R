@@ -153,27 +153,20 @@ install_user_app <- function(library_path = NULL,
 copy_remotes_package <- function(){
   remotes_path <- system.file(package = "remotes")
   
-  new_path <- file.path(tempdir(), 
-                        "shinybox")
-  dir.create(new_path)
-  
-  new_path <- file.path(tempdir(), 
-                        "shinybox",
-                        "templib")
-  dir.create(new_path)
+  new_path <- file.path(tempdir(), "shinybox", "templib")
+  dir.create(new_path, recursive = TRUE)
   
   file.copy(remotes_path,
             new_path, 
             recursive = TRUE,
             copy.mode = FALSE)
   
-  test <- file.path(new_path, 
-                    "remotes")
+  test <- file.path(new_path, "remotes")
   if (!file.exists(test)) {
     stop("Wasn't able to copy remotes package.")
   }
-  normalizePath(new_path,
-                winslash = "/")
+  
+  normalizePath(new_path, winslash = "/")
 }
 
 
@@ -185,14 +178,8 @@ copy_remotes_package <- function(){
 copy_shinybox_package <- function(){
   remotes_path <- system.file(package = "shinybox")
   
-  new_path <- file.path(tempdir(), 
-                        "shinybox")
-  dir.create(new_path)
-  
-  new_path <- file.path(tempdir(), 
-                        "shinybox",
-                        "templib")
-  dir.create(new_path)
+  new_path <- file.path(tempdir(), "shinybox", "templib")
+  dir.create(new_path, recursive = TRUE)
   
   file.copy(remotes_path,
             new_path, 

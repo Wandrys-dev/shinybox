@@ -85,8 +85,7 @@ install_r <- function(cran_like_url = NULL,
                         "base")
   
   # Read snapshot html
-  readCran <- readLines(baseUrl,
-                              warn = FALSE)
+  readCran <- readLines(baseUrl, warn = FALSE)
   
   # Find the name of the windows exe
   filename <- regexpr("R-[0-9.]+.+-win\\.exe", readCran)
@@ -136,18 +135,9 @@ install_r <- function(cran_like_url = NULL,
 .install_win_r <- function(win_installer_path,
                            build_path){
   
-  # create the path R installer will install to
-  install_r_to_path <- file.path(build_path, 
-                                       "app",
-                                       fsep = "/")
-  dir.create(install_r_to_path)
-  
-  install_r_to_path <- file.path(build_path, 
-                                       "app",
-                                       "r_lang",
-                                       fsep = "/")
-  
-  dir.create(install_r_to_path)
+  # Create the path R installer will install to.
+  install_r_to_path <- file.path(build_path, "app", "r_lang", fsep = "/")
+  dir.create(install_r_to_path, recursive = TRUE)
   
   # Quote path in case user's path has spaces, etc
   quoted_install_r_to_path <- shQuote(install_r_to_path)

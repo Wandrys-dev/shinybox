@@ -39,6 +39,8 @@ shinybox <- function(app_name = "HAL",
   
   # Determine Operating System ----------------------------------------------
   os <- get_os()
+  assign("os", os, envir = .GlobalEnv)  # otherwise object 'os' not found
+  message(glue("Operating System: {os}"))
   
   # Check and fail early ---------------------------------------------------
   check_first(app_name,

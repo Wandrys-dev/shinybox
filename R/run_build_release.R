@@ -11,6 +11,7 @@ run_build_release <- function(nodejs_path = file.path(system.file(package = "shi
   
   os <- shinybox::get_os()  # In case run_build_release is called independently
   
+  message("Checking if npm works.")
   npm_path <- check_npm_works(node_top_dir = nodejs_path)
   
   if (isFALSE(npm_path))  stop("First run install_nodejs() or point nodejs_path to a functional version of nodejs.")

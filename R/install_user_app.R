@@ -179,7 +179,9 @@ copy_shinybox_package <- function(){
   remotes_path <- system.file(package = "shinybox")
   
   new_path <- file.path(tempdir(), "shinybox", "templib")
-  dir.create(new_path, recursive = TRUE)
+  
+  # The directory has been created in copy_remotes_package()
+  # dir.create(new_path, recursive = TRUE)
   
   file.copy(remotes_path,
             new_path, 

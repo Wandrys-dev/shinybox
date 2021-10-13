@@ -52,7 +52,10 @@ shinybox <- function(app_name = "HAL",
               git_repo,
               local_package_path)
   
+  message("Checking if Node.js works.")
   node_exists <- check_node_works(node_top_dir = nodejs_path)
+  
+  message("Checking if npm works.")
   npm_exists  <- check_npm_works(node_top_dir = nodejs_path)
   
   # Copy Electron boilerplate into build_path -----

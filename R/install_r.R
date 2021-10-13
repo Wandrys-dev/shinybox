@@ -27,10 +27,6 @@ install_r <- function(cran_like_url = NULL,
             otherwise steps to build the app must be run individually.")
   } else {
     
-    
-    
-    # os <- shinybox::get_os()
-    
     build_path <- normalizePath(build_path,
                                    winslash = "/",
                                    mustWork = FALSE)

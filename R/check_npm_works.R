@@ -5,10 +5,6 @@
 #' @return path of npm executable if found and functional, otherwise: FALSE
 check_npm_works <- function(node_top_dir) {
   
-  message("Checking if npm works.")
-  
-  # os <- shinybox::get_os()
-  
   npm_path <- normalizePath(node_top_dir,
                             "/", 
                             mustWork = FALSE)

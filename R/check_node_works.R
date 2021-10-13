@@ -6,9 +6,6 @@
 check_node_works <- function(node_top_dir) {
   
   message("Checking if the provided nodejs path already contains nodejs...")
-  
-  # os <- shinybox::get_os()
-  
   node_path <- normalizePath(node_top_dir,
                              "/",
                              mustWork = FALSE)

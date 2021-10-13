@@ -5,14 +5,13 @@
 \title{shinybox}
 \usage{
 shinybox(
-  app_name = "hal",
+  app_name = "HAL",
   author = "Stanley K.",
   description = "Heuristically Programmed ALgorithmic Computer",
   semantic_version = "v9000.0.0",
   cran_like_url = "https://cran.r-project.org",
   mac_file = NULL,
- 
-    mac_r_url = "https://mac.r-project.org/high-sierra/R-4.0-branch/x86_64/R-4.0-branch.tar.gz",
+  mac_r_url = NULL,
   git_host = "github",
   git_repo = "ocelhay/shinyboxtestapp",
   local_package_path = NULL,
@@ -38,7 +37,7 @@ To use MRAN, set to "https://cran.microsoft.com/snapshot/2021-01-10" with desire
 
 \item{mac_file}{file path to mac OS tar.gz. Might need to use option 1 of https://www.technipages.com/macos-disable-appname-cant-be-opened-because-it-is-from-an-unidentified-developer}
 
-\item{mac_r_url}{url to mac OS tar.gz}
+\item{mac_r_url}{url to mac OS tar.gz  (https://mac.r-project.org/)}
 
 \item{git_host}{one of c("github", "gitlab", "bitbucket")}
 

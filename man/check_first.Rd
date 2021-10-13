@@ -2,7 +2,7 @@
 % Please edit documentation in R/check_first.R
 \name{check_first}
 \alias{check_first}
-\title{Perform several checks and fail early}
+\title{Perform several checks and fail early.}
 \usage{
 check_first(
   app_name,
@@ -39,5 +39,5 @@ check_first(
 \item{local_package_path}{local_package_path}
 }
 \description{
-Perform several checks and fail early
+Perform several checks and fail early.
 }

@@ -37,6 +37,9 @@ shinybox <- function(app_name = "HAL",
                      nodejs_path = file.path(system.file(package = "shinybox"), "nodejs"),
                      run_build = TRUE) {
   
+  # Determine Operating System ----------------------------------------------
+  os <- get_os()
+  
   # Check and fail early ---------------------------------------------------
   check_first(app_name,
               semantic_version,
@@ -49,12 +52,8 @@ shinybox <- function(app_name = "HAL",
               git_repo,
               local_package_path)
   
-  node_exists <- .check_node_works(node_top_dir = nodejs_path)
-  npm_exists <- .check_npm_works(node_top_dir = nodejs_path)
-  
-  
-  # Determine Operating System ----------------------------------------------
-  os <- get_os()
+  node_exists <- check_node_works(node_top_dir = nodejs_path)
+  npm_exists  <- check_npm_works(node_top_dir = nodejs_path)
   
   # Copy Electron boilerplate into build_path -----
   dirs <- system.file("template", package = "shinybox")

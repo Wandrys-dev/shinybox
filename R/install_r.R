@@ -29,7 +29,7 @@ install_r <- function(cran_like_url = NULL,
     
     
     
-    os <- shinybox::get_os()
+    # os <- shinybox::get_os()
     
     build_path <- normalizePath(build_path,
                                    winslash = "/",

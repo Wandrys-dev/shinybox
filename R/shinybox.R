@@ -39,7 +39,7 @@ shinybox <- function(app_name = "HAL",
   
   sys_os <- switch(Sys.info()["sysname"],
                "Darwin" = "mac",
-               "windows" = "win")
+               "Windows" = "win")
   
   # assign("os", os, envir = .GlobalEnv)  # otherwise object 'os' not found
   

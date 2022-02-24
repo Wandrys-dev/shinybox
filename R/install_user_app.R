@@ -1,5 +1,6 @@
 #' Install shiny app package and dependencies
 #'
+#' @param os os
 #' @param library_path path to the new Electron app's R's library folder
 #' @param repo_location {remotes} package function, one of c("github", "gitlab", "bitbucket", "local")
 #' @param repo e.g. if repo_location is github: "ocelhay/shinyboxtestapp" ; if repo_location is local: "C:/Users/olivier/shinyboxtestapp"
@@ -12,7 +13,8 @@
 #' @export
 #'
 
-install_user_app <- function(library_path = NULL,
+install_user_app <- function(os,
+                             library_path = NULL,
                              repo_location = NULL,
                              repo = NULL,
                              repos = cran_like_url,

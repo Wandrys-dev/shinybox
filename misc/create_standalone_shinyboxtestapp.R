@@ -1,9 +1,7 @@
 # Make sure to use the correct version of shinybox
 rm(list = ls())
 cat("\014")
-remove.packages("shinybox")
-detach("package:shinybox", unload = TRUE)
-remotes::install_github("ocelhay/shinybox")
+remotes::install_github("ocelhay/shinybox", ref = "master")
 library(shinybox)
 
 # ensure that the latest npm is installed

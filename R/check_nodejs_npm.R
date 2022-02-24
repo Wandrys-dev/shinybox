@@ -1,10 +1,13 @@
 #' Check if Nodejs and npm works
-#'
+#' 
+#' @param os os
 #' @param node_top_dir directory containing nodejs app/exe
 #'
 #' @return path of nodejs executable if found and functional, otherwise: FALSE
 
-check_nodejs_npm <- function(node_top_dir) {
+check_nodejs_npm <- function(
+  os,
+  node_top_dir) {
   
   node_dir <- normalizePath(node_top_dir, "/", mustWork = FALSE)
   

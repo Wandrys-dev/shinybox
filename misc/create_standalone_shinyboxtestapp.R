@@ -1,21 +1,9 @@
 # Make sure to use the correct version of shinybox
-rm(list = ls())
-cat("\014")
 remotes::install_github("ocelhay/shinybox", ref = "master")
 library(shinybox)
 
-# ensure that the latest npm is installed
-# https://www.npmjs.com/package/npm
-# (system("npm -v", intern = TRUE))
-# (system("node -v", intern = TRUE))
-
-
-# "npm install electron@latest"
-
 # Test shinyboxtestapp ----
 # remove.packages("shinyboxtestapp")
-# detach("package:shinyboxtestapp", unload = TRUE)
-# remotes::install_github("ocelhay/shinyboxtestapp")
 # library(shinyboxtestapp)
 # shinyboxtestapp::run_app()
 

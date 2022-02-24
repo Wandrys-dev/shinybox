@@ -1,5 +1,6 @@
 #' Install R from MRAN date into shinybox folder
 #'
+#' @param os os
 #' @param cran_like_url CRAN-like url e.g. https://cran.r-project.org/bin/windows/base
 #' @param build_path path to current shinybox app build
 #' @param mac_file file path to mac OS tar.gz
@@ -7,7 +8,8 @@
 #'
 #' @export
 #'
-install_r <- function(cran_like_url = NULL,
+install_r <- function(os,
+                      cran_like_url = NULL,
                       build_path,
                       mac_file = NULL,
                       mac_r_url = NULL) {

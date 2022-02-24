@@ -37,13 +37,14 @@ shinybox <- function(app_name = "HAL",
                      nodejs_path = NULL,
                      run_build = TRUE) {
   
-  os <- switch(Sys.info()["sysname"],
+  sys_os <- switch(Sys.info()["sysname"],
                "Darwin" = "mac",
                "windows" = "win")
+  
   # assign("os", os, envir = .GlobalEnv)  # otherwise object 'os' not found
   
   # check function arguments and fail early if something is wrong. ----
-  check_first(os,
+  check_first(os = sys_os,
               app_name,
               semantic_version,
               function_name,
@@ -56,7 +57,8 @@ shinybox <- function(app_name = "HAL",
               local_package_path)
   
   # check Node.js and npm. ----
-  check_nodejs_npm(node_top_dir = nodejs_path)
+  check_nodejs_npm(os = sys_os,
+                   node_top_dir = nodejs_path)
   
   # copy Electron app template into the build path. ----
   dirs <- system.file("template", package = "shinybox")
@@ -64,7 +66,6 @@ shinybox <- function(app_name = "HAL",
   file.copy(dirs, build_path, recursive = TRUE)
   
   # edit package.json (Electron app template). ----
-  message("Copy, edit and write 'package.json'")
   package_json <- rjson::fromJSON(file = system.file("template/package.json", package = "shinybox"))
   
   package_json$name <- app_name
@@ -77,8 +78,8 @@ shinybox <- function(app_name = "HAL",
   write(package_json, glue::glue("{build_path}/package.json"))
   
   # install R in the build path. ----
-  message("Install R")
-  install_r(cran_like_url = cran_like_url,
+  install_r(os = sys_os,
+            cran_like_url = cran_like_url,
             build_path = build_path,
             mac_file = mac_file,
             mac_r_url = mac_r_url)
@@ -99,7 +100,8 @@ shinybox <- function(app_name = "HAL",
   # Install shiny app/package and dependencies ------------------------------
   message("Install shiny app/package and dependencies")
   if (!is.null(git_host)) {
-    my_package_name <-  install_user_app(library_path = library_path,
+    my_package_name <-  install_user_app(os = sys_os,
+                                         library_path = library_path,
                                          repo_location = git_host,
                                          repo = git_repo,
                                          repos = cran_like_url,
@@ -109,7 +111,8 @@ shinybox <- function(app_name = "HAL",
   
   
   if (!is.null(local_package_path)) {
-    my_package_name <- install_user_app(library_path = library_path ,
+    my_package_name <- install_user_app(os = sys_os,
+                                        library_path = library_path ,
                                         repo_location = "local",
                                         repo = local_package_path,
                                         repos = cran_like_url,

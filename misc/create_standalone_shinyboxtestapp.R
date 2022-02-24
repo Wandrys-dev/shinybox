@@ -1,30 +1,16 @@
 # Make sure to use the correct version of shinybox
-rm(list = ls())
-cat("\014")
-remove.packages("shinybox")
-detach("package:shinybox", unload = TRUE)
-remotes::install_github("ocelhay/shinybox")
+remotes::install_github("ocelhay/shinybox", ref = "master")
 library(shinybox)
-
-# ensure that the latest npm is installed
-# https://www.npmjs.com/package/npm
-# (system("npm -v", intern = TRUE))
-# (system("node -v", intern = TRUE))
-
-
-# "npm install electron@latest"
 
 # Test shinyboxtestapp ----
 # remove.packages("shinyboxtestapp")
-# detach("package:shinyboxtestapp", unload = TRUE)
-# remotes::install_github("ocelhay/shinyboxtestapp")
 # library(shinyboxtestapp)
 # shinyboxtestapp::run_app()
 
 
 
-# shinyboxtestapp
-time <- format(Sys.time(), "%Y-%m-%d_T%H%M")
+# shinyboxtestapp, macOS
+time <- format(Sys.time(), "%Y-%m-%d_%H%M")
 build_path <- paste0("/Users/olivier/Desktop/shinybox_", time)
 dir.create(build_path)
 

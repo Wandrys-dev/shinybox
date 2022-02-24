@@ -22,7 +22,7 @@ npm -v
 
 ## shiny app
 
-The shiny app should be as a package.
+The shiny app should be organised as an R package. See https://mastering-shiny.org/scaling-packaging.html
 
 # Building steps
 

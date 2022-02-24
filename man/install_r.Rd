@@ -4,13 +4,7 @@
 \alias{install_r}
 \title{Install R from MRAN date into shinybox folder}
 \usage{
-install_r(
-  cran_like_url = NULL,
-  build_path,
-  mac_file = NULL,
-  mac_r_url = NULL,
-  permission_to_install = FALSE
-)
+install_r(cran_like_url = NULL, build_path, mac_file = NULL, mac_r_url = NULL)
 }
 \arguments{
 \item{cran_like_url}{CRAN-like url e.g. https://cran.r-project.org/bin/windows/base}
@@ -20,8 +14,6 @@ install_r(
 \item{mac_file}{file path to mac OS tar.gz}
 
 \item{mac_r_url}{mac R installer url}
-
-\item{permission_to_install}{have permission to install R?}
 }
 \description{
 Install R from MRAN date into shinybox folder

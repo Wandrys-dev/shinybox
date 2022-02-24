@@ -81,8 +81,7 @@ shinybox <- function(app_name = "HAL",
   install_r(cran_like_url = cran_like_url,
             build_path = build_path,
             mac_file = mac_file,
-            mac_r_url = mac_r_url,
-            permission_to_install = TRUE)
+            mac_r_url = mac_r_url)
   
   
   # Find Electron app's R's library folder ----------------------------------

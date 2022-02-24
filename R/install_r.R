@@ -4,65 +4,50 @@
 #' @param build_path path to current shinybox app build
 #' @param mac_file file path to mac OS tar.gz
 #' @param mac_r_url mac R installer url
-#' @param permission_to_install have permission to install R?
 #'
 #' @export
 #'
 install_r <- function(cran_like_url = NULL,
                       build_path,
                       mac_file = NULL,
-                      mac_r_url = NULL,
-                      permission_to_install  = FALSE) {
+                      mac_r_url = NULL) {
   
   
   
-  if (permission_to_install == FALSE) {
-    
-    permission_to_install <- .prompt_install_r(build_path)
-    
+  build_path <- normalizePath(build_path,
+                              winslash = "/",
+                              mustWork = FALSE)
+  # Make NULL here so can check if not null later
+  rlang_path <- NULL
+  
+  if (identical(os, "mac")) {
+    rlang_path <- .install_mac_r(build_path = build_path,
+                                 mac_file = mac_file,
+                                 mac_r_url = mac_r_url)
   }
   
-  if (permission_to_install == FALSE) {
-    message("R is bundled into the shinybox app. shinybox() requires this to be accepted, 
-            otherwise steps to build the app must be run individually.")
-  } else {
+  if (identical(os, "win")) {
     
-    build_path <- normalizePath(build_path,
-                                   winslash = "/",
-                                   mustWork = FALSE)
-    # Make NULL here so can check if not null later
-    rlang_path <- NULL
+    win_url <- .find_win_exe_url(cran_like_url = cran_like_url)
     
-    if (identical(os, "mac")) {
-      rlang_path <- .install_mac_r(build_path = build_path,
-                                   mac_file = mac_file,
-                                   mac_r_url = mac_r_url)
-    }
+    win_installer_path <- .download_r(d_url = win_url)
     
-    if (identical(os, "win")) {
-      
-      win_url <- .find_win_exe_url(cran_like_url = cran_like_url)
-      
-      win_installer_path <- .download_r(d_url = win_url)
-      
-      rlang_path <- .install_win_r(win_installer_path,
-                                   build_path)
-      
-      rlang_path <- file.path(rlang_path,
-                                    "bin",
-                                    fsep = "/")
-    }
+    rlang_path <- .install_win_r(win_installer_path,
+                                 build_path)
     
-    # Check that Rscript is present (ie R at least probably installed)
-    # TODO: Mod this check to a system call that checks if R is functional (see testthat tests for install_r())
-    if (length(list.files(rlang_path,
-                          pattern = "Rscript")) != 1L) {
-      stop("R install didn't work as expected.")
-    } 
-    
-    return(rlang_path)
-    
+    rlang_path <- file.path(rlang_path,
+                            "bin",
+                            fsep = "/")
   }
+  
+  # Check that Rscript is present (ie R at least probably installed)
+  # TODO: Mod this check to a system call that checks if R is functional (see testthat tests for install_r())
+  if (length(list.files(rlang_path,
+                        pattern = "Rscript")) != 1L) {
+    stop("R install didn't work as expected.")
+  } 
+  
+  return(rlang_path)
 }
 
 
@@ -93,8 +78,8 @@ install_r <- function(cran_like_url = NULL,
   
   # Construct the url of the download
   win_exe_url <- file.path(baseUrl, 
-                                 filename,
-                                 fsep = "/")
+                           filename,
+                           fsep = "/")
   
   return(win_exe_url)
 }
@@ -110,8 +95,8 @@ install_r <- function(cran_like_url = NULL,
   
   installer_filename <- basename(d_url)
   download_path <- file.path(tempdir(), 
-                                   installer_filename,
-                                   fsep = "/")
+                             installer_filename,
+                             fsep = "/")
   utils::download.file(url = d_url, 
                        destfile = download_path, 
                        mode = "wb")

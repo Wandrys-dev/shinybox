@@ -37,13 +37,14 @@ shinybox <- function(app_name = "HAL",
                      nodejs_path = NULL,
                      run_build = TRUE) {
   
-  os <- switch(Sys.info()["sysname"],
+  sys_os <- switch(Sys.info()["sysname"],
                "Darwin" = "mac",
                "windows" = "win")
+  
   # assign("os", os, envir = .GlobalEnv)  # otherwise object 'os' not found
   
   # check function arguments and fail early if something is wrong. ----
-  check_first(os = os,
+  check_first(os = sys_os,
               app_name,
               semantic_version,
               function_name,
@@ -56,7 +57,7 @@ shinybox <- function(app_name = "HAL",
               local_package_path)
   
   # check Node.js and npm. ----
-  check_nodejs_npm(os = os,
+  check_nodejs_npm(os = sys_os,
                    node_top_dir = nodejs_path)
   
   # copy Electron app template into the build path. ----
@@ -77,7 +78,7 @@ shinybox <- function(app_name = "HAL",
   write(package_json, glue::glue("{build_path}/package.json"))
   
   # install R in the build path. ----
-  install_r(os = os,
+  install_r(os = sys_os,
             cran_like_url = cran_like_url,
             build_path = build_path,
             mac_file = mac_file,
@@ -99,7 +100,7 @@ shinybox <- function(app_name = "HAL",
   # Install shiny app/package and dependencies ------------------------------
   message("Install shiny app/package and dependencies")
   if (!is.null(git_host)) {
-    my_package_name <-  install_user_app(os = os,
+    my_package_name <-  install_user_app(os = sys_os,
                                          library_path = library_path,
                                          repo_location = git_host,
                                          repo = git_repo,
@@ -110,7 +111,7 @@ shinybox <- function(app_name = "HAL",
   
   
   if (!is.null(local_package_path)) {
-    my_package_name <- install_user_app(os = os,
+    my_package_name <- install_user_app(os = sys_os,
                                         library_path = library_path ,
                                         repo_location = "local",
                                         repo = local_package_path,

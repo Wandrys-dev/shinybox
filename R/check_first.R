@@ -1,5 +1,6 @@
 #' Perform several checks and fail early.
 #' 
+#' @param os os
 #' @param app_name app_name
 #' @param semantic_version semantic_version
 #' @param function_name function_name
@@ -14,6 +15,7 @@
 
 
 check_first <- function(
+  os,
   app_name,
   semantic_version,
   function_name,
@@ -24,8 +26,8 @@ check_first <- function(
   git_host,
   git_repo,
   local_package_path) {
-  
-  message("Perform several checks and fail early.")
+
+  if(is.null(os))  stop("Unrecognised OS. shinybox is not compatible with macOS AMR or Linux")
   
   if (version$arch[[1]] != "x86_64")  stop("32-bit operating systems builds are not supported.")
   

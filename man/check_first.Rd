@@ -5,6 +5,7 @@
 \title{Perform several checks and fail early.}
 \usage{
 check_first(
+  os,
   app_name,
   semantic_version,
   function_name,
@@ -18,6 +19,8 @@ check_first(
 )
 }
 \arguments{
+\item{os}{os}
+
 \item{app_name}{app_name}
 
 \item{semantic_version}{semantic_version}

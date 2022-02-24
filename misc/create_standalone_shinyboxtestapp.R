@@ -23,7 +23,7 @@ library(shinybox)
 
 
 
-# shinyboxtestapp, macOS - works (2021-03-17)
+# shinyboxtestapp
 time <- format(Sys.time(), "%Y-%m-%d_T%H%M")
 build_path <- paste0("/Users/olivier/Desktop/shinybox_", time)
 dir.create(build_path)

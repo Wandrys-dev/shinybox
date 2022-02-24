@@ -1,0 +1,16 @@
+app_name = "HAL"
+author = "Stanley K."
+description = "Heuristically Programmed ALgorithmic Computer"
+semantic_version = "v9000.0.0"
+cran_like_url = "https://cran.r-project.org"
+mac_file = NULL
+mac_r_url = NULL
+git_host = "github"
+git_repo = "ocelhay/shinyboxtestapp"
+local_package_path = NULL
+function_name = "run_app"
+package_install_opts = NULL
+build_path = ""
+rtools_path_win = NULL
+nodejs_path = "/usr/local/bin/"
+run_build = TRUE

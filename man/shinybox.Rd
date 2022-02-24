@@ -19,7 +19,7 @@ shinybox(
   package_install_opts = NULL,
   build_path = NULL,
   rtools_path_win = NULL,
-  nodejs_path = file.path(system.file(package = "shinybox"), "nodejs"),
+  nodejs_path = NULL,
   run_build = TRUE
 )
 }

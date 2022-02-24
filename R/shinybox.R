@@ -10,8 +10,8 @@
 #' @param mac_r_url url to mac OS tar.gz  (https://mac.r-project.org/)
 #' @param git_host one of c("github", "gitlab", "bitbucket")
 #' @param git_repo GitHub/Bitbucket/GitLab username/repo of the shiny-app package (e.g. 'ocelhay/shinyboxtestapp'). 
-#' @param function_name the function name in your package that starts the shiny app
 #' @param local_package_path path to local shiny-app package, if 'git_package' isn't used 
+#' @param function_name the function name in your package that starts the shiny app
 #' @param package_install_opts optional arguments passed to remotes::install_github, install_gitlab, install_bitbucket, or install_local
 #' @param build_path Path where the build files will be created, preferably points to an empty directory.
 #' @param rtools_path_win path to RTools (Windows only)
@@ -37,13 +37,14 @@ shinybox <- function(app_name = "HAL",
                      nodejs_path = NULL,
                      run_build = TRUE) {
   
-  # Determine Operating System ----------------------------------------------
-  os <- get_os()
-  assign("os", os, envir = .GlobalEnv)  # otherwise object 'os' not found
-  message(glue::glue("Operating System: {os}"))
+  os <- switch(Sys.info()["sysname"],
+               "Darwin" = "mac",
+               "windows" = "win")
+  # assign("os", os, envir = .GlobalEnv)  # otherwise object 'os' not found
   
-  # Check and fail early ---------------------------------------------------
-  check_first(app_name,
+  # check function arguments and fail early if something is wrong. ----
+  check_first(os,
+              app_name,
               semantic_version,
               function_name,
               nodejs_path,
@@ -54,18 +55,28 @@ shinybox <- function(app_name = "HAL",
               git_repo,
               local_package_path)
   
-  message("Checking if Node.js works.")
-  node_exists <- check_node_works(node_top_dir = nodejs_path)
+  # check Node.js and npm. ----
+  check_nodejs_npm(node_top_dir = nodejs_path)
   
-  message("Checking if npm works.")
-  npm_exists  <- check_npm_works(node_top_dir = nodejs_path)
-  
-  # Copy Electron boilerplate into build_path -----
+  # copy Electron app template into the build path. ----
   dirs <- system.file("template", package = "shinybox")
   dirs <- list.dirs(dirs)[-1]
   file.copy(dirs, build_path, recursive = TRUE)
   
-  # Install R --------------------------------------------------
+  # edit package.json (Electron app template). ----
+  message("Copy, edit and write 'package.json'")
+  package_json <- rjson::fromJSON(file = system.file("template/package.json", package = "shinybox"))
+  
+  package_json$name <- app_name
+  package_json$description <- description
+  package_json$version <- semantic_version
+  package_json$author <- author
+  package_json$build$appId <- glue::glue("com.{app_name}")
+  
+  package_json <- rjson::toJSON(package_json, indent = 2)
+  write(package_json, glue::glue("{build_path}/package.json"))
+  
+  # install R in the build path. ----
   message("Install R")
   install_r(cran_like_url = cran_like_url,
             build_path = build_path,
@@ -128,21 +139,6 @@ shinybox <- function(app_name = "HAL",
     resources <- file.path(build_path, "resources")
     file.copy(from = electron_build_resources, to = resources, overwrite = TRUE)
   }
-  
-  
-  # Edit package.json -----------------------------------------------------
-  message("Copy, edit and write 'package.json'")
-  package_json <- rjson::fromJSON(file = system.file("template/package.json", package = "shinybox"))
-  
-  package_json$name <- app_name
-  package_json$description <- description
-  package_json$version <- semantic_version
-  package_json$author <- author
-  package_json$build$appId <- glue::glue("com.{app_name}")
-
-  package_json <- rjson::toJSON(package_json, indent = 2)
-  write(package_json, glue::glue("{build_path}/package.json"))
-  
   
   # Add function that runs the shiny app to description.js ------------------
   modify_background_js(background_js_path = file.path(build_path, "src", "background.js"),

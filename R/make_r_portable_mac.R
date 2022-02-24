@@ -1,12 +1,11 @@
-
-
 #' Change fixed paths to make R portable on macOS
 #'
 #' @param r_executable_path path to ~bin/R
 #'
 #' @return NA, modifies file
 #' @export
-modify_mac_r <- function(r_executable_path){
+
+make_r_portable_mac <- function(r_executable_path){
 
 con <- file(r_executable_path, "rt")
 executable_contents <- readLines(con, 

@@ -177,7 +177,7 @@ install_r <- function(cran_like_url = NULL,
   r_executable_path <- file.path(r_executable_path,
                                  "Resources/bin/R", 
                                  fsep = "/")
-  shinybox::modify_mac_r(r_executable_path)
+  shinybox::make_r_portable_mac(r_executable_path)
   
   return(dirname(r_executable_path))
   

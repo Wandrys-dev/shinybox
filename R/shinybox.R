@@ -91,19 +91,11 @@ shinybox <- function(app_name = "HAL",
   }
   
   if (identical(os, "mac")) {
-    
-    library_path <- file.path(build_path, 
-                              "app/r_lang/Library/Frameworks/R.framework/Versions")
-    
-    library_path <-  list.dirs(library_path, 
-                               recursive = FALSE)
-    
-    library_path <- library_path[grep("\\d+\\.(?:\\d+|x)(?:\\.\\d+|x){0,1}",
-                                      library_path)][[1]]
-    
-    library_path <- file.path(library_path,
-                              "Resources/library")
-  }  
+    library_path <- file.path(build_path, "app/r_lang/Library/Frameworks/R.framework/Versions")
+    library_path <-  list.dirs(library_path, recursive = FALSE)
+    library_path <- library_path[grep("\\d+\\.(?:\\d+|x)(?:\\.\\d+|x){0,1}", library_path)][[1]]
+    library_path <- file.path(library_path, "Resources/library")
+  }
   
   # Install shiny app/package and dependencies ------------------------------
   message("Install shiny app/package and dependencies")

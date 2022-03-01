@@ -5,11 +5,14 @@
 \title{Create an electron-builder release}
 \usage{
 run_build_release(
+  os,
   nodejs_path = file.path(system.file(package = "shinybox"), "nodejs"),
   build_path
 )
 }
 \arguments{
+\item{os}{os}
+
 \item{nodejs_path}{parent folder of node.exe (~nodejs_path/node.exe)}
 
 \item{build_path}{path to new electron app top directory}

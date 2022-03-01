@@ -4,9 +4,11 @@
 \alias{check_nodejs_npm}
 \title{Check if Nodejs and npm works}
 \usage{
-check_nodejs_npm(node_top_dir)
+check_nodejs_npm(os, node_top_dir)
 }
 \arguments{
+\item{os}{os}
+
 \item{node_top_dir}{directory containing nodejs app/exe}
 }
 \value{

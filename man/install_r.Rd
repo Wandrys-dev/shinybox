@@ -4,9 +4,17 @@
 \alias{install_r}
 \title{Install R from MRAN date into shinybox folder}
 \usage{
-install_r(cran_like_url = NULL, build_path, mac_file = NULL, mac_r_url = NULL)
+install_r(
+  os,
+  cran_like_url = NULL,
+  build_path,
+  mac_file = NULL,
+  mac_r_url = NULL
+)
 }
 \arguments{
+\item{os}{os}
+
 \item{cran_like_url}{CRAN-like url e.g. https://cran.r-project.org/bin/windows/base}
 
 \item{build_path}{path to current shinybox app build}

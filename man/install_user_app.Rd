@@ -5,6 +5,7 @@
 \title{Install shiny app package and dependencies}
 \usage{
 install_user_app(
+  os,
   library_path = NULL,
   repo_location = NULL,
   repo = NULL,
@@ -14,6 +15,8 @@ install_user_app(
 )
 }
 \arguments{
+\item{os}{os}
+
 \item{library_path}{path to the new Electron app's R's library folder}
 
 \item{repo_location}{{remotes} package function, one of c("github", "gitlab", "bitbucket", "local")}

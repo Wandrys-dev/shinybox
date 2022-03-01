@@ -9,7 +9,7 @@ Create Standalone R-Shiny Apps using the Electron framework.
 
 ## Node.js and npm
 
-Node.js is an open-source, cross-platform, back-end JavaScript runtime environment that runs on the V8 engine and executes JavaScript code outside a web browser. [Wikipedia](https://en.wikipedia.org/wiki/Node.js). npm is a package mahager for the JavaScript language. npm is the default package manager for the JavaScript runtime environment Node.js.
+Node.js is an open-source, cross-platform, back-end JavaScript runtime environment that runs on the V8 engine and executes JavaScript code outside a web browser. [Wikipedia](https://en.wikipedia.org/wiki/Node.js). npm is a package manager for the JavaScript language. npm is the default package manager for the JavaScript runtime environment Node.js.
 
 Perform (once per machine) an installation of nodejs and npm (https://nodejs.org/en/). We recommend that you use the latest LTS version available.
 

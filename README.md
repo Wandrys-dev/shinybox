@@ -32,7 +32,7 @@ The main `shinybox` function will attenpt at create an Electron app. It undertak
 - check Node.js and npm.
 - copy Electron app template into the build path.
 - edit package.json (Electron app template).
-- install R in the build path.
+- install R in the build path. **You could be prompted for authorisation to install.**
 - install the shiny app and all package dependencies.
 - trim R.
 - modify background.js (Electron app template)

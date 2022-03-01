@@ -86,11 +86,11 @@ shinybox <- function(app_name = "HAL",
   
   
   # Find Electron app's R's library folder ----------------------------------
-  if (identical(os, "win")) {
+  if (identical(sys_os, "win")) {
     library_path <- file.path(build_path, "app", "r_lang", "library")
   }
   
-  if (identical(os, "mac")) {
+  if (identical(sys_os, "mac")) {
     library_path <- file.path(build_path, "app/r_lang/Library/Frameworks/R.framework/Versions")
     library_path <-  list.dirs(library_path, recursive = FALSE)
     library_path <- library_path[grep("\\d+\\.(?:\\d+|x)(?:\\.\\d+|x){0,1}", library_path)][[1]]

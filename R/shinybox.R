@@ -143,8 +143,9 @@ shinybox <- function(app_name = "HAL",
   
   # Build the electron app --------------------------------------------------
   ifelse(run_build, 
-         run_build_release(nodejs_path = nodejs_path,
+         run_build_release(os = sys_os,
+                           nodejs_path = nodejs_path,
                            build_path = build_path),
-         message("Build step was skipped. When you are ready to build the distributable run 'runBuild(...)'")
+         message("Build step was skipped. When you are ready to build the distributable run 'run_build_release(...)'")
   )
 }

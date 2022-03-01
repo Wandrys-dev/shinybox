@@ -1,15 +1,15 @@
 #' Create an electron-builder release
 #'
+#' @param os os
 #' @param nodejs_path parent folder of node.exe (~nodejs_path/node.exe)
 #' @param build_path path to new electron app top directory
 #'
 #' @return nothing, used for side-effects
 #' @export
 #'
-run_build_release <- function(nodejs_path = file.path(system.file(package = "shinybox"), "nodejs"),
+run_build_release <- function(os,
+                              nodejs_path = file.path(system.file(package = "shinybox"), "nodejs"),
                               build_path){
-  
-  os <- shinybox::get_os()  # In case run_build_release is called independently
   
   message("Checking if npm works.")
   npm_path <- check_npm_works(node_top_dir = nodejs_path)

@@ -60,10 +60,7 @@ install_r <- function(os,
     }
     
     # Construct the url of the download
-    win_url <- file.path(baseUrl, 
-                         filename,
-                         fsep = "/")
-    
+    win_url <- file.path(baseUrl, filename, fsep = "/")
     win_installer_path <- download_r(d_url = win_url)
     
     # Create the path R installer will install to.

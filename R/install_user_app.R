@@ -69,7 +69,7 @@ install_user_app <- function(os,
   # Copy {remotes} package to an isolated folder.
   # This is necessary to avoid dependency-install issues
   new_path <- file.path(tempdir(), "shinybox", "templib")
-  dir.create(new_path, recursive = TRUE)
+  dir.create(new_path, recursive = TRUE, showWarnings = FALSE)
   
   remotes_path <- system.file(package = "remotes")
   

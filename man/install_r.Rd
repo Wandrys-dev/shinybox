@@ -2,7 +2,7 @@
 % Please edit documentation in R/install_r.R
 \name{install_r}
 \alias{install_r}
-\title{Install R from MRAN date into shinybox folder}
+\title{Install R into shinybox folder}
 \usage{
 install_r(
   os,
@@ -24,5 +24,5 @@ install_r(
 \item{mac_r_url}{mac R installer url}
 }
 \description{
-Install R from MRAN date into shinybox folder
+Install R into shinybox folder
 }

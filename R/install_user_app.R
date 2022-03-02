@@ -60,31 +60,40 @@ install_user_app <- function(os,
                       lib = library_path)
                )
   )
-  
-  # os <- shinybox::get_os()  
-  
-  if (identical(os, "win")) {
-    rscript_path <- file.path(dirname(library_path),  # important to have base:: !
-                              "bin",
-                              "Rscript.exe")
-  }
-  
-  if (identical(os, "mac")) {
-    rscript_path <- file.path(dirname(library_path),
-                              "bin",
-                              "R")
-  }
 
   tmp_file <- tempfile()
   save(list = c("remotes_code",
                 "passthr"),
        file = tmp_file)
   
+  # Copy {remotes} package to an isolated folder.
+  # This is necessary to avoid dependency-install issues
+  new_path <- file.path(tempdir(), "shinybox", "templib")
+  dir.create(new_path, recursive = TRUE)
   
+  remotes_path <- system.file(package = "remotes")
   
-  remotes_library <- copy_remotes_package()
+  file.copy(remotes_path,
+            new_path, 
+            recursive = TRUE,
+            copy.mode = FALSE)
   
-  copy_shinybox_package()
+  test <- file.path(new_path, "remotes")
+  if (!file.exists(test))  stop("Wasn't able to copy remotes package.")
+  
+  remotes_library <- normalizePath(new_path, winslash = "/")
+  
+  # Copy {shinybox} package to an isolated folder.
+  # This is necessary to avoid dependency-install issues
+  remotes_path <- system.file(package = "shinybox")
+
+  file.copy(remotes_path,
+            new_path, 
+            recursive = TRUE,
+            copy.mode = F)
+  
+  test <- file.path(new_path, "shinybox")
+  if (!file.exists(test)) stop("Wasn't able to copy shinybox package.")
   
   
   old_R_LIBS <- Sys.getenv("R_LIBS")
@@ -112,6 +121,10 @@ install_user_app <- function(os,
   
   # System Install Packages
   if (identical(os, "win")) {
+    rscript_path <- file.path(dirname(library_path),  # important to have base:: !
+                              "bin",
+                              "Rscript.exe")
+    
     system2(rscript_path,
             paste0("-e ",
                    "shinybox::install_package()"),
@@ -120,6 +133,9 @@ install_user_app <- function(os,
   }
   
   if (identical(os, "mac")) {
+    browser()
+    rscript_path <- file.path(dirname(library_path), "bin", "R")
+    
     system2(rscript_path,
             paste0("-e ",
                    "'",
@@ -143,58 +159,4 @@ install_user_app <- function(os,
   user_pkg <- readLines(tmp_file2)
   
   return(user_pkg)
-}
-
-
-
-
-#' Copy {remotes} package to an isolated folder.
-#'    This is necessary to avoid dependency-install issues
-#'
-#' @return path of new {remotes}-only library
-copy_remotes_package <- function(){
-  remotes_path <- system.file(package = "remotes")
-  
-  new_path <- file.path(tempdir(), "shinybox", "templib")
-  dir.create(new_path, recursive = TRUE)
-  
-  file.copy(remotes_path,
-            new_path, 
-            recursive = TRUE,
-            copy.mode = FALSE)
-  
-  test <- file.path(new_path, "remotes")
-  if (!file.exists(test)) {
-    stop("Wasn't able to copy remotes package.")
-  }
-  
-  normalizePath(new_path, winslash = "/")
-}
-
-
-
-#' Copy {shinybox} package to an isolated folder.
-#'    This is necessary to avoid dependency-install issues
-#'
-#' @return path of new {shinybox}-only library
-copy_shinybox_package <- function(){
-  remotes_path <- system.file(package = "shinybox")
-  
-  new_path <- file.path(tempdir(), "shinybox", "templib")
-  
-  # The directory has been created in copy_remotes_package()
-  # dir.create(new_path, recursive = TRUE)
-  
-  file.copy(remotes_path,
-            new_path, 
-            recursive = TRUE,
-            copy.mode = F)
-  
-  test <- file.path(new_path, 
-                    "shinybox")
-  if (!file.exists(test)) {
-    stop("Wasn't able to copy shinybox package.")
-  }
-  invisible(normalizePath(new_path,
-                          winslash = "/"))
 }

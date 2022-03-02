@@ -1,6 +1,6 @@
 # Make sure to use the correct version of shinybox
 remove.packages("shinybox")
-remotes::install_github("ocelhay/shinybox", ref = "master")
+remotes::install_github("ocelhay/shinybox", ref = "master", upgrade = "never")
 library(shinybox)
 
 # Test shinyboxtestapp ----
@@ -9,8 +9,7 @@ library(shinybox)
 # shinyboxtestapp::run_app()
 
 # shinyboxtestapp, macOS
-time <- format(Sys.time(), "%Y-%m-%d_%H%M")
-build_path <- paste0("/Users/olivier/Desktop/shinybox_", time)
+build_path <- glue::glue("/Users/olivier/Desktop/shinybox_{format(Sys.time(), '%Y-%m-%d_%H%M')}")
 dir.create(build_path)
 
 shinybox(

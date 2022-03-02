@@ -28,28 +28,21 @@ install_r <- function(os,
       installer_path <- mac_file
     }
     
-    browser()
-    
     if(is.null(mac_file)) {
-      installer_path <- .download_r(mac_r_url)
+      installer_path <- download_r(mac_r_url)
     }
     # path R installer will install to
-    install_r_to_path <- file.path(build_path, "app", "r_lang", fsep = "/")
+    install_r_to_path <- file.path(build_path, "app", "r_lang")
     
     # untar files to the app folder
-    utils::untar(tarfile = installer_path, exdir = install_r_to_path)
+    untar(tarfile = installer_path, exdir = install_r_to_path)
     
-    r_executable_path <- file.path(build_path, 
-                                   "app/r_lang/Library/Frameworks/R.framework/Versions")
-    r_executable_path <- list.dirs(r_executable_path, 
-                                   recursive = FALSE)[[1]]
-    r_executable_path <- file.path(r_executable_path,
-                                   "Resources/bin/R", 
-                                   fsep = "/")
+    r_executable_path <- file.path(build_path, "app/r_lang/Library/Frameworks/R.framework/Versions")
+    r_executable_path <- list.dirs(r_executable_path, recursive = FALSE)[[1]]
+    r_executable_path <- file.path(r_executable_path, "Resources/bin/R")
     shinybox::make_r_portable_mac(r_executable_path)
     
     rlang_path <- dirname(r_executable_path)
-    
   }
   
   if (identical(os, "win")) {
@@ -71,10 +64,7 @@ install_r <- function(os,
                          filename,
                          fsep = "/")
     
-    win_installer_path <- .download_r(d_url = win_url)
-    
-    rlang_path <- .install_win_r(win_installer_path,
-                                 build_path)
+    win_installer_path <- download_r(d_url = win_url)
     
     # Create the path R installer will install to.
     install_r_to_path <- file.path(build_path, "app", "r_lang", fsep = "/")
@@ -95,9 +85,7 @@ install_r <- function(os,
   if (length(list.files(rlang_path,
                         pattern = "Rscript")) != 1L) {
     stop("R install didn't work as expected.")
-  } 
-  
-  return(rlang_path)
+  }
 }
 
 

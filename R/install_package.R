@@ -1,4 +1,3 @@
-
 #' Install from isolated lib
 #'
 #' @return na
@@ -27,6 +26,5 @@ install_package <- function(){
   # but when called from system2, at least on mac,
   # this results in a lot of kerfuffle so here we return
   # a string that will we can regex for
-  writeLines(z, con=return_file_path)
-
+  writeLines(z, con = return_file_path)
 }

@@ -12,14 +12,15 @@ install_package <- function(){
   if (!nchar(passthr) > 0 ) {
     stop("Empty path") 
   }  
-  passthr <- normalizePath(passthr, 
-                           winslash = "/")
+  passthr <- normalizePath(passthr, winslash = "/")
   
   load(passthr)
   
-  remotes_code <- utils::getFromNamespace(remotes_code,
-                                   ns = "remotes")
-
+  if (identical(os, "mac")) {
+    # this is where the issue with incompatible packages happne on macos
+    browser()
+  }
+  remotes_code <- getFromNamespace(remotes_code, ns = "remotes")
   
   z <- do.call(remotes_code, passthr)
   # the remotes package returns the name of the installed package

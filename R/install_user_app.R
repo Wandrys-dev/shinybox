@@ -60,7 +60,7 @@ install_user_app <- function(os,
                       lib = library_path)
                )
   )
-
+  
   tmp_file <- tempfile()
   save(list = c("remotes_code",
                 "passthr"),
@@ -86,7 +86,7 @@ install_user_app <- function(os,
   # Copy {shinybox} package to an isolated folder.
   # This is necessary to avoid dependency-install issues
   remotes_path <- system.file(package = "shinybox")
-
+  
   file.copy(remotes_path,
             new_path, 
             recursive = TRUE,
@@ -112,7 +112,7 @@ install_user_app <- function(os,
     message("Add RTools to R system path.")
     Sys.setenv(PATH = paste(rtools_path_win, Sys.getenv("PATH"), sep = ";"))
   }
-
+  
   tmp_file2 <- tempfile()
   file.create(tmp_file2)
   Sys.setenv(ESHINE_package_return = tmp_file2)
@@ -125,34 +125,22 @@ install_user_app <- function(os,
                               "bin",
                               "Rscript.exe")
     
-    system2(rscript_path,
-            paste0("-e ",
-                   "shinybox::install_package()"),
-            wait = TRUE,
-            stdout = "")
+    system2(rscript_path, "-e shinybox::install_package()")
   }
   
   if (identical(os, "mac")) {
-    browser()
     rscript_path <- file.path(dirname(library_path), "bin", "R")
-    
-    system2(rscript_path,
-            paste0("-e ",
-                   "'",
-                   "shinybox::install_package()",
-                   "'"),
-            wait = TRUE,
-            stdout = "")
+    system2(rscript_path, "-e 'shinybox::install_package()'")
   }
-
+  
   
   on.exit({
-  Sys.setenv(R_LIBS = old_R_LIBS)
-  Sys.setenv(R_LIBS_USER = old_R_LIBS_USER)
-  Sys.setenv(R_LIBS_SITE = old_R_LIBS_SITE)
-  Sys.setenv(ESHINE_PASSTHRUPATH = "")
-  Sys.setenv(ESHINE_remotes_code = "")
-})
+    Sys.setenv(R_LIBS = old_R_LIBS)
+    Sys.setenv(R_LIBS_USER = old_R_LIBS_USER)
+    Sys.setenv(R_LIBS_SITE = old_R_LIBS_SITE)
+    Sys.setenv(ESHINE_PASSTHRUPATH = "")
+    Sys.setenv(ESHINE_remotes_code = "")
+  })
   message("Finshed: Installing your Shiny package into shinybox framework")
   
   # TODO: break into unit-testable function

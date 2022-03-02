@@ -1,4 +1,4 @@
-# Make sure to use the correct version of shinybox
+# Install the latest version of shinybox
 remove.packages("shinybox")
 remotes::install_github("ocelhay/shinybox", ref = "master", upgrade = "never")
 library(shinybox)
@@ -16,8 +16,8 @@ shinybox(
   app_name = "HAL",
   author = "Stanley K.",
   description = "Heuristically Programmed ALgorithmic Computer",
-  semantic_version = "v9000.0.0",
-  cran_like_url = "https://cran.microsoft.com/snapshot/2021-01-10",
+  semantic_version = "v1.0.0",
+  cran_like_url = "https://cran.r-project.org",  # "https://cran.microsoft.com/snapshot/2021-01-10",
   # mac_file = "/Users/olivier/Documents/Projets/Standalone R Shiny/R/macOS/2020-10-13/R-4.0-branch.tar.gz",
   mac_r_url = "https://mac.r-project.org/high-sierra/R-4.1-branch/x86_64/R-4.1-branch.tar.gz", # only used if mac_file is NULL
   git_host = "github",
@@ -40,8 +40,9 @@ shinybox(
   app_name = "HAL",
   author = "Stanley K.",
   description = "Heuristically Programmed ALgorithmic Computer",
-  semantic_version = "v9000.0.0",
-  cran_like_url = "https://cran.microsoft.com/snapshot/2021-01-10",
+  semantic_version = "v1.0.0",
+  cran_like_url = "https://cran.r-project.org",
+  # cran_like_url = "https://cran.microsoft.com/snapshot/2021-01-10",
   git_host = "github",
   git_repo = "ocelhay/shinyboxtestapp",
   function_name = "run_app", 

@@ -16,10 +16,9 @@ install_package <- function(){
   
   load(passthr)
   
-  if (identical(os, "mac")) {
-    # this is where the issue with incompatible packages happne on macos
-    browser()
-  }
+  # TODO this is where the issue with incompatible packages happne on macos
+  # browser()
+  
   remotes_code <- getFromNamespace(remotes_code, ns = "remotes")
   
   z <- do.call(remotes_code, passthr)

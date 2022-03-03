@@ -78,6 +78,7 @@ shinybox <- function(app_name = "HAL",
   write(package_json, glue::glue("{build_path}/package.json"))
   
   # install R in the build path. ----
+  message("Install R.")
   install_r(os = sys_os,
             cran_like_url = cran_like_url,
             build_path = build_path,

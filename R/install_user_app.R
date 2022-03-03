@@ -48,18 +48,13 @@ install_user_app <- function(os,
     }
   }
   
-  remotes_code <- as.character(glue::glue("install_{repo_location}"))
+  remotes_code <- glue::glue("install_{repo_location}")
   
-  
-  browser()
-  repo <- as.list(repo)
-  
-  passthr <- c(repo, repos = repos,
-               c(package_install_opts, 
-                 list(force = TRUE,
-                      lib = library_path)
-               )
-  )
+  passthr <- c(as.list(repo), 
+               repos = repos,
+               package_install_opts, 
+               force = TRUE,
+               lib = library_path)
   
   tmp_file <- tempfile()
   save(list = c("remotes_code",
@@ -90,7 +85,7 @@ install_user_app <- function(os,
   file.copy(remotes_path,
             new_path, 
             recursive = TRUE,
-            copy.mode = F)
+            copy.mode = FALSE)
   
   test <- file.path(new_path, "shinybox")
   if (!file.exists(test)) stop("Wasn't able to copy shinybox package.")

@@ -19,7 +19,7 @@ shinybox(
   description = "Heuristically Programmed ALgorithmic Computer",
   semantic_version = "v1.0.0",
   cran_like_url = "https://cran.r-project.org",  # "https://cran.microsoft.com/snapshot/2021-01-10",
-  # mac_file = "/Users/olivier/Documents/Projets/Standalone R Shiny/R/macOS/2020-10-13/R-4.0-branch.tar.gz",
+  # mac_file = "/Users/olivier/Documents/Ressources Pro/R/macOS targz/R-4.1-branch.tar.gz",
   mac_r_url = "https://mac.r-project.org/high-sierra/R-4.1-branch/x86_64/R-4.1-branch.tar.gz", # only used if mac_file is NULL
   git_host = "github",
   git_repo = "ocelhay/shinyboxtestapp",

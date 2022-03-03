@@ -9,19 +9,14 @@ install_package <- function() {
   remotes_code <-  Sys.getenv("ESHINE_remotes_code")
   return_file_path <-  Sys.getenv("ESHINE_package_return")
   
-  browser()
-  
   if (!nchar(passthr) > 0 ) {
     stop("Empty path") 
   }  
   passthr <- normalizePath(passthr, winslash = "/")
-  browser()
   
   load(passthr)
   
   # TODO this is where the issue with incompatible packages happne on macos
-  browser()
-  
   remotes_code <- getFromNamespace(remotes_code, ns = "remotes")
   
   z <- do.call(remotes_code, passthr)

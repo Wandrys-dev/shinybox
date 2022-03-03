@@ -1,4 +1,4 @@
-# Install the latest version of shinybox
+# Install and load the latest version of shinybox
 remove.packages("shinybox")
 detach("package:shinybox", unload = TRUE)
 remotes::install_github("ocelhay/shinybox", ref = "master", upgrade = "never")

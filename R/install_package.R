@@ -4,20 +4,21 @@
 #' @export
 #'
 
-install_package <- function(){
-  passthr <-  Sys.getenv(c("ESHINE_PASSTHRUPATH"))
-  remotes_code <-  Sys.getenv(c("ESHINE_remotes_code"))
-  return_file_path <-  Sys.getenv(c("ESHINE_package_return"))
+install_package <- function() {
+  passthr <-  Sys.getenv("ESHINE_PASSTHRUPATH")
+  remotes_code <-  Sys.getenv("ESHINE_remotes_code")
+  return_file_path <-  Sys.getenv("ESHINE_package_return")
   
   if (!nchar(passthr) > 0 ) {
     stop("Empty path") 
   }  
   passthr <- normalizePath(passthr, winslash = "/")
+  browser()
   
   load(passthr)
   
   # TODO this is where the issue with incompatible packages happne on macos
-  # browser()
+  browser()
   
   remotes_code <- getFromNamespace(remotes_code, ns = "remotes")
   

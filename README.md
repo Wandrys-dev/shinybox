@@ -24,6 +24,8 @@ npm -v
 
 The shiny app should be organised as an R package. See https://mastering-shiny.org/scaling-packaging.html
 
+Optionaly, a folder named "icons" located in the "inst" folder containing images to be used as shortcut image of the app: icons.icns for macOS and icons.pgn for Windows.
+
 # Building steps
 
 The main `shinybox` function will attenpt at create an Electron app. It undertakes the following steps:

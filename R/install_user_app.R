@@ -14,12 +14,12 @@
 #'
 
 install_user_app <- function(os,
-                             library_path = NULL,
-                             repo_location = NULL,
-                             repo = NULL,
-                             repos = cran_like_url,
-                             package_install_opts = NULL,
-                             rtools_path_win = NULL) {
+                             library_path,
+                             repo_location,
+                             repo,
+                             repos,
+                             package_install_opts,
+                             rtools_path_win) {
   
   accepted_sites <- c("github", "gitlab", "bitbucket", "local")
   
@@ -51,7 +51,7 @@ install_user_app <- function(os,
   remotes_code <- as.character(glue::glue("install_{repo_location}"))
   
   
-  
+  browser()
   repo <- as.list(repo)
   
   passthr <- c(repo, repos = repos,

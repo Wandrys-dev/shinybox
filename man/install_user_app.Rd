@@ -6,12 +6,12 @@
 \usage{
 install_user_app(
   os,
-  library_path = NULL,
-  repo_location = NULL,
-  repo = NULL,
-  repos = cran_like_url,
-  package_install_opts = NULL,
-  rtools_path_win = NULL
+  library_path,
+  repo_location,
+  repo,
+  repos,
+  package_install_opts,
+  rtools_path_win
 )
 }
 \arguments{

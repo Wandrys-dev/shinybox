@@ -7,9 +7,10 @@
 #' @param cran_like_url url to cran-like repository. Default value is https://cran.r-project.org. 
 #'     To use MRAN, set to "https://cran.microsoft.com/snapshot/2021-01-10" with desired date. (TODO: what about RStudio package repository?)
 #' @param mac_file file path to mac OS tar.gz. Might need to use option 1 of https://www.technipages.com/macos-disable-appname-cant-be-opened-because-it-is-from-an-unidentified-developer
-#' @param mac_r_url url to mac OS tar.gz  (https://mac.r-project.org/)
+#'     Example: "/Users/olivier/Documents/Ressources Pro/R/macOS targz/R-4.1-branch.tar.gz",
+#' @param mac_r_url url to mac OS tar.gz  ("https://mac.r-project.org/high-sierra/R-4.1-branch/x86_64/R-4.1-branch.tar.gz"). Only used if mac_file is NULL.
 #' @param git_host one of c("github", "gitlab", "bitbucket")
-#' @param git_repo GitHub/Bitbucket/GitLab username/repo of the shiny-app package (e.g. 'ocelhay/shinyboxtestapp'). 
+#' @param git_repo GitHub/Bitbucket/GitLab username/repo of the shiny-app package (e.g. 'ocelhay/shinyboxtestapp',  'acornamr/acorn-dashboard@development'). 
 #' @param local_package_path path to local shiny-app package, if 'git_package' isn't used 
 #' @param function_name the function name in your package that starts the shiny app
 #' @param package_install_opts optional arguments passed to remotes::install_github, install_gitlab, install_bitbucket, or install_local

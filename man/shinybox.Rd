@@ -35,13 +35,14 @@ shinybox(
 \item{cran_like_url}{url to cran-like repository. Default value is https://cran.r-project.org. 
 To use MRAN, set to "https://cran.microsoft.com/snapshot/2021-01-10" with desired date. (TODO: what about RStudio package repository?)}
 
-\item{mac_file}{file path to mac OS tar.gz. Might need to use option 1 of https://www.technipages.com/macos-disable-appname-cant-be-opened-because-it-is-from-an-unidentified-developer}
+\item{mac_file}{file path to mac OS tar.gz. Might need to use option 1 of https://www.technipages.com/macos-disable-appname-cant-be-opened-because-it-is-from-an-unidentified-developer
+Example: "/Users/olivier/Documents/Ressources Pro/R/macOS targz/R-4.1-branch.tar.gz",}
 
-\item{mac_r_url}{url to mac OS tar.gz  (https://mac.r-project.org/)}
+\item{mac_r_url}{url to mac OS tar.gz  ("https://mac.r-project.org/high-sierra/R-4.1-branch/x86_64/R-4.1-branch.tar.gz"). Only used if mac_file is NULL.}
 
 \item{git_host}{one of c("github", "gitlab", "bitbucket")}
 
-\item{git_repo}{GitHub/Bitbucket/GitLab username/repo of the shiny-app package (e.g. 'ocelhay/shinyboxtestapp').}
+\item{git_repo}{GitHub/Bitbucket/GitLab username/repo of the shiny-app package (e.g. 'ocelhay/shinyboxtestapp',  'acornamr/acorn-dashboard@development').}
 
 \item{local_package_path}{path to local shiny-app package, if 'git_package' isn't used}
 

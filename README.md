@@ -1,5 +1,9 @@
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
 
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/ocelhay/shinybox/workflows/R-CMD-check/badge.svg)](https://github.com/ocelhay/shinybox/actions)
+<!-- badges: end -->
+
 # shinybox
 
 Create Standalone R-Shiny Apps using the Electron framework.

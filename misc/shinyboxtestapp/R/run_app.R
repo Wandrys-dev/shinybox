@@ -1,4 +1,4 @@
-#' Launch the testapp 
+#' Launch the app 
 #' 
 #' This function is used to generate the standalone version
 #' @param options Named options that should be passed to the run_app call.
@@ -11,6 +11,6 @@
 #' 
 
 run_app <- function(options = list()) {
-  app_directory <- system.file("testapp", package = "shinyboxtestapp")
+  app_directory <- system.file("shinyboxtestapp_dir", package = "shinyboxtestapp")
   shiny::shinyAppDir(app_directory, options = options)
 }

@@ -16,7 +16,7 @@ install_package <- function() {
   
   load(passthr)
   
-  # TODO this is where the issue with incompatible packages happne on macos
+  # TODO this is where the issue with incompatible packages happens on macos
   remotes_code <- getFromNamespace(remotes_code, ns = "remotes")
   
   z <- do.call(remotes_code, passthr)

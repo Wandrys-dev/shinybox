@@ -59,6 +59,6 @@ run_build_release <- function(os,
                    ignore.stdout = FALSE,
                    ignore.stderr = FALSE))
   }
-  message("You should now have both a transferable and distributable installer Electron app.")
+  message("If all went well, you can find your Electron app in the 'dist' folder")
 }
 

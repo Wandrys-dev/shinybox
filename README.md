@@ -24,6 +24,14 @@ node -v
 npm -v
 ```
 
+You might need to (tested on Windows 11):
+
+- update `core-js` with the following command: `npm install --save core-js@^3`
+- install CLI for webpack with `npm install -D webpack-cli`
+- install fs-jetpack with `npm install fs-jetpack`
+- `npm install webpack-node-externals`
+
+
 ## shiny app
 
 The shiny app should be organised as an R package. See https://mastering-shiny.org/scaling-packaging.html

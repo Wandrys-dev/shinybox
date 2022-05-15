@@ -5,11 +5,8 @@ MIT License*/
 
 
 // Modules to control application life and create native browser window
-const {
-  app,
-  session,
-  BrowserWindow
-} = require('electron');
+import electron from 'electron';
+const { app, session, BrowserWindow } = electron;
 
 import jetpack from "fs-jetpack";
 import execa from 'execa';
@@ -18,7 +15,7 @@ import path from "path";
 const MACOS = "darwin";
 const WINDOWS = "win32";
 
-const fs = require('fs');
+import fs  from 'fs';
 const backgroundColor = '#2c3e50';
 
 
@@ -32,13 +29,13 @@ const waitFor = (milliseconds) => {
 //Linux: ~/.config/<app name>/log.log
 //macOS: ~/Library/Logs/<app name>/log.log
 //Windows: %USERPROFILE%\AppData\Roaming\<app name>\log.log
-const log = require('electron-log');
+import log from 'electron-log';
 log.info('Application Started');
 
 
 //Find and bind an open port
 //Assigned port can be accesssed with srv.address().port
-var net = require('net');
+import net from 'net';
 var srv = net.createServer(function(sock) {
   sock.end('Hello world\n');
 });

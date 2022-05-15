@@ -29,7 +29,7 @@ shinybox <- function(app_name = "HAL",
                      mac_file = NULL,
                      mac_r_url = NULL,
                      git_host = "github",
-                     git_repo = "ocelhay/shinyboxtestapp",
+                     git_repo = "ocelhay/shinybox/misc/shinyboxtestapp",
                      local_package_path = NULL,
                      function_name = "run_app",
                      package_install_opts = NULL,
@@ -41,8 +41,6 @@ shinybox <- function(app_name = "HAL",
   sys_os <- switch(Sys.info()["sysname"],
                "Darwin" = "mac",
                "Windows" = "win")
-  
-  # assign("os", os, envir = .GlobalEnv)  # otherwise object 'os' not found
   
   # check function arguments and fail early if something is wrong. ----
   check_first(os = sys_os,
@@ -58,8 +56,7 @@ shinybox <- function(app_name = "HAL",
               local_package_path)
   
   # check Node.js and npm. ----
-  check_nodejs_npm(os = sys_os,
-                   node_top_dir = nodejs_path)
+  check_nodejs_npm(os = sys_os, node_top_dir = nodejs_path)
   
   # copy Electron app template into the build path. ----
   dirs <- system.file("template", package = "shinybox")
@@ -125,7 +122,7 @@ shinybox <- function(app_name = "HAL",
   message("Trim R's size.")
   trim_r(build_path = build_path)
   
-  message("Transfer and overwrite existing icons if present (icons folder at the root of inst)")
+  message("Transfer and overwrite existing icons if present.")
   electron_build_resources <- system.file("icons", 
                                           package = my_package_name, 
                                           lib.loc = library_path)

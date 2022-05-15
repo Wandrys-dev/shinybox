@@ -17,15 +17,11 @@ modify_background_js <- function(background_js_path,
   
   background_js_contents <- readLines(background_js_path)
   
-  R_SHINY_FUNCTION <- paste0(my_package_name, 
-                             "::",
-                             function_name)
+  R_SHINY_FUNCTION <- paste0(my_package_name, "::", function_name)
   
   background_js_contents <- sapply(background_js_contents,
                                    function(x) {
-                                     glue::glue(x, 
-                                                .open = "<?<",
-                                                .close = ">?>")
+                                     glue::glue(x, .open = "<?<", .close = ">?>")
                                    })
   
   writeLines(background_js_contents, background_js_path)

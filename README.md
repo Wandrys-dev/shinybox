@@ -4,10 +4,7 @@
 [![R-CMD-check](https://github.com/ocelhay/shinybox/workflows/R-CMD-check/badge.svg)](https://github.com/ocelhay/shinybox/actions)
 <!-- badges: end -->
 
-# shinybox
-
 Create Standalone R-Shiny Apps using the Electron framework.
-
 
 # Requirements
 
@@ -30,13 +27,25 @@ You might need to (tested on Windows 11):
 - install CLI for webpack with `npm install -D webpack-cli`
 - install fs-jetpack with `npm install fs-jetpack`
 - install webpack-node-externals with `npm install webpack-node-externals`
-- install Rtools42 for Windows if you use R 4.2.x
 
-## shiny app
+## R and shinybox
 
-The shiny app should be organised as an R package. See https://mastering-shiny.org/scaling-packaging.html
+- R 4.2.0 or latest
+- this package `shinybox` that can be installed with:
 
-Optionaly, a folder named "icons" located in the "inst" folder containing images to be used as shortcut image of the app: icons.icns for macOS and icons.pgn for Windows.
+```
+remotes::install_github("ocelhay/shinybox", ref = "master", upgrade = "never")
+```
+
+- (optional) install Rtools42 for Windows if you use R 4.2.x
+
+
+## shiny app that you want to build
+
+The shiny app should be organised as an R package. See https://mastering-shiny.org/scaling-packaging.html. Optionaly, a folder named "icons" located in the "inst" folder containing images to be used as shortcut image of the app: icons.icns for macOS and icons.pgn for Windows.
+
+An example app is provided: https://github.com/ocelhay/shinybox/tree/master/misc/shinyboxtestapp
+
 
 # Building steps
 
@@ -51,7 +60,7 @@ The main `shinybox` function will attenpt at create an Electron app. It undertak
 - trim R.
 - modify background.js (Electron app template)
 - build the standalone R-shiny app.
-
+- 
 
 ## Build test app on Windows
 

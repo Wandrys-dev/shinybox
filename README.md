@@ -59,8 +59,7 @@ The main `shinybox` function will attenpt at create an Electron app. It undertak
 - install the shiny app and all package dependencies.
 - trim R.
 - modify background.js (Electron app template)
-- build the standalone R-shiny app.
-- 
+- build the Electron app
 
 ## Build test app on Windows
 
